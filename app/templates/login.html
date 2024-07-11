@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Sign In</title>
+  </head>
+  <body>
+    <div class="login-container">
+      <div class="login-wrapper">
+        <h2 class="login-title">Sign In</h2>
+        <form method="POST" action="{{ url_for('login') }}">
+          {{ form.hidden_tag() }}
+          <div class="form-group">
+            {{ form.username.label(class="form-label") }}
+            {{ form.username(class="form-input") }}
+          </div>
+          <div class="form-group">
+            {{ form.password.label(class="form-label") }}
+            {{ form.password(class="form-input") }}
+          </div>
+          <div class="form-group form-check">
+            {{ form.remember_me(class="form-check-input") }}
+            {{ form.remember_me.label(class="form-check-label") }}
+          </div>
+          <div class="form-group">
+            {{ form.submit(class="form-button") }}
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
