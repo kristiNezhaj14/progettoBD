@@ -1,41 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TradeTrove - Register</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-</head>
+    <html lang="en">
+        <head>
+            <b><p style="text-align : center;font-size:40px;font-family:Arial; color:green">TradeTrove</p></b>
+        </head>
 <body>
     <div class="container">
         <div class="login-container">
             <div class="logo">
-                <h1>TradeTrove</h1>
+                <h1><b><p style="text-align : center;font-size:30px;font-family:Arial; color:blueviolet">Registration</p></b></h1>
             </div>
             <form method="POST" action="{{ url_for('register') }}">
-                {{ form.hidden_tag() }}
                 <div class="form-group">
-                    {{ form.username.label(class="form-label") }}
-                    {{ form.username(class="form-input") }}
+                    <p style="font-size:20px;font-family:Arial; color:blue">Username</p>
+                    <input type="username" name="username" placeholder="Scrivi il tuo username...">
                 </div>
                 <div class="form-group">
-                    {{ form.email.label(class="form-label") }}
-                    {{ form.email(class="form-input") }}
+                    <p style="font-size:20px;font-family:Arial; color:blue">Email</p>
+                    <input type="email" name="email" placeholder="Scrivi la tua email...">
                 </div>
                 <div class="form-group">
-                    {{ form.password.label(class="form-label") }}
-                    {{ form.password(class="form-input") }}
+                    <p style="font-size:20px;font-family:Arial; color:blue">Password</p>
+                    <input type="password" name="password" placeholder="Scrivi la tua password...">
                 </div>
                 <div class="form-group">
-                    {{ form.password2.label(class="form-label") }}
-                    {{ form.password2(class="form-input") }}
+                    <br>
+                    <input type="password2" name="password2" placeholder="Ricrivi la tua password...">
                 </div>
                 <div class="form-group">
-                    {{ form.submit(class="form-button") }}
+                    <br>
+                    <button type="submit" class="btn">Sign Up!</button>
                 </div>
                 <div class="form-group">
-                    <p>Already have an account? <a href="{{ url_for('login') }}">Sign in</a></p>
+                    <p style="text-align : center;font-size:30px;font-family:Arial">Already have an account? <a href="trade.html">Sign in</a></p>
                 </div>
             </form>
         </div>
