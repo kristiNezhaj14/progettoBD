@@ -62,9 +62,11 @@ Ciascun gruppo deve consegnare il progetto all’interno di un unico file ZIP ca
 • La documentazione, in un unico file in formato PDF. Assicuratevi che la documentazione rispetti le indicazioni della sezione precedente.
 • Un video della durata indicativa di 10 minuti in cui viene fatta una demo dell’applicazione. Il video deve mostrare uno screen capture che faccia vedere l’applicazione funzionante, fornendo una panoramica delle principali funzionalità implementate. Il video deve essere opportunatamente commentato tramite una voce fuori campo.
 
-Il progetto verrà valutato rispetto ai seguenti quattro parametri: 3
+Il progetto verrà valutato rispetto ai seguenti quattro parametri:
 
 1. Documentazione: qualità, correttezza e completezza della documentazione allegata.
-2. Database: qualità della progettazione ed uso appropriato degli strumenti presentati nel corso. 3. Funzionalità: quantità e qualità delle funzionalità implementate dall’applicazione.
+2. Database: qualità della progettazione ed uso appropriato degli strumenti presentati nel corso.
+3. Funzionalità: quantità e qualità delle funzionalità implementate dall’applicazione.
 4. Codice: qualità complessiva del codice prodotto (robustezza, leggibilità, generalità, riuso...).
+
 Si noti che eventuali progetti artificiosamente complicati potrebbero essere penalizzati: implementare fun- zionalità complesse, ma non appropriatamente pensate o motivate, non è una buona strategia per migliorare la valutazione del proprio progetto.
