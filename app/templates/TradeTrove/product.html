@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - TradeTrove</title>
+    <style>
+        /* Stili di base */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Stili dell'header */
+        header {
+            background-color: rgba(107, 103, 246);
+            color: white;
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        header img {
+            height: 80px;
+            width: auto;
+            background-color: white;
+        }
+
+        header img:hover {
+            height: 40px;
+            width: auto;
+            background-color: rgba(107, 103, 246);
+        }
+
+        nav a {
+            color: white;
+            margin: 15px 15px;
+            text-decoration: none;
+            align-items: center;
+            margin: 35px 35px;
+            width: 1200px;
+        }
+
+        .search-bar input {
+            padding: 5px;
+            width: 300px;
+        }
+
+        /* Stili della banner */
+        .banner {
+            background-image: url('cart-purple.png');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .banner h1 {
+            font-size: 3em;
+        }
+
+        /* Stili delle sezioni */
+        .categories, .featured-products, .promotions, .testimonials, .newsletter, footer {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .categories img, .featured-products img, .promotions img {
+            width: 100%;
+            height: auto;
+        }
+
+        .cta {
+            background-color: rgba(166, 163, 241, 0.75);
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        /* Stili del footer */
+        footer {
+            background-color: rgba(107, 103, 246);
+            color: white;
+            padding: 20px;
+        }
+
+        /* Stili dei pulsanti */
+        .container button {
+            background-color: rgba(166, 163, 241);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .container button:hover {
+            background-color: rgba(107, 103, 246);
+        }
+
+        .container .form-group {
+            margin-bottom: 15px;
+        }
+
+        .container a {
+            color: purple;
+            font-style: bold;
+        }
+
+        .container a:hover {
+            color: pink;
+            text-decoration: underline;
+        }
+
+        /* Stili del carosello */
+        .carousel {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            align-items: center;
+            margin: 0 auto;
+        }
+
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-item {
+            min-width: 100%;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            display: block;
+        }
+
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
+        }
+
+        /* Stili per il contenitore del prodotto */
+        .product {
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 70%;
+            height: 50%;
+            height:570px; 
+            margin-left: 60px;
+        }
+
+        .product img {
+            width: 150px;
+            height: auto;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+
+        .product h2 {
+            margin: 5px 0 10px;
+            font-size: 1.5em;
+        }
+
+        .product p {
+            margin: 5px 0 10px;
+        }
+
+        .product button {
+            background-color: #6b67f6;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 40px;
+        }
+
+        .product button:hover {
+            background-color: #a6a3f1;
+        }
+
+        /* Stili per il layout del carosello e del prodotto */
+        .carousel-product-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin: 0 auto;
+            width: 80%;
+            max-width: 1200px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header della pagina -->
+<header>
+    <a href="home.html">
+        <img src="cart-purple.png" alt="Logo">
+    </a>
+    <nav>
+        <a href="#">Categorie</a>
+        <a href="#">Offerte</a>
+        <a href="#">Nuovi Arrivi</a>
+        <a href="login.html">Accedi</a>
+    </nav>
+    <div class="search-bar">
+        <input type="text" placeholder="Cerca prodotti...">
+        <a href="home.html">
+            <button>Search</button>
+        </a>
+    </div>
+</header>
+
+<!-- Sezione Prodotti in Evidenza -->
+<section class="featured-products">
+    <div class="carousel-product-container">
+        <div class="carousel">
+            <button class="prev">&#10094;</button>
+            <div class="carousel-inner">
+                <div class="carousel-item">
+                    <a href="product.html">
+                        <img src="cart-purple.png" alt="Img1">
+                    </a>
+                </div>
+                <div class="carousel-item">
+                    <img src="image2.jpg" alt="Image 2">
+                </div>
+                <div class="carousel-item">
+                    <img src="image3.jpg" alt="Image 3">
+                </div>
+            </div>
+            <button class="next">&#10095;</button>
+        </div>
+        <div class="product">
+            <div>
+                <h2>Nome prodotto</h2>
+                <p>Descrizione prodotto</p>
+                <p style="text-align: center;font-style:bold;color: #a6a3f1;"> $XX.XX</p>
+                <button>Aggiungi al carrello</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer della pagina -->
+<footer>
+    <p>&copy; 2024 TradeTrove. Tutti i diritti riservati.</p>
+    <p><a href="terms.html">Termini e Condizioni</a>  | <a href="faq.html">FAQ</a> | <a href="contacts.html">Contatti</a></p>
+    <a href="https://github.com/kristiNezhaj14/progettoBD">
+        <img style="width:35px; height:35px" src="github.png" alt="Logo">
+    </a>
+</footer>
+
+<!-- Inclusione del file JavaScript -->
+<script src="script.js"></script>
+
+</body>
+</html>

@@ -32,7 +32,7 @@
         }
         .container p {
             font-size: 20px;
-            color: whitesmoke;
+            color: white;
             text-align: center;
         }
         .container input[type="text"],
@@ -65,9 +65,19 @@
         }
         .container a:hover {
             color : pink;
-            text-decoration: underline;
+            text-decoration : none;
         }
     </style>
+    <!--
+    <script>
+        document.getElementById('login-button').addEventListener('click', () => {
+            const userName = document.getElementById('username').value;
+            if (userName) {
+                localStorage.setItem('username', userName);
+                window.location.href = 'home.html';
+            }
+        });
+    </script>  -->
 </head>
 <body>
     <div class="container">
@@ -91,7 +101,7 @@
                 <input type="password" id="password2" name="password2" placeholder="Riscrivi la tua password..." required>
             </div>
             <div class="form-group">
-                <button type="submit" class="btn">Sign Up!</button>
+                <button type="submit" class="btn" onclick="window.location.href='home.html'">Login</button>
             </div>
             <div class="form-group">
                 <p>Already have an account? <a href="login.html">Sign in</a></p>
