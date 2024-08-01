@@ -51,7 +51,7 @@
 
         /* Stili della banner */
         .banner {
-            background-image: url('cart-purple.png');
+            background-image: url('/static/cart-purple.png');
             background-size: cover;
             background-position: center;
             color: white;
@@ -69,8 +69,8 @@
             text-align: center;
         }
 
-        .categories img, .featured-products img, .promotions img {
-            width: 100%;
+        .categories img, .featured-products img {
+            width: 50%; /* Dimezza la larghezza delle immagini */
             height: auto;
         }
 
@@ -143,8 +143,9 @@
         }
 
         .carousel-item img {
-            width: 100%;
+            width: 50%; /* Dimezza la larghezza delle immagini */
             display: block;
+            margin: 0 auto; /* Centra le immagini */
         }
 
         .prev, .next {
@@ -173,13 +174,13 @@
 <!-- Header della pagina -->
 <header>
     <a href="home.html">
-        <img src="cart-purple.png" alt="Logo">
+        <img src="/static/cart-purple.png" alt="Logo">
     </a>
     <nav>
         <a href="#">Categorie</a>
         <a href="#">Offerte</a>
         <a href="#">Nuovi Arrivi</a>
-        <a href="login.html">Accedi</a>
+        <a href="/login">Accedi</a>
     </nav>
     <div class="search-bar">
         <input type="text" placeholder="Cerca prodotti...">
@@ -201,13 +202,13 @@
         <button class="prev">&#10094;</button>
         <div class="carousel-inner">
             <div class="carousel-item">
-                <img src="image1.jpg" alt="Image 1">
+                <img src="/static/airpods.jpg" alt="Image 1">
             </div>
             <div class="carousel-item">
-                <img src="image2.jpg" alt="Image 2">
+                <img src="/static/scarpe.jpg" alt="Image 2">
             </div>
             <div class="carousel-item">
-                <img src="image3.jpg" alt="Image 3">
+                <img src="/static/forno.jpg" alt="Image 3">
             </div>
         </div>
         <button class="next">&#10095;</button>
@@ -222,14 +223,14 @@
         <div class="carousel-inner">
             <div class="carousel-item">
                 <a href="product.html">
-                    <img src="cart-purple.png" alt="Img1">
+                    <img src="/static/cart-purple.png" alt="Img1">
                 </a>
             </div>
             <div class="carousel-item">
-                <img src="image2.jpg" alt="Image 2">
+                <img src="/static/scarpe.jpg" alt="Image 2">
             </div>
             <div class="carousel-item">
-                <img src="image3.jpg" alt="Image 3">
+                <img src="/static/forno.jpg" alt="Image 3">
             </div>
         </div>
         <button class="next">&#10095;</button>
@@ -241,12 +242,12 @@
     <p>&copy; 2024 TradeTrove. Tutti i diritti riservati.</p>
     <p><a href="terms.html">Termini e Condizioni</a>  | <a href="faq.html">FAQ</a> | <a href="contacts.html">Contatti</a></p>
     <a href="https://github.com/kristiNezhaj14/progettoBD">
-        <img style="width:35px; height:35px" src="github.png" alt="Logo">
+        <img style="width:35px; height:35px" src="/static/github.png" alt="Logo">
     </a>
 </footer>
 
 <!-- Inclusione del file JavaScript -->
-<script src="script.js"></script>
+<script src="/static/script.js"></script>
 
 </body>
 </html>
