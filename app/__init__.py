@@ -1,16 +1,19 @@
+# app/__init__.py
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
-from config import Config
+from flask_migrate import Migrate
 
-app = Flask(__name__)
-app.config.from_object(Config)
-db = SQLAlchemy(app)
-login = LoginManager(app)
-login.login_view = 'login'
+db = SQLAlchemy()
+migrate = Migrate()
 
-from app import routes, models
+def create_app():
+    app = Flask(__name__)
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://myuser:kristi@localhost/ecommerce_db'
+    
+    db.init_app(app)
+    migrate.init_app(app, db)
 
-@login.user_loader
-def load_user(user_id):
-    return models.User.query.get(int(user_id))
+    from app import models  # Assicurati che questo import funzioni senza problemi
+
+    return app
