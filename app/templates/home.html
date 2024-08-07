@@ -173,18 +173,18 @@
 
 <!-- Header della pagina -->
 <header>
-    <a href="home.html">
+    <a href="{{ url_for('home') }}">
         <img src="/static/cart-purple.png" alt="Logo">
     </a>
     <nav>
         <a href="#">Categorie</a>
         <a href="#">Offerte</a>
         <a href="#">Nuovi Arrivi</a>
-        <a href="/login">Accedi</a>
+        <a href="{{ url_for('login') }}">Accedi</a>
     </nav>
     <div class="search-bar">
         <input type="text" placeholder="Cerca prodotti...">
-        <a href="home.html">
+        <a href="{{ url_for('home') }}">
             <button>Search</button>
         </a>
     </div>

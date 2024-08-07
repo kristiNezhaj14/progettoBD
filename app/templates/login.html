@@ -75,7 +75,7 @@
 </head>
 <body>
     <div class="container">
-        <h1><a href="login.html" style="color: rgba(107,103,246); text-decoration: none;">TradeTrove</a></h1>
+        <h1><a href="{{ url_for('home') }}" style="color: rgba(107,103,246); text-decoration: none;">TradeTrove</a></h1>
         <h4 style ="color: whitesmoke; font-style: italic">Welcome to TradeTrove</h4>
         <form method="POST" action="{{ url_for('login') }}">
             <p>If you have an account, please log in, else <a href="{{ url_for('register') }}">sign up</a>.</p>

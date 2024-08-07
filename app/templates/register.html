@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-image: url('cart-purple.png');
+            background-image: url('/static/cart-purple.png');
             background-size: auto;
             background-position: left;
             background-repeat: repeat;
@@ -40,7 +40,7 @@
         .container input[type="password"] {
             width: 100%;
             padding: 10px;
-            margin: 10px -10px;
+            margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
@@ -67,44 +67,51 @@
             color : pink;
             text-decoration : none;
         }
+        .error-message {
+            color: red;
+            font-size: 14px;
+        }
     </style>
-    <!--
-    <script>
-        document.getElementById('login-button').addEventListener('click', () => {
-            const userName = document.getElementById('username').value;
-            if (userName) {
-                localStorage.setItem('username', userName);
-                window.location.href = 'home.html';
-            }
-        });
-    </script>  -->
 </head>
 <body>
     <div class="container">
-        <h1><a href="login.html" style="color: rgba(107,103,246); text-decoration: none;">TradeTrove</a></h1>
-        <h2 style="color: rgba(107,103,246); text-decoration: none;">registration</h2>
+        <h1><a href="{{ url_for('login') }}" style="color: rgba(107,103,246); text-decoration: none;">TradeTrove</a></h1>
+        <h2 style="color: rgba(107,103,246);">Registration</h2>
         <form method="POST" action="{{ url_for('register') }}">
+            {{ form.hidden_tag() }}
             <div class="form-group">
-                <label for="username" style="font-size: 20px; color: whitesmoke;">Username</label>
-                <input type="text" id="username" name="username" placeholder="Scrivi il tuo username..." required>
+                {{ form.username.label(class="form-label") }}
+                {{ form.username(class="form-control") }}
+                {% for error in form.username.errors %}
+                    <span class="error-message">{{ error }}</span>
+                {% endfor %}
             </div>
             <div class="form-group">
-                <label for="username" style="font-size: 20px; color: whitesmoke;">Email</label>
-                <input type="email" id="email" name="email" placeholder="Scrivi la tua email..." required>
+                {{ form.email.label(class="form-label") }}
+                {{ form.email(class="form-control") }}
+                {% for error in form.email.errors %}
+                    <span class="error-message">{{ error }}</span>
+                {% endfor %}
             </div>
             <div class="form-group">
-                <label for="username" style="font-size: 20px; color: whitesmoke;">Password</label>
-                <input type="password" id="password" name="password" placeholder="Scrivi la tua password..." required>
+                {{ form.password.label(class="form-label") }}
+                {{ form.password(class="form-control") }}
+                {% for error in form.password.errors %}
+                    <span class="error-message">{{ error }}</span>
+                {% endfor %}
             </div>
             <div class="form-group">
-                <label for="username" style="font-size: 20px; color: whitesmoke;">Confirm Password</label>
-                <input type="password" id="password2" name="password2" placeholder="Riscrivi la tua password..." required>
+                {{ form.password2.label(class="form-label") }}
+                {{ form.password2(class="form-control") }}
+                {% for error in form.password2.errors %}
+                    <span class="error-message">{{ error }}</span>
+                {% endfor %}
             </div>
             <div class="form-group">
-                <button type="submit" class="btn" onclick="window.location.href='home.html'">Login</button>
+                {{ form.submit(class="btn") }}
             </div>
-            <div class="form-group">©
-                <p>Already have an account? <a href="login.html">Sign in</a></p>
+            <div class="form-group">
+                <p>Already have an account? <a href="{{ url_for('login') }}">Sign in</a></p>
             </div>
         </form>
     </div>
