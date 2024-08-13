@@ -177,9 +177,9 @@
         <img src="/static/cart-purple.png" alt="Logo">
     </a>
     <nav>
-        <a href="#">Categorie</a>
-        <a href="#">Offerte</a>
-        <a href="#">Nuovi Arrivi</a>
+        <a href="{{ url_for('categories') }}">Categorie</a>
+        <a href="{{ url_for('offersbanner') }}">Offerte</a>
+        <a href="{{ url_for('cart') }}">Carrello</a>
         <a href="{{ url_for('login') }}">Accedi</a>
     </nav>
     <div class="search-bar">
@@ -240,7 +240,7 @@
 <!-- Footer della pagina -->
 <footer>
     <p>&copy; 2024 TradeTrove. Tutti i diritti riservati.</p>
-    <p><a href="terms.html">Termini e Condizioni</a>  | <a href="faq.html">FAQ</a> | <a href="contacts.html">Contatti</a></p>
+    <p><a href="{{ url_for('terms') }}">Termini e Condizioni</a>  | <a href="{{ url_for('faq') }}">FAQ</a> | <a href="{{ url_for('contacts') }}">Contatti</a></p>
     <a href="https://github.com/kristiNezhaj14/progettoBD">
         <img style="width:35px; height:35px" src="/static/github.png" alt="Logo">
     </a>
