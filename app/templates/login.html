@@ -30,9 +30,9 @@
             font-size: 40px;
             margin-bottom: 20px;
         }
-        .container h2 {
-            color: white;
-            font-size: 25px;
+        .container h4 {
+            color: whitesmoke;
+            font-style: italic;
             margin-bottom: 20px;
         }
         .container p {
@@ -42,11 +42,12 @@
         }
         .container input[type="text"],
         .container input[type="password"] {
-            width: 100%;
+            width: calc(100% - 22px);
             padding: 10px;
-            margin: 10px -10px;
+            margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 4px;
+            box-sizing: border-box; /* Ensure padding and border are included in width */
         }
         .container button {
             background-color: rgba(166,163,241);
@@ -62,6 +63,18 @@
         }
         .container .form-group {
             margin-bottom: 15px;
+            text-align: left;
+        }
+        .container .form-group label {
+            font-size: 20px;
+            color: whitesmoke;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .container .form-group .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 5px;
         }
         .container a {
             color: purple;
@@ -76,19 +89,29 @@
 <body>
     <div class="container">
         <h1><a href="{{ url_for('home') }}" style="color: rgba(107,103,246); text-decoration: none;">TradeTrove</a></h1>
-        <h4 style ="color: whitesmoke; font-style: italic">Welcome to TradeTrove</h4>
+        <h4>Welcome to TradeTrove</h4>
         <form method="POST" action="{{ url_for('login') }}">
+            {{ form.hidden_tag() }}
             <p>If you have an account, please log in, else <a href="{{ url_for('register') }}">sign up</a>.</p>
             <div class="form-group">
-                <label for="username" style="font-size: 20px; color: whitesmoke;">Username</label>
-                <input type="text" id="username" name="username" placeholder="Scrivi il tuo username..." required>
+                {{ form.username.label }}
+                {{ form.username(class="form-control") }}
+                {% for error in form.username.errors %}
+                <div class="error">{{ error }}</div>
+                {% endfor %}
             </div>
             <div class="form-group">
-                <label for="password" style="font-size: 20px; color: whitesmoke;">Password</label>
-                <input type="password" id="password" name="password" placeholder="Scrivi la tua password..." required>
+                {{ form.password.label }}
+                {{ form.password(class="form-control") }}
+                {% for error in form.password.errors %}
+                <div class="error">{{ error }}</div>
+                {% endfor %}
             </div>
             <div class="form-group">
-                <button type="submit" class="btn">Login</button>
+                {{ form.remember_me() }} {{ form.remember_me.label }}
+            </div>
+            <div class="form-group">
+                <button type="submit">Login</button>
             </div>
             <div class="form-group">
                 <p style="font-size: 12px; color: whitesmoke;">Remember that by signing up or logging in you must read our <a href="terms.html">terms and conditions</a>.</p>
