@@ -30,23 +30,27 @@ def init_routes(app):
             username = form.username.data
             email = form.email.data
             password = form.password.data
-            
+
             # Verifica se l'username o l'email esistono già
             if User.query.filter_by(username=username).first():
-                flash('Username already exists')
+                flash('Username already exists', 'danger')
                 return redirect(url_for('register'))
 
             if User.query.filter_by(email=email).first():
-                flash('Email already registered')
+                flash('Email already registered', 'danger')
                 return redirect(url_for('register'))
 
             # Crea un nuovo utente e salva nel database
             new_user = User(username=username, email=email)
             new_user.set_password(password)
             db.session.add(new_user)
-            db.session.commit()
-            flash('User registered successfully')
-            return redirect(url_for('home'))
+            try:
+                db.session.commit()
+                flash('User registered successfully', 'success')
+                return redirect(url_for('home'))
+            except Exception as e:
+                db.session.rollback()
+                flash('An error occurred. Please try again.', 'danger')
 
         return render_template('register.html', form=form)
     
