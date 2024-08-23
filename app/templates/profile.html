@@ -29,12 +29,6 @@
             background-color: white;
         }
 
-        header img:hover {
-            height: 40px;
-            width: auto;
-            background-color: rgba(107, 103, 246);
-        }
-
         nav a {
             color: white;
             margin: 15px 15px;
@@ -283,23 +277,28 @@ table a:hover {
 </head>
 <body>
 
-    <!-- Header della pagina -->
+<!-- Header della pagina -->
 <header>
-    <a href="home.html">
-        <img src="/static/cart-purple.png" alt="Logo">
+    <a href="{{ url_for('home') }}">
+        <img src="/static/tradetrove.jpg" alt="Logo">
     </a>
     <nav>
-        <a href="categories.html">Categorie</a>
-        <a href="offersbanner.html">Offerte</a>
-        <a href="cart.html">Carrello</a>
-        <a href="/login">Accedi</a>
+        <a href="{{ url_for('categories') }}">Categorie</a>
+        <a href="{{ url_for('offersbanner') }}">Offerte</a>
+        <a href="{{ url_for('cart') }}">Carrello</a>
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('profile') }}">{{ current_user.username }} Gestisci Profilo</a>
+    {% else %}
+        <a href="{{ url_for('login') }}">Login</a>
+    {% endif %}
     </nav>
     <div class="search-bar">
         <input type="text" placeholder="Cerca prodotti...">
-        <a href="found.html">
+        <a href="{{ url_for('found') }}">
             <button>Search</button>
         </a>
     </div>
+</header>
 </header>
 
 <!-- Header della pagina -->
@@ -392,7 +391,7 @@ table a:hover {
         <tbody>
             <tr>
                 <td>#12345</td>
-                <td>'<a href={{ url_for('product') }}><img src="static/bike.jpeg" alt="Logo"></td>
+                <td>'<a href="{{ url_for('product') }}"><img src="static/bike.jpeg" alt="Logo"></td>
                 <td>01/08/2024</td>
                 <td>Spedito</td>
                 <td>€50.00</td>
@@ -400,7 +399,7 @@ table a:hover {
             </tr>
             <tr>
                 <td>#67890</td>
-                <td>'<a href={{ url_for('product') }}><img src="static/bike.jpeg" alt="Logo"></td>
+                <td>'<a href="{{ url_for('offers') }}"><img src="static/bike.jpeg" alt="Logo"></td>
                 <td>15/07/2024</td>
                 <td>In elaborazione</td>
                 <td>€120.00</td>

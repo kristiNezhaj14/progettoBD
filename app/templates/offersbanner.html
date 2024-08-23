@@ -29,12 +29,6 @@
             background-color: white;
         }
 
-        header img:hover {
-            height: 40px;
-            width: auto;
-            background-color: rgba(107, 103, 246);
-        }
-
         nav a {
             color: white;
             margin: 15px 15px;
@@ -188,86 +182,166 @@
     display: block;
     margin: 0 auto;
 }
-    </style>
-</head>
-<body>
+.filter-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px; /* Spazio tra i dropdown */
+    margin: 20px 0;
+}
 
+.filter-dropdown {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.filter-dropdown label {
+    margin-bottom: 5px;
+    font-size: 1em;
+}
+
+.filter-dropdown select {
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+    </style>
+ <script>
+    function isAuthenticated() {
+        // Logica di controllo autenticazione
+        return true; // Simulazione utente autenticato
+    }
+    
+    window.onload = function() {
+        var accountLink = document.getElementById("account-link");
+    
+        if (isAuthenticated()) {
+            accountLink.href = "/profile";
+            accountLink.textContent = "Gestisci Profilo";
+        }
+        else {
+            accountLink.href = "/login";
+            accountLink.textContent = "Accedi";
+        }
+    };
+    </script>
 <!-- Header della pagina -->
 <header>
-    <a href="home.html">
-        <img src="/static/cart-purple.png" alt="Logo">
+    <a href="{{ url_for('home') }}">
+        <img src="/static/tradetrove.jpg" alt="Logo">
     </a>
     <nav>
         <a href="{{ url_for('categories') }}">Categorie</a>
         <a href="{{ url_for('offersbanner') }}">Offerte</a>
         <a href="{{ url_for('cart') }}">Carrello</a>
-        <a href="{{ url_for('login') }}">Accedi</a>
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('profile') }}">{{ current_user.username }} Gestisci Profilo</a>
+    {% else %}
+        <a href="{{ url_for('login') }}">Login</a>
+    {% endif %}
     </nav>
     <div class="search-bar">
         <input type="text" placeholder="Cerca prodotti...">
-        <a href="found.html">
+        <a href="{{ url_for('found') }}">
             <button>Search</button>
         </a>
     </div>
 </header>
 <section>
     <div id="welcome-message" class="welcome-message">
-        <h1 style="text-align: center;">Benvenuto nella sezione offerte!</h1>
-    </div>    
+        <h1 style="text-align: center; font-size: 40px;">Ecco cosa abbiamo trovato...</h1>
+    </div>
+    <div class="filter-container">
+        <div class="filter-dropdown">
+            <label for="filter1">Filtra per categoria:</label>
+            <select id="filter1" name="filter1">
+                <option value="tutti">Tutti i prodotti</option>
+                <option value="elettronica">Elettronica</option>
+                <option value="abbigliamento">Abbigliamento</option>
+                <option value="casa">Casa e Cucina</option>
+                <option value="giochi">Giochi e Tempo Libero</option>
+            </select>
+        </div>
+    
+        <div class="filter-dropdown">
+            <label for="filter2">Filtra per prezzo:</label>
+            <select id="filter2" name="filter2">
+                <option value="tutti">Tutti i prezzi</option>
+                <option value="low">0 - 50 €</option>
+                <option value="medium">50 - 100 €</option>
+                <option value="high">100 - 200 €</option>
+                <option value="premium">200+ €</option>
+            </select>
+        </div>
+    
+        <div class="filter-dropdown">
+            <label for="filter3">Filtra per marca:</label>
+            <select id="filter3" name="filter3">
+                <option value="tutti">Tutti i marchi</option>
+                <option value="apple">Apple</option>
+                <option value="samsung">Samsung</option>
+                <option value="sony">Sony</option>
+                <option value="lg">LG</option>
+            </select>
+        </div>
+    </div>
+        
 </section>
 <section>
     <body>
         <div class="grid-container">
-            <div class="grid-item"><a href = "{{ url_for('offers') }}"><img src="static/bike.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
+            <div class="grid-item"><a href = "{{ url_for('found') }}"><img src="static/phone.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
                 <span style="font-size:larger;color:orange" class="stars">★★★★☆    </span><span>   4.0    </span></span>
             </div></div>
-            <div class="grid-item"><a href = "{{ url_for('offers') }}"><img src="static/bike.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
+            <div class="grid-item"><a href = "{{ url_for('found') }}"><img src="static/phone.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
                 <span style="font-size:larger;color:orange" class="stars">★★★★☆    </span><span>   4.0    </span></span>
             </div></div>
-            <div class="grid-item"><a href = "{{ url_for('offers') }}"><img src="static/bike.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
+            <div class="grid-item"><a href = "{{ url_for('found') }}"><img src="static/phone.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
                 <span style="font-size:larger;color:orange" class="stars">★★★★☆    </span><span>   4.0    </span></span>
             </div></div>
-            <div class="grid-item"><a href = "{{ url_for('offers') }}"><img src="static/bike.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
+            <div class="grid-item"><a href = "{{ url_for('found') }}"><img src="static/phone.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
                 <span style="font-size:larger;color:orange" class="stars">★★★★☆    </span><span>   4.0    </span></span>
             </div></div>
-            <div class="grid-item"><a href = "{{ url_for('offers') }}"><img src="static/bike.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
+            <div class="grid-item"><a href = "{{ url_for('found') }}"><img src="static/phone.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
                 <span style="font-size:larger;color:orange" class="stars">★★★★☆    </span><span>   4.0    </span></span>
             </div></div>
-            <div class="grid-item"><a href = "{{ url_for('offers') }}"><img src="static/bike.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
+            <div class="grid-item"><a href = "{{ url_for('found') }}"><img src="static/phone.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
                 <span style="font-size:larger;color:orange" class="stars">★★★★☆    </span><span>   4.0    </span></span>
             </div></div>
-            <div class="grid-item"><a href = "{{ url_for('offers') }}"><img src="static/bike.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
+            <div class="grid-item"><a href = "{{ url_for('found') }}"><img src="static/phone.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
                 <span style="font-size:larger;color:orange" class="stars">★★★★☆    </span><span>   4.0    </span></span>
             </div></div>
-            <div class="grid-item"><a href = "{{ url_for('offers') }}"><img src="static/bike.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
+            <div class="grid-item"><a href = "{{ url_for('found') }}"><img src="static/phone.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
                 <span style="font-size:larger;color:orange" class="stars">★★★★☆    </span><span>   4.0    </span></span>
             </div></div>
-            <div class="grid-item"><a href = "{{ url_for('offers') }}"><img src="static/bike.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
+            <div class="grid-item"><a href = "{{ url_for('found') }}"><img src="static/phone.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
                 <span style="font-size:larger;color:orange" class="stars">★★★★☆    </span><span>   4.0    </span></span>
             </div></div>
-            <div class="grid-item"><a href = "{{ url_for('offers') }}"><img src="static/bike.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
+            <div class="grid-item"><a href = "{{ url_for('found') }}"><img src="static/phone.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
                 <span style="font-size:larger;color:orange" class="stars">★★★★☆    </span><span>   4.0    </span></span>
             </div></div>
-            <div class="grid-item"><a href = "{{ url_for('offers') }}"><img src="static/bike.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
+            <div class="grid-item"><a href = "{{ url_for('found') }}"><img src="static/phone.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
                 <span style="font-size:larger;color:orange" class="stars">★★★★☆    </span><span>   4.0    </span></span>
             </div></div>
-            <div class="grid-item"><a href = "{{ url_for('offers') }}"><img src="static/bike.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
+            <div class="grid-item"><a href = "{{ url_for('found') }}"><img src="static/phone.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
                 <span style="font-size:larger;color:orange" class="stars">★★★★☆    </span><span>   4.0    </span></span>
             </div></div>
-            <div class="grid-item"><a href = "{{ url_for('offers') }}"><img src="static/bike.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
+            <div class="grid-item"><a href = "{{ url_for('found') }}"><img src="static/phone.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
                 <span style="font-size:larger;color:orange" class="stars">★★★★☆    </span><span>   4.0    </span></span>
             </div></div>
-            <div class="grid-item"><a href = "{{ url_for('offers') }}"><img src="static/bike.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
+            <div class="grid-item"><a href = "{{ url_for('found') }}"><img src="static/phone.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
                 <span style="font-size:larger;color:orange" class="stars">★★★★☆    </span><span>   4.0    </span></span>
             </div></div>
-            <div class="grid-item"><a href = "{{ url_for('offers') }}"><img src="static/bike.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
+            <div class="grid-item"><a href = "{{ url_for('found') }}"><img src="static/phone.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
                 <span style="font-size:larger;color:orange" class="stars">★★★★☆    </span><span>   4.0    </span></span>
             </div></div>
-            <div class="grid-item"><a href = "{{ url_for('offers') }}"><img src="static/bike.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
+            <div class="grid-item"><a href = "{{ url_for('found') }}"><img src="static/phone.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
                 <span style="font-size:larger;color:orange" class="stars">★★★★☆    </span><span>   4.0    </span></span>
             </div></div> </div>
     </body>
 </section>
+<br><br><br><br>
 <!-- Footer della pagina -->
 <footer>
     <p>&copy; 2024 TradeTrove. Tutti i diritti riservati.</p>

@@ -207,19 +207,40 @@
             background-color: rgba(107, 103, 246);
         }
     </style>
-</head>
-<body>
+ <script>
+    function isAuthenticated() {
+        // Logica di controllo autenticazione
+        return true; // Simulazione utente autenticato
+    }
+    
+    window.onload = function() {
+        var accountLink = document.getElementById("account-link");
+    
+        if (isAuthenticated()) {
+            accountLink.href = "/profile";
+            accountLink.textContent = "Gestisci Profilo";
+        }
+        else {
+            accountLink.href = "/login";
+            accountLink.textContent = "Accedi";
+        }
+    };
+    </script>
 
 <!-- Header della pagina -->
 <header>
-    <a href="home.html">
-        <img src="/static/cart-purple.png" alt="Logo">
+    <a href="{{ url_for('home') }}">
+        <img src="/static/tradetrove.jpg" alt="Logo">
     </a>
     <nav>
         <a href="{{ url_for('categories') }}">Categorie</a>
         <a href="{{ url_for('offersbanner') }}">Offerte</a>
         <a href="{{ url_for('cart') }}">Carrello</a>
-        <a href="{{ url_for('login') }}">Accedi</a>
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('profile') }}">{{ current_user.username }} Gestisci Profilo/a>
+    {% else %}
+        <a href="{{ url_for('login') }}">Login</a>
+    {% endif %}
     </nav>
     <div class="search-bar">
         <input type="text" placeholder="Cerca prodotti...">

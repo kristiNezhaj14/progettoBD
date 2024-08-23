@@ -29,12 +29,6 @@
                             background-color: white;
                         }
                 
-                        header img:hover {
-                            height: 40px;
-                            width: auto;
-                            background-color: rgba(107, 103, 246);
-                        }
-                
                         nav a {
                             color: white;
                             margin: 15px 15px;
@@ -65,13 +59,14 @@
                 
                         /* Stili delle sezioni */
                         .categories, .featured-products, .promotions, .testimonials, .newsletter, footer {
+                            position: center;
                             padding: 20px;
                             text-align: center;
                         }
                 
                         .categories img, .featured-products img, .promotions img {
-                            width: 100%;
-                            height: auto;
+                            width: 50%;
+                            height: 40%;
                         }
                 
                         .cta {
@@ -119,84 +114,49 @@
                             text-decoration: underline;
                         }
                 
-                        /* Stili del carosello */
-                        .carousel {
-                            position:relative;
-                            width: 100%;
-                            overflow: hidden;
-                            border-radius: 10px;
-                            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                            text-align: center;
-                            align-items: center;
-                            margin: 0 auto;
-                            
-                        }
+                        
                 
-                        .carousel-inner {
-                            display: flex;
-                            transition: transform 0.5s ease-in-out;
-                        }
-                
-                        .carousel-item {
-                            min-width: 100%;
-                        }
-                
-                        .carousel-item img {
-                            width: 100%;
-                            display: block;
-                        }
-                
-                        .prev, .next {
-                            position: absolute;
-                            top: 50%;
-                            transform: translateY(-50%);
-                            background-color: rgba(0, 0, 0, 0.5);
-                            color: white;
-                            border: none;
-                            padding: 10px;
-                            cursor: pointer;
-                            z-index: 1;
-                        }
-                
-                        .prev {
-                            left: 10px;
-                        }
-                
-                        .next {
-                            right: 10px;
-                        }
-                
-                        /* Stili per il contenitore del prodotto */
                         .product {
-                            display: flex;
-                            flex-direction: column;
-                            border: 1px solid #ddd;
-                            padding: 20px;
-                            margin: 20px;
-                            border-radius: 10px;
-                            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                            width: 70%;
-                            height: 50%;
-                            height:570px; 
-                            margin-left: 60px;
-                        }
-                
-                        .product img {
-                            width: 150px;
-                            height: auto;
-                            margin-bottom: 20px;
-                            border-radius: 10px;
-                        }
-                
-                        .product h2 {
-                            margin: 5px 0 10px;
-                            font-size: 2em;
-                        }
-                
-                        .product p {
-                            margin: 5px 0 10px;
-                            font-size: 1em;
-                        }
+    display: flex; /* Imposta il layout in flexbox */
+    flex-direction: row; /* Allinea gli elementi in una riga */
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-height: 1000px; /* Limita l'altezza massima */
+    overflow-y: auto; /* Aggiunge la barra di scorrimento verticale se necessario */
+    justify-content: center; /* Centra verticalmente il contenuto */
+}
+
+.product img {
+    width: 50%; /* Imposta la larghezza dell'immagine al 50% */
+    height: auto; /* Mantiene le proporzioni dell'immagine */
+    margin-right: 20px; /* Spazio tra l'immagine e il contenuto del prodotto */
+    border-radius: 10px;
+    object-fit: cover; /* Assicura che l'immagine riempia il contenitore */
+}
+
+
+.product .product-details {
+    align-items:center;
+    flex: 1; /* Fa sì che la sezione dei dettagli prenda tutto lo spazio rimanente */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra verticalmente il contenuto */
+    
+}
+
+.product h2 {
+    margin: 5px 0 10px;
+    font-size: 2em;
+}
+
+.product p {
+    margin: 5px 0 10px;
+    font-size: 1em;
+}
                 
                         .product button {
                             background-color: #6b67f6;
@@ -212,83 +172,140 @@
                         .product button:hover {
                             background-color: #a6a3f1;
                         }
-                
-                        /* Stili per il layout del carosello e del prodotto */
-                        .carousel-product-container {
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: flex-start;
-                            margin: 0 auto;
-                            width: 80%;
-                            max-width: 1200px;
-                        }
+                        .star-rating {
+            direction: rtl;
+            display: inline-flex;
+            font-size: 2rem;
+            justify-content: center;
+        }
+
+        .star-rating input[type="radio"] {
+            display: none;
+        }
+
+        .star-rating label {
+            color: #ddd;
+            cursor: pointer;
+            padding: 0 5px;
+        }
+
+        .star-rating label:before {
+            content: '★';
+        }
+
+        .star-rating input[type="radio"]:checked ~ label {
+            color: orange;
+        }
+
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            color: orange;
+        }
                     </style>
-                </head>
-                <body>
                 
-                <!-- Header della pagina -->
-                <header>
-                    <a href="home.html">
-                        <img src="/static/cart-purple.png" alt="Logo">
-                    </a>
-                    <nav>
-                        <a href="{{ url_for('categories') }}">Categorie</a>
-                        <a href="{{ url_for('offersbanner') }}">Offerte</a>
-                        <a href="{{ url_for('cart') }}">Carrello</a>
-                        <a href="{{ url_for('login') }}">Accedi</a>
-                    </nav>
-                    <div class="search-bar">
-                        <input type="text" placeholder="Cerca prodotti...">
-                        <a href="found.html">
-                            <button>Search</button>
-                        </a>
+                <script>
+                    function isAuthenticated() {
+                        // Logica di controllo autenticazione
+                        return true; // Simulazione utente autenticato
+                    }
+                    
+                    window.onload = function() {
+                        var accountLink = document.getElementById("account-link");
+                    
+                        if (isAuthenticated()) {
+                            accountLink.href = "/profile";
+                            accountLink.textContent = "Gestisci Profilo";
+                        }
+                        else {
+                            accountLink.href = "/login";
+                            accountLink.textContent = "Accedi";
+                        }
+                    };
+                    </script>
+<!-- Header della pagina -->
+<header>
+    <a href="{{ url_for('home') }}">
+        <img src="/static/tradetrove.jpg" alt="Logo">
+    </a>
+    <nav>
+        <a href="{{ url_for('categories') }}">Categorie</a>
+        <a href="{{ url_for('offersbanner') }}">Offerte</a>
+        <a href="{{ url_for('cart') }}">Carrello</a>
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('profile') }}">{{ current_user.username }} Gestisci Profilo</a>
+    {% else %}
+        <a href="{{ url_for('login') }}">Login</a>
+    {% endif %}
+    </nav>
+    <div class="search-bar">
+        <input type="text" placeholder="Cerca prodotti...">
+        <a href="{{ url_for('found') }}">
+            <button>Search</button>
+        </a>
+    </div>
+</header>
+
+
+<!-- Sezione Prodotti in Evidenza -->
+<section class="featured-products" style="align-items:center">
+    <div class="product">
+        <img src="static/phone.jpeg" alt="Product Image">
+        <div class="product-details">
+            <!-- <h2>Product Name</h2>
+            <p>Product description goes here. It provides details about the product, its features, and benefits.</p>
+            <button>Add to Cart</button>
+        </div> -->
+        <div class="product">
+            <div>
+                <h2>Nome prodotto</h2>
+                <p>
+                    
+                    Il progetto deve essere corredato da una relazione in formato PDF opportunamente strutturata, che discuta nel dettaglio le principali scelte progettuali ed implementative. La documentazione deve anche chiarire (in appendice) il contributo al progetto di ciascun componente del gruppo. Viene raccomandata la seguente struttura per la relazione:
+                    
+                    Introduzione: descrizione ad alto livello dell’applicazione e struttura del documento.
+                    Funzionalità principali: una descrizione delle principali funzionalità fornite dall’applicazione, che aiuti a comprendere come avete declinato lo spunto di partenza relativo al tema scelto per il progetto.
+                    Progettazione concettuale e logica della basi di dati, opportunamente spiegate e motivate. La presen- tazione deve seguire la notazione grafica introdotta nel Modulo 1 del corso.
+                    Query principali: una descrizione di una selezione delle query piu` interessanti che sono state implementate all’interno dell’applicazione, utilizzando una sintassi SQL opportuna.
+                    Principali scelte progettuali: politiche di integrit`a e come sono state garantite in pratica (es. trigger), definizione di ruoli e politiche di autorizzazione, uso di indici, ecc. Tutte le principali scelte progettuali devono essere opportunamente commentate e motivate.
+                    Ulteriori informazioni: scelte tecnologiche specifiche (es. librerie usate) e qualsiasi altra informazione sia necessaria per apprezzare il progetto.
+                    Contributo al progetto (appendice): una spiegazione di come i diversi membri del gruppo hanno contribuito al design ed allo sviluppo. Il codice del progetto deve essere inoltre opportunamente strutturato e commentato per favorirne la manuten- zione e la leggibilità.
+                   </p>
+                   <br>
+                   <br>
+                <s style="text-align: center;"> $YY.YY</s>
+                <h2 style="text-align: center;font-style:bold;color: #a6a3f1;"> $XX.XX</h2>
+                <br>
+                <br>
+                <button>Aggiungi al carrello</button>
+                <div class="review-section" style="align-items: center;">
+                    <i><h3>Valuta questo prodotto</h3></i>
+                    <div class="star-rating">
+                        <input type="radio" id="star5" name="rating" value="5">
+                        <label for="star5" title="5 stelle"></label>
+            
+                        <input type="radio" id="star4" name="rating" value="4">
+                        <label for="star4" title="4 stelle"></label>
+            
+                        <input type="radio" id="star3" name="rating" value="3">
+                        <label for="star3" title="3 stelle"></label>
+            
+                        <input type="radio" id="star2" name="rating" value="2">
+                        <label for="star2" title="2 stelle"></label>
+            
+                        <input type="radio" id="star1" name="rating" value="1">
+                        <label for="star1" title="1 stella"></label>
                     </div>
-                </header>
-                
-                <!-- Sezione Prodotti in Evidenza -->
-                <section class="featured-products">
-                    <div class="carousel-product-container">
-                        <div class="carousel">
-                            <button class="prev">&#10094;</button>
-                            <div class="carousel-inner">
-                                <div class="carousel-item">
-                                    <a href="{{ url_for('product') }}">
-                                        <img src="cart-purple.png" alt="Img1">
-                                    </a>
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="static/bike.jpeg" alt="Image 2">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="static/bike.jpeg" alt="Image 3">
-                                </div>
-                            </div>
-                            <button class="next">&#10095;</button>
-                        </div>
-                        <div class="product">
-                            <div>
-                                <h2>Nome prodotto</h2>
-                                <div>
-                                    <span style="font-size:larger;color:orange" class="stars">★★★★☆    </span><span>   4.0    </span></span>
-                                </div>
-                                <button> Scrivi una recensione</button>
-                                <br>
-                                <br>
-                                <br>
-                                <s style="text-align: center;"> $YY.YY</s>
-                                <h2 style="text-align: center;font-style:bold;color: #a6a3f1;"> $XX.XX</h2>
-                                <br>
-                                <br>
-                                <button>Aggiungi al carrello</button>
-                                <br>
-                                <br>
-                                <p>Descrizione prodotto</p>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                
+                <div>
+                        <button type="submit" class="btn">Carica valutazione</button>
+                </div>
+            </div>
+            </div>
+    </div>
+
+</section>
+
+
+
                 <!-- Footer della pagina -->
                 <footer>
                     <p>&copy; 2024 TradeTrove. Tutti i diritti riservati.</p>

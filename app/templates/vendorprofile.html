@@ -29,12 +29,6 @@
             background-color: white;
         }
 
-        header img:hover {
-            height: 40px;
-            width: auto;
-            background-color: rgba(107, 103, 246);
-        }
-
         nav a {
             color: white;
             margin: 15px 15px;
@@ -280,27 +274,48 @@ table a:hover {
 }
 
     </style>
-</head>
-<body>
+ <script>
+    function isAuthenticated() {
+        // Logica di controllo autenticazione
+        return true; // Simulazione utente autenticato
+    }
+    
+    window.onload = function() {
+        var accountLink = document.getElementById("account-link");
+    
+        if (isAuthenticated()) {
+            accountLink.href = "/profile";
+            accountLink.textContent = "Gestisci Profilo";
+        }
+        else {
+            accountLink.href = "/login";
+            accountLink.textContent = "Accedi";
+        }
+    };
+    </script>
 
-    <!-- Header della pagina -->
-    <header>
-        <a href="{{ url_for('home') }}">
-            <img src="/static/cart-purple.png" alt="Logo">
+<!-- Header della pagina -->
+<header>
+    <a href="{{ url_for('home') }}">
+        <img src="/static/tradetrove.jpg" alt="Logo">
+    </a>
+    <nav>
+        <a href="{{ url_for('categories') }}">Categorie</a>
+        <a href="{{ url_for('offersbanner') }}">Offerte</a>
+        <a href="{{ url_for('cart') }}">Carrello</a>
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('profile') }}">{{ current_user.username }} Gestione Profilo</a>
+    {% else %}
+        <a href="{{ url_for('login') }}">Login</a>
+    {% endif %}
+    </nav>
+    <div class="search-bar">
+        <input type="text" placeholder="Cerca prodotti...">
+        <a href="{{ url_for('found') }}">
+            <button>Search</button>
         </a>
-        <nav>
-            <a href="{{ url_for('categories') }}">Categorie</a>
-            <a href="{{ url_for('offersbanner') }}">Offerte</a>
-            <a href="{{ url_for('cart') }}">Carrello</a>
-            <a href="{{ url_for('login') }}">Accedi</a>
-        </nav>
-        <div class="search-bar">
-            <input type="text" placeholder="Cerca prodotti...">
-            <a href="{{ url_for('home') }}">
-                <button>Search</button>
-            </a>
-        </div>
-    </header>
+    </div>
+</header>
 
 <!-- Header della pagina -->
     <h1 style=" text-align: center;">Gestione Profilo</h1>
@@ -312,23 +327,20 @@ table a:hover {
     <div class="sidebar">
         <ul>
             <li><a href="#account-details">Dettagli Account</a></li>
-            <li><a href="#shipping-info">Informazioni di Spedizione</a></li>
             <li><a href="#order-history">Cronologia Ordini</a></li>
             <li><a href="#change-password">Cambia Password</a></li>
+            <li><a href="#vending">Prodotti in vendita</a></li>
         </ul>
     </div>
 
 
     <!-- Contenuto principale -->
     <div class="main-content">
-        <section>
-            <div class="form-group" style="align-items: end;">
-                <button type="submit">Vendi</button>
-            </div>
-        </section>
+        
+
         <!-- Dettagli Account -->
         <section id="account-details">
-            <h2>Dettagli Account</h2>
+            <h2>Modifica info</h2>
             <form>
                 <div class="form-group">
                     <label for="first-name">Nome</label>
@@ -348,38 +360,47 @@ table a:hover {
             </form>
         </section>
 
-
-
-        <!-- Informazioni di Spedizione -->
-        <section id="shipping-info">
-            <h2>Informazioni di Spedizione</h2>
-            <form>
-                <div class="form-group">
-                    <label for="address">Indirizzo:</label>
-                    <input type="text" id="address" name="address" placeholder="Inserisci il tuo indirizzo">
+        <section id="vending">
+            
+            <h2>Prodotti in vendita</h2>
+            <section>
+                <div class="form-group" style="align-items: end;">
+                    <button type="submit">Aggiungi prodotto</button>
                 </div>
-                <div class="form-group">
-                    <label for="city">Città:</label>
-                    <input type="text" id="city" name="city" placeholder="Inserisci la tua città">
-                </div>
-                <div class="form-group">
-                    <label for="zip">CAP:</label>
-                    <input type="text" id="zip" name="zip" placeholder="Inserisci il CAP">
-                </div>
-                <div class="form-group">
-                    <label for="country">Paese:</label>
-                    <select id="country" name="country">
-                        <option value="italy">Italia</option>
-                        <option value="usa">USA</option>
-                        <option value="uk">Regno Unito</option>
-                        <!-- Aggiungi altre opzioni di paese -->
-                    </select>
-                </div>
-                <div class="form-group">
-                    <button type="submit">Aggiorna Indirizzo</button>
-                </div>
-            </form>
+            </section>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Prodotto</th>
+                        <th>Nome</th>
+                        <th>Quantità</th>
+                        <th>Importo</th>
+                        <th>Dettagli</th>
+                        <th>Elimina</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>'<a href="{{ url_for('product') }}"><img src="static/bike.jpeg" alt="Logo"></td>
+                        <td>Bicicletta</td>
+                        <td>24</td>
+                        <td>€50.00</td>
+                        <td><a href="{{ url_for('product') }}">Visualizza</a></td>
+                        <td> <img src="static/trash.jpeg" alt="Logo" style="height:100px"></td>
+                    </tr>
+                    <tr>
+                        <td>'<a href="{{ url_for('product') }}"><img src="static/bike.jpeg" alt="Logo"></td>
+                        <td>Bicicletta</td>
+                        <td>24</td>
+                        <td>€50.00</td>
+                        <td><a href="{{ url_for('product') }}">Visualizza</a></td>
+                        <td> <img src="static/trash.jpeg" alt="Logo" style="height:100px"></td>
+                    </tr>
+                    <!-- Aggiungi altre righe per gli ordini -->
+                </tbody>
+            </table>
         </section>
+        <br><br><br>
 
         <!-- Cronologia Ordini -->
         <section id="order-history">
@@ -400,19 +421,19 @@ table a:hover {
         <tbody>
             <tr>
                 <td>#12345</td>
-                <td>'<a href='product.html'><img src="bike.jpeg" alt="Logo"></td>
+                <td>'<a href="{{ url_for('product') }}"><img src="bike.jpeg" alt="Logo"></td>
                 <td>01/08/2024</td>
                 <td>Spedito</td>
                 <td>€50.00</td>
-                <td><a href="product.html">Visualizza</a></td>
+                <td><a href="{{ url_for('register') }}">Visualizza</a></td>
             </tr>
             <tr>
                 <td>#67890</td>
-                <td>'<a href='product.html'><img src="bike.jpeg" alt="Logo"></td>
+                <td>'<a href="{{ url_for('register') }}"><img src="bike.jpeg" alt="Logo"></td>
                 <td>15/07/2024</td>
                 <td>In elaborazione</td>
                 <td>€120.00</td>
-                <td><a href="product.html">Visualizza</a></td>
+                <td><a href="{{ url_for('register') }}">Visualizza</a></td>
             </tr>
             <!-- Aggiungi altre righe per gli ordini -->
         </tbody>
