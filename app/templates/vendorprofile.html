@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestione Profilo - TradeTrove</title>
+    <style>
+        /* Stili di base */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Stili dell'header */
+        header {
+            background-color: rgba(107, 103, 246);
+            color: white;
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        header img {
+            height: 80px;
+            width: auto;
+            background-color: white;
+        }
+
+        nav a {
+            color: white;
+            margin: 15px 15px;
+            text-decoration: none;
+            align-items: center;
+            margin: 35px 35px;
+            width: 1200px;
+        }
+
+        .search-bar input {
+            padding: 5px;
+            width: 300px;
+        }
+
+        /* Stili della banner */
+        .banner {
+            background-image: url('/static/cart-purple.png');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .banner h1 {
+            font-size: 3em;
+        }
+
+        /* Stili delle sezioni */
+        .categories, .featured-products, .promotions, .testimonials, .newsletter, footer {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .categories img, .featured-products img {
+            width: 50%; /* Dimezza la larghezza delle immagini */
+            height: auto;
+        }
+
+        .cta {
+            background-color: rgba(166, 163, 241, 0.75);
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        /* Stili del footer */
+        footer {
+            background-color: rgba(107, 103, 246);
+            color: white;
+            padding: 20px;
+        }
+
+        /* Stili dei pulsanti */
+        .container button {
+            background-color: rgba(166, 163, 241);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .container button:hover {
+            background-color: rgba(107, 103, 246);
+        }
+
+        .container .form-group {
+            margin-bottom: 15px;
+        }
+
+        .container a {
+            color: purple;
+            font-style: bold;
+        }
+
+        .container a:hover {
+            color: pink;
+            text-decoration: underline;
+        }
+
+        /* Stili del carosello */
+        .carousel {
+            position: relative;
+            width: 80%;
+            max-width: 1200px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            align-items: center;
+            margin: 0 auto;
+            margin-bottom: 20px;
+        }
+
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-item {
+            min-width: 100%;
+        }
+
+        .carousel-item img {
+            width: 50%; /* Dimezza la larghezza delle immagini */
+            display: block;
+            margin: 0 auto; /* Centra le immagini */
+        }
+
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 1;
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px;
+        }
+
+        /* Stili della sidebar */
+        .sidebar {
+            float: left;
+            width: 25%;
+            padding: 20px;
+            border-right: 1px solid #ddd;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar ul li a {
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .sidebar ul li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Stili del contenuto principale */
+        .main-content {
+            float: left;
+            width: 70%;
+            padding: 20px;
+        }
+
+        .main-content h2 {
+            margin-top: 0;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .form-group button {
+            background-color: rgba(107, 103, 246);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .form-group button:hover {
+            background-color: rgba(166, 163, 241);
+        }
+
+        /* Pulizia del float */
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        /* Stili della tabella degli ordini */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+table thead {
+    background-color: rgba(107, 103, 246);
+    color: white;
+}
+
+table th, table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table th {
+    font-weight: bold;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+table a {
+    color: rgba(107, 103, 246);
+    text-decoration: none;
+}
+
+table a:hover {
+    text-decoration: underline;
+}
+
+    </style>
+ <script>
+    function isAuthenticated() {
+        // Logica di controllo autenticazione
+        return true; // Simulazione utente autenticato
+    }
+    
+    window.onload = function() {
+        var accountLink = document.getElementById("account-link");
+    
+        if (isAuthenticated()) {
+            accountLink.href = "/profile";
+            accountLink.textContent = "Gestisci Profilo";
+        }
+        else {
+            accountLink.href = "/login";
+            accountLink.textContent = "Accedi";
+        }
+    };
+    </script>
+
+<!-- Header della pagina -->
+<header>
+    <a href="{{ url_for('home') }}">
+        <img src="/static/tradetrove.jpg" alt="Logo">
+    </a>
+    <nav>
+        <a href="{{ url_for('categories') }}">Categorie</a>
+        <a href="{{ url_for('offersbanner') }}">Offerte</a>
+        <a href="{{ url_for('cart') }}">Carrello</a>
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('profile') }}">{{ current_user.username }} Gestione Profilo</a>
+    {% else %}
+        <a href="{{ url_for('login') }}">Login</a>
+    {% endif %}
+    </nav>
+    <div class="search-bar">
+        <input type="text" placeholder="Cerca prodotti...">
+        <a href="{{ url_for('found') }}">
+            <button>Search</button>
+        </a>
+    </div>
+</header>
+
+<!-- Header della pagina -->
+    <h1 style=" text-align: center;">Gestione Profilo</h1>
+
+
+<!-- Container principale -->
+<div class="container clearfix">
+    <!-- Sidebar con menu di navigazione -->
+    <div class="sidebar">
+        <ul>
+            <li><a href="#account-details">Dettagli Account</a></li>
+            <li><a href="#order-history">Cronologia Ordini</a></li>
+            <li><a href="#change-password">Cambia Password</a></li>
+            <li><a href="#vending">Prodotti in vendita</a></li>
+        </ul>
+    </div>
+
+
+    <!-- Contenuto principale -->
+    <div class="main-content">
+        
+
+        <!-- Dettagli Account -->
+        <section id="account-details">
+            <h2>Modifica info</h2>
+            <form>
+                <div class="form-group">
+                    <label for="first-name">Nome</label>
+                    <input type="text" id="first-name" name="first-name" placeholder="Inserisci il tuo nome...">
+                </div>
+                <div class="form-group">
+                    <label for="last-name">Cognome</label>
+                    <input type="text" id="last-name" name="last-name" placeholder="Inserisci il tuo cognome...">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Inserisci la tua email...">
+                </div>
+                <div class="form-group">
+                    <button type="submit">Aggiorna Dettagli</button>
+                </div>
+            </form>
+        </section>
+
+        <section id="vending">
+            
+            <h2>Prodotti in vendita</h2>
+            <section>
+                <div class="form-group" style="align-items: end;">
+                    <button type="submit">Aggiungi prodotto</button>
+                </div>
+            </section>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Prodotto</th>
+                        <th>Nome</th>
+                        <th>Quantità</th>
+                        <th>Importo</th>
+                        <th>Dettagli</th>
+                        <th>Elimina</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>'<a href="{{ url_for('product') }}"><img src="static/bike.jpeg" alt="Logo"></td>
+                        <td>Bicicletta</td>
+                        <td>24</td>
+                        <td>€50.00</td>
+                        <td><a href="{{ url_for('product') }}">Visualizza</a></td>
+                        <td> <img src="static/trash.jpeg" alt="Logo" style="height:100px"></td>
+                    </tr>
+                    <tr>
+                        <td>'<a href="{{ url_for('product') }}"><img src="static/bike.jpeg" alt="Logo"></td>
+                        <td>Bicicletta</td>
+                        <td>24</td>
+                        <td>€50.00</td>
+                        <td><a href="{{ url_for('product') }}">Visualizza</a></td>
+                        <td> <img src="static/trash.jpeg" alt="Logo" style="height:100px"></td>
+                    </tr>
+                    <!-- Aggiungi altre righe per gli ordini -->
+                </tbody>
+            </table>
+        </section>
+        <br><br><br>
+
+        <!-- Cronologia Ordini -->
+        <section id="order-history">
+            <!-- Cronologia Ordini -->
+<section id="order-history">
+    <h2>Cronologia Ordini</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Numero Ordine</th>
+                <th>Prodotto</th>
+                <th>Data</th>
+                <th>Stato</th>
+                <th>Importo</th>
+                <th>Dettagli</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>#12345</td>
+                <td>'<a href="{{ url_for('product') }}"><img src="bike.jpeg" alt="Logo"></td>
+                <td>01/08/2024</td>
+                <td>Spedito</td>
+                <td>€50.00</td>
+                <td><a href="{{ url_for('register') }}">Visualizza</a></td>
+            </tr>
+            <tr>
+                <td>#67890</td>
+                <td>'<a href="{{ url_for('register') }}"><img src="bike.jpeg" alt="Logo"></td>
+                <td>15/07/2024</td>
+                <td>In elaborazione</td>
+                <td>€120.00</td>
+                <td><a href="{{ url_for('register') }}">Visualizza</a></td>
+            </tr>
+            <!-- Aggiungi altre righe per gli ordini -->
+        </tbody>
+    </table>
+</section>
+<br>
+<br>
+<br>
+        </section>
+
+        <!-- Cambia Password -->
+        <section id="change-password">
+            <h2>Cambia Password</h2>
+            <form>
+                <div class="form-group">
+                    <label for="current-password">Password Attuale:</label>
+                    <input type="password" id="current-password" name="current-password" placeholder="Inserisci la tua password attuale">
+                </div>
+                <div class="form-group">
+                    <label for="new-password">Nuova Password:</label>
+                    <input type="password" id="new-password" name="new-password" placeholder="Inserisci la nuova password">
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Conferma Nuova Password:</label>
+                    <input type="password" id="confirm-password" name="confirm-password" placeholder="Conferma la nuova password">
+                </div>
+                <div class="form-group">
+                    <button type="submit">Aggiorna Password</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
+
+<!-- Footer della pagina -->
+<footer>
+    <p>&copy; 2024 TradeTrove. Tutti i diritti riservati.</p>
+    <p><a href="{{ url_for('terms') }}">Termini e Condizioni</a>  | <a href="{{ url_for('faq') }}">FAQ</a> | <a href="{{ url_for('contacts') }}">Contatti</a></p>
+    <a href="https://github.com/kristiNezhaj14/progettoBD">
+        <img style="width:35px; height:35px" src="/static/github.png" alt="Logo">
+    </a>
+</footer>
+</body>
+</html>

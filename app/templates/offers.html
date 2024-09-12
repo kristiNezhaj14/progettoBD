@@ -1,0 +1,322 @@
+                <!DOCTYPE html>
+                <html lang="it">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>Product in SALE - TradeTrove</title>
+                    <style>
+                        /* Stili di base */
+                        body {
+                            font-family: Arial, sans-serif;
+                            margin: 0;
+                            padding: 0;
+                        }
+                
+                        /* Stili dell'header */
+                        header {
+                            background-color: rgba(107, 103, 246);
+                            color: white;
+                            padding: 10px 0;
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            padding: 0 20px;
+                        }
+                
+                        header img {
+                            height: 80px;
+                            width: auto;
+                            background-color: white;
+                        }
+                
+                        nav a {
+                            color: white;
+                            margin: 15px 15px;
+                            text-decoration: none;
+                            align-items: center;
+                            margin: 35px 35px;
+                            width: 1200px;
+                        }
+                
+                        .search-bar input {
+                            padding: 5px;
+                            width: 300px;
+                        }
+                
+                        /* Stili della banner */
+                        .banner {
+                            background-image: url('cart-purple.png');
+                            background-size: cover;
+                            background-position: center;
+                            color: white;
+                            text-align: center;
+                            padding: 100px 20px;
+                        }
+                
+                        .banner h1 {
+                            font-size: 3em;
+                        }
+                
+                        /* Stili delle sezioni */
+                        .categories, .featured-products, .promotions, .testimonials, .newsletter, footer {
+                            position: center;
+                            padding: 20px;
+                            text-align: center;
+                        }
+                
+                        .categories img, .featured-products img, .promotions img {
+                            width: 50%;
+                            height: 40%;
+                        }
+                
+                        .cta {
+                            background-color: rgba(166, 163, 241, 0.75);
+                            color: white;
+                            padding: 10px 20px;
+                            text-decoration: none;
+                            display: inline-block;
+                            margin-top: 10px;
+                        }
+                
+                        /* Stili del footer */
+                        footer {
+                            background-color: rgba(107, 103, 246);
+                            color: white;
+                            padding: 20px;
+                        }
+                
+                        /* Stili dei pulsanti */
+                        .container button {
+                            background-color: rgba(166, 163, 241);
+                            color: white;
+                            padding: 10px 20px;
+                            border: none;
+                            border-radius: 4px;
+                            cursor: pointer;
+                            font-size: 16px;
+                        }
+                
+                        .container button:hover {
+                            background-color: rgba(107, 103, 246);
+                        }
+                
+                        .container .form-group {
+                            margin-bottom: 15px;
+                        }
+                
+                        .container a {
+                            color: purple;
+                            font-style: bold;
+                        }
+                
+                        .container a:hover {
+                            color: pink;
+                            text-decoration: underline;
+                        }
+                
+                        
+                
+                        .product {
+    display: flex; /* Imposta il layout in flexbox */
+    flex-direction: row; /* Allinea gli elementi in una riga */
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-height: 1000px; /* Limita l'altezza massima */
+    overflow-y: auto; /* Aggiunge la barra di scorrimento verticale se necessario */
+    justify-content: center; /* Centra verticalmente il contenuto */
+}
+
+.product img {
+    width: 50%; /* Imposta la larghezza dell'immagine al 50% */
+    height: auto; /* Mantiene le proporzioni dell'immagine */
+    margin-right: 20px; /* Spazio tra l'immagine e il contenuto del prodotto */
+    border-radius: 10px;
+    object-fit: cover; /* Assicura che l'immagine riempia il contenitore */
+}
+
+
+.product .product-details {
+    align-items:center;
+    flex: 1; /* Fa sì che la sezione dei dettagli prenda tutto lo spazio rimanente */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra verticalmente il contenuto */
+    
+}
+
+.product h2 {
+    margin: 5px 0 10px;
+    font-size: 2em;
+}
+
+.product p {
+    margin: 5px 0 10px;
+    font-size: 1em;
+}
+                
+                        .product button {
+                            background-color: #6b67f6;
+                            color: white;
+                            padding: 10px 20px;
+                            border: none;
+                            border-radius: 5px;
+                            cursor: pointer;
+                            font-size: 1em;
+                            margin-top: 40px;
+                        }
+                
+                        .product button:hover {
+                            background-color: #a6a3f1;
+                        }
+                        .star-rating {
+            direction: rtl;
+            display: inline-flex;
+            font-size: 2rem;
+            justify-content: center;
+        }
+
+        .star-rating input[type="radio"] {
+            display: none;
+        }
+
+        .star-rating label {
+            color: #ddd;
+            cursor: pointer;
+            padding: 0 5px;
+        }
+
+        .star-rating label:before {
+            content: '★';
+        }
+
+        .star-rating input[type="radio"]:checked ~ label {
+            color: orange;
+        }
+
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            color: orange;
+        }
+                    </style>
+                
+                <script>
+                    function isAuthenticated() {
+                        // Logica di controllo autenticazione
+                        return true; // Simulazione utente autenticato
+                    }
+                    
+                    window.onload = function() {
+                        var accountLink = document.getElementById("account-link");
+                    
+                        if (isAuthenticated()) {
+                            accountLink.href = "/profile";
+                            accountLink.textContent = "Gestisci Profilo";
+                        }
+                        else {
+                            accountLink.href = "/login";
+                            accountLink.textContent = "Accedi";
+                        }
+                    };
+                    </script>
+<!-- Header della pagina -->
+<header>
+    <a href="{{ url_for('home') }}">
+        <img src="/static/tradetrove.jpg" alt="Logo">
+    </a>
+    <nav>
+        <a href="{{ url_for('categories') }}">Categorie</a>
+        <a href="{{ url_for('offersbanner') }}">Offerte</a>
+        <a href="{{ url_for('cart') }}">Carrello</a>
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('profile') }}">{{ current_user.username }} Gestisci Profilo</a>
+    {% else %}
+        <a href="{{ url_for('login') }}">Login</a>
+    {% endif %}
+    </nav>
+    <div class="search-bar">
+        <input type="text" placeholder="Cerca prodotti...">
+        <a href="{{ url_for('found') }}">
+            <button>Search</button>
+        </a>
+    </div>
+</header>
+
+
+<!-- Sezione Prodotti in Evidenza -->
+<section class="featured-products" style="align-items:center">
+    <div class="product">
+        <img src="static/phone.jpeg" alt="Product Image">
+        <div class="product-details">
+            <!-- <h2>Product Name</h2>
+            <p>Product description goes here. It provides details about the product, its features, and benefits.</p>
+            <button>Add to Cart</button>
+        </div> -->
+        <div class="product">
+            <div>
+                <h2>Nome prodotto</h2>
+                <p>
+                    
+                    Il progetto deve essere corredato da una relazione in formato PDF opportunamente strutturata, che discuta nel dettaglio le principali scelte progettuali ed implementative. La documentazione deve anche chiarire (in appendice) il contributo al progetto di ciascun componente del gruppo. Viene raccomandata la seguente struttura per la relazione:
+                    
+                    Introduzione: descrizione ad alto livello dell’applicazione e struttura del documento.
+                    Funzionalità principali: una descrizione delle principali funzionalità fornite dall’applicazione, che aiuti a comprendere come avete declinato lo spunto di partenza relativo al tema scelto per il progetto.
+                    Progettazione concettuale e logica della basi di dati, opportunamente spiegate e motivate. La presen- tazione deve seguire la notazione grafica introdotta nel Modulo 1 del corso.
+                    Query principali: una descrizione di una selezione delle query piu` interessanti che sono state implementate all’interno dell’applicazione, utilizzando una sintassi SQL opportuna.
+                    Principali scelte progettuali: politiche di integrit`a e come sono state garantite in pratica (es. trigger), definizione di ruoli e politiche di autorizzazione, uso di indici, ecc. Tutte le principali scelte progettuali devono essere opportunamente commentate e motivate.
+                    Ulteriori informazioni: scelte tecnologiche specifiche (es. librerie usate) e qualsiasi altra informazione sia necessaria per apprezzare il progetto.
+                    Contributo al progetto (appendice): una spiegazione di come i diversi membri del gruppo hanno contribuito al design ed allo sviluppo. Il codice del progetto deve essere inoltre opportunamente strutturato e commentato per favorirne la manuten- zione e la leggibilità.
+                   </p>
+                   <br>
+                   <br>
+                <s style="text-align: center;"> $YY.YY</s>
+                <h2 style="text-align: center;font-style:bold;color: #a6a3f1;"> $XX.XX</h2>
+                <br>
+                <br>
+                <button>Aggiungi al carrello</button>
+                <div class="review-section" style="align-items: center;">
+                    <i><h3>Valuta questo prodotto</h3></i>
+                    <div class="star-rating">
+                        <input type="radio" id="star5" name="rating" value="5">
+                        <label for="star5" title="5 stelle"></label>
+            
+                        <input type="radio" id="star4" name="rating" value="4">
+                        <label for="star4" title="4 stelle"></label>
+            
+                        <input type="radio" id="star3" name="rating" value="3">
+                        <label for="star3" title="3 stelle"></label>
+            
+                        <input type="radio" id="star2" name="rating" value="2">
+                        <label for="star2" title="2 stelle"></label>
+            
+                        <input type="radio" id="star1" name="rating" value="1">
+                        <label for="star1" title="1 stella"></label>
+                    </div>
+                <div>
+                        <button type="submit" class="btn">Carica valutazione</button>
+                </div>
+            </div>
+            </div>
+    </div>
+
+</section>
+
+
+
+                <!-- Footer della pagina -->
+                <footer>
+                    <p>&copy; 2024 TradeTrove. Tutti i diritti riservati.</p>
+                    <p><a href="{{ url_for('terms') }}">Termini e Condizioni</a>  | <a href="{{ url_for('faq') }}">FAQ</a> | <a href="{{ url_for('contacts') }}">Contatti</a></p>
+                    <a href="https://github.com/kristiNezhaj14/progettoBD">
+                        <img style="width:35px; height:35px" src="/static/github.png" alt="Logo">
+                    </a>
+                </footer>
+                
+                <!-- Inclusione del file JavaScript -->
+                <script src="script.js"></script>
+                
+                </body>
+                </html>

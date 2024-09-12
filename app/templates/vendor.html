@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendor Registration - TradeTrove</title>
+    <style>
+        /* Inserisci qui i tuoi stili */
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('cart-purple.png');
+            background-size: auto;
+            background-position: left;
+            background-repeat: repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 600px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><a href="{{ url_for('home') }}" style="color: rgb(61, 21, 170); text-decoration: none;">TradeTrove</a></h1>
+        <h2>Vendor Registration</h2>
+        <form method="POST" action="{{ url_for('vendor') }}">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.username.label }} {{ form.username() }}
+            </div>
+            <div class="form-group">
+                {{ form.email.label }} {{ form.email() }}
+            </div>
+            <div class="form-group">
+                {{ form.password.label }} {{ form.password() }}
+            </div>
+            <div class="form-group">
+                {{ form.password2.label }} {{ form.password2() }}
+            </div>
+            <div class="form-group">
+                {{ form.piva.label }} {{ form.piva() }}
+            </div>
+            <div class="form-group">
+                {{ form.nome_azienda.label }} {{ form.nome_azienda() }}
+            </div>
+            <div class="form-group">
+                {{ form.indirizzo.label }} {{ form.indirizzo() }}
+            </div>
+            <div class="form-group">
+                {{ form.città.label }} {{ form.città() }}
+            </div>
+            <div class="form-group">
+                {{ form.nazione.label }} {{ form.nazione() }}
+            </div>
+            <div class="form-group">
+                <button type="submit" class="button">{{ form.submit.label }}</button>
+            </div>
+            <div class="form-group">
+                <p>Already have an account? <a href="{{ url_for('login') }}">Sign in</a></p>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
