@@ -1,7 +1,7 @@
 from flask import render_template, redirect, url_for, request, flash
 from flask_login import login_user, logout_user, current_user, login_required
 from app import db, login_manager
-from app.models import User, Vendor
+from app.models import User, Vendor,Product
 from app.forms import RegistrationForm, LoginForm, VendorRegistrationForm
 
 @login_manager.user_loader
@@ -86,7 +86,7 @@ def init_routes(app):
             if User.query.filter_by(email=email).first():
                 flash('Email already registered in User accounts', 'danger')
                 return redirect(url_for('vendor'))
-            #utenti
+            # Verifica se lo username o l'email sono già utilizzati da un venditore
             if Vendor.query.filter_by(username=username).first():
                 flash('Username already exists', 'danger')
                 return redirect(url_for('vendor'))
@@ -115,7 +115,8 @@ def init_routes(app):
 
     @app.route('/offersbanner')
     def offersbanner():
-        return render_template('offersbanner.html')
+        products = Product.query.all()
+        return render_template('offersbanner.html',products=products)
 
     @app.route('/cart')
     def cart():
@@ -160,3 +161,5 @@ def init_routes(app):
     @app.route('/vendorprofile')
     def vendorprofile():
         return render_template('vendorprofile.html')
+
+
