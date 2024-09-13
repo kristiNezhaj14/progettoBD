@@ -1,7 +1,8 @@
 from flask import render_template, redirect, url_for, request, flash
 from flask_login import login_user, logout_user, current_user, login_required
 from app import db, login_manager
-from app.models import User, Vendor,Product
+
+from app.models import User, Vendor,Product,CartItem, Cart, Category
 from app.forms import RegistrationForm, LoginForm, VendorRegistrationForm
 
 @login_manager.user_loader
@@ -111,7 +112,9 @@ def init_routes(app):
 
     @app.route('/categories')
     def categories():
-        return render_template('categories.html')
+        # Ottieni tutte le categorie dal database
+        categories = Category.query.all()
+        return render_template('categories.html', categories=categories)
 
     @app.route('/offersbanner')
     def offersbanner():
@@ -119,8 +122,24 @@ def init_routes(app):
         return render_template('offersbanner.html',products=products)
 
     @app.route('/cart')
+    @login_required
     def cart():
-        return render_template('cart.html')
+        # Recupera il carrello dell'utente loggato
+        cart = Cart.query.filter_by(user_id=current_user.id).first()
+
+        # Se l'utente non ha un carrello, creane uno vuoto
+        if not cart:
+            cart_items = []
+        else:
+            cart_items = CartItem.query.filter_by(cart_id=cart.id).all()
+
+        # Passa i dati del carrello al template
+        return render_template('cart.html', cart_items=cart_items)
+
+    @app.route('/product/<int:product_id>')
+    def product_detail(product_id):
+        product = Product.query.get_or_404(product_id)
+        return render_template('product.html', product=product)
     
     @app.route('/contacts')
     def contacts():
@@ -132,7 +151,30 @@ def init_routes(app):
     
     @app.route('/found')
     def found():
-        return render_template('found.html')
+        category_filter = request.args.get('filter1')
+        price_filter = request.args.get('filter2')
+        rating_filter = request.args.get('filter3')
+
+        query = Product.query
+
+        # Filtra per categoria
+        if category_filter and category_filter != 'tutti':
+            query = query.filter(Product.category_id == category_filter)
+
+        # Ordina per prezzo
+        if price_filter == 'Crescente':
+            query = query.order_by(Product.price.asc())
+        elif price_filter == 'Decrescente':
+            query = query.order_by(Product.price.desc())
+
+        # Ordina per valutazione (questo esempio non ha un campo di valutazione reale)
+        # Se avessi un campo rating, aggiungi la logica qui
+
+        products = query.all()
+        categories = Category.query.all()
+
+        return render_template('found.html', products=products, categories=categories)
+
     
     @app.route('/offers')
     def offers():

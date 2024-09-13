@@ -5,14 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Categories - TradeTrove</title>
     <style>
-        /* Stili di base */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
         }
 
-        /* Stili dell'header */
         header {
             background-color: rgba(107, 103, 246);
             color: white;
@@ -34,196 +32,55 @@
             margin: 15px 15px;
             text-decoration: none;
             align-items: center;
-            margin: 35px 35px;
-            width: 1200px;
         }
 
-        .search-bar input {
-            padding: 5px;
-            width: 300px;
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 10px;
+            padding: 10px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
-        /* Stili della banner */
-        .banner {
-            background-image: url('/static/cart-purple.png');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            text-align: center;
-            padding: 100px 20px;
-        }
-
-        .banner h1 {
-            font-size: 3em;
-        }
-
-        /* Stili delle sezioni */
-        .categories, .featured-products, .promotions, .testimonials, .newsletter, footer {
-            padding: 20px;
+        .grid-item {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
             text-align: center;
         }
 
-        .categories img, .featured-products img {
-            width: 50%; /* Dimezza la larghezza delle immagini */
+        .grid-item img {
+            max-width: 100%;
             height: auto;
+            display: block;
+            margin: 0 auto;
         }
 
-        .cta {
-            background-color: rgba(166, 163, 241, 0.75);
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 10px;
-        }
-
-        /* Stili del footer */
         footer {
             background-color: rgba(107, 103, 246);
             color: white;
             padding: 20px;
         }
-
-        /* Stili dei pulsanti */
-        .container button {
-            background-color: rgba(166, 163, 241);
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .container button:hover {
-            background-color: rgba(107, 103, 246);
-        }
-
-        .container .form-group {
-            margin-bottom: 15px;
-        }
-
-        .container a {
-            color: purple;
-            font-style: bold;
-        }
-
-        .container a:hover {
-            color: pink;
-            text-decoration: underline;
-        }
-
-        /* Stili del carosello */
-        .carousel {
-            position: relative;
-            width: 80%;
-            max-width: 1200px;
-            overflow: hidden;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            align-items: center;
-            margin: 0 auto;
-            margin-bottom: 20px;
-        }
-
-        .carousel-inner {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-
-        .carousel-item {
-            min-width: 100%;
-        }
-
-        .carousel-item img {
-            width: 50%; /* Dimezza la larghezza delle immagini */
-            display: block;
-            margin: 0 auto; /* Centra le immagini */
-        }
-
-        .prev, .next {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            z-index: 1;
-        }
-
-        .prev {
-            left: 10px;
-        }
-
-        .next {
-            right: 10px;
-        }
-        .grid-container {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* Modifica il numero 4 per più colonne */
-    gap: 10px;
-    padding: 10px;
-}
-
-.grid-item {
-    background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 10px;
-    text-align: center;
-}
-
-.grid-item img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-}
     </style>
- <script>
-    function isAuthenticated() {
-        // Logica di controllo autenticazione
-        return true; // Simulazione utente autenticato
-    }
-    
-    window.onload = function() {
-        var accountLink = document.getElementById("account-link");
-    
-        if (isAuthenticated()) {
-            accountLink.href = "/profile";
-            accountLink.textContent = "Gestisci Profilo";
-        }
-        else {
-            accountLink.href = "/login";
-            accountLink.textContent = "Accedi";
-        }
-    };
-    </script>
-
-<!-- Header della pagina -->
+</head>
+<body>
 <header>
     <a href="{{ url_for('home') }}">
-        <img src="static/tradetrove.jpg" alt="Logo">
+        <img src="/static/tradetrove.jpg" alt="Logo">
     </a>
     <nav>
         <a href="{{ url_for('categories') }}">Categorie</a>
-        <a href="{{ url_for('offersbanner') }}">Offerte</a>
+        <a href="{{ url_for('found') }}">Prodotti</a>
         <a href="{{ url_for('cart') }}">Carrello</a>
         {% if current_user.is_authenticated %}
         <a href="{{ url_for('profile') }}">{{ current_user.username }} Gestisci Profilo</a>
-    {% else %}
+        {% else %}
         <a href="{{ url_for('login') }}">Login</a>
-    {% endif %}
+        {% endif %}
     </nav>
-    <div class="search-bar">
-        <input type="text" placeholder="Cerca prodotti...">
-        <a href="{{ url_for('found') }}">
-            <button>Search</button>
-        </a>
-    </div>
 </header>
+<br><br>
 
 <section>
     <div id="welcome-message" class="welcome-message">
@@ -231,52 +88,26 @@
     </div>    
 </section>
 <section>
-    <body>
-        <div class="grid-container">
-            <div class="grid-item"><a href = "{{ url_for('found') }}"><img src="static/bike.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
-              <span> Categoria</span>  
-            </div></div>
-            <div class="grid-item"><a href = "{{ url_for('found') }}"><img src="static/bike.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
-                <span> Categoria</span> 
-            </div></div>
-            <div class="grid-item"><a href = "{{ url_for('found') }}"><img src="static/bike.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
-                <span> Categoria</span> 
-            </div></div>
-            <div class="grid-item"><a href = "{{ url_for('found') }}"><img src="static/bike.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
-                <span> Categoria</span> 
-            </div></div>
-            <div class="grid-item"><a href = "{{ url_for('found') }}"><img src="static/bike.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
-                <span> Categoria</span> 
-            </div></div>
-            <div class="grid-item"><a href = "{{ url_for('found') }}"><img src="static/bike.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
-                <span> Categoria</span> 
-            </div></div>
-            <div class="grid-item"><a href = "{{ url_for('found') }}"><img src="static/bike.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
-                <span> Categoria</span> 
-            </div></div>
-            <div class="grid-item"><a href = "{{ url_for('found') }}"><img src="static/bike.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
-                <span> Categoria</span> 
-            </div></div>
-            <div class="grid-item"><a href = "{{ url_for('found') }}"><img src="static/bike.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
-                <span> Categoria</span> 
-            </div></div>
-            <div class="grid-item"><a href = "{{ url_for('found') }}"><img src="static/bike.jpeg" alt="Descrizione Immagine 1"><div class="info"></a>
-                <span> Categoria</span> 
-            </div></div>
-            </div>
-    </body>
+    <div class="grid-container">
+        <!-- Ciclo per mostrare le categorie dinamicamente -->
+        {% for category in categories %}
+        <div class="grid-item">
+            <a href="{{ url_for('found', category_id=category.id) }}">
+                <!-- Usa l'immagine dal campo image_url, se non disponibile usa una immagine di default -->
+                <img src="{{ url_for('static', filename=category.image_url) if category.image_url else '/static/category_default.jpg' }}" alt="{{ category.name }}">
+                <div class="info">
+                    <span>{{ category.name }}</span>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
 </section>
-<!-- Footer della pagina -->
+
 <footer>
     <p>&copy; 2024 TradeTrove. Tutti i diritti riservati.</p>
-    <p><a href="{{ url_for('terms') }}">Termini e Condizioni</a>  | <a href="{{ url_for('faq') }}">FAQ</a> | <a href="{{ url_for('contacts') }}">Contatti</a></p>
-    <a href="https://github.com/kristiNezhaj14/progettoBD">
-        <img style="width:35px; height:35px" src="/static/github.png" alt="Logo">
-    </a>
 </footer>
 
-<!-- Inclusione del file JavaScript -->
 <script src="/static/script.js"></script>
-
 </body>
 </html>

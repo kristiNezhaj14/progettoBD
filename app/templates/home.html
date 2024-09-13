@@ -196,7 +196,7 @@
     </a>
     <nav>
         <a href="{{ url_for('categories') }}">Categorie</a>
-        <a href="{{ url_for('offersbanner') }}">Offerte</a>
+        <a href="{{ url_for('found') }}">Prodotti</a>
         <a href="{{ url_for('cart') }}">Carrello</a>
         {% if current_user.is_authenticated %}
         <a href="{{ url_for('profile') }}">{{ current_user.username }} Gestisci profilo</a>
