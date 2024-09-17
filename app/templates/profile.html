@@ -287,7 +287,7 @@ table a:hover {
         <a href="{{ url_for('found') }}">Prodotti</a>
         <a href="{{ url_for('cart') }}">Carrello</a>
         {% if current_user.is_authenticated %}
-        <a href="{{ url_for('profile') }}">{{ current_user.username }} Gestisci Profilo</a>
+        <a href="{{ url_for('profile') }}">Gestisci Profilo</a>
     {% else %}
         <a href="{{ url_for('login') }}">Login</a>
     {% endif %}
@@ -302,13 +302,16 @@ table a:hover {
 </header>
 
 <!-- Header della pagina -->
-    <h1 style=" text-align: center;">Gestione Profilo</h1>
+    <h1 style=" text-align: center;">Benvenuto {{ current_user.username }} !</h1>
 
 
 <!-- Container principale -->
 <div class="container clearfix">
     <!-- Sidebar con menu di navigazione -->
     <div class="sidebar">
+        <form action="{{ url_for('logout') }}" method="POST" style="display:inline;">
+            <button type="submit" class="logout-btn">Logout</button>
+        </form>
         <ul>
             <li><a href="#account-details">Dettagli Account</a></li>
             <li><a href="#shipping-info">Informazioni di Spedizione</a></li>
@@ -316,30 +319,10 @@ table a:hover {
             <li><a href="#change-password">Cambia Password</a></li>
         </ul>
     </div>
-
+    <h1 style=" text-align: center;">Benvenuto {{ current_user.nazione }} !</h1>
     <!-- Contenuto principale -->
     <div class="main-content">
-        <!-- Dettagli Account -->
-        <section id="account-details">
-            <h2>Dettagli Account</h2>
-            <form>
-                <div class="form-group">
-                    <label for="first-name">Nome:</label>
-                    <input type="text" id="first-name" name="first-name" placeholder="Inserisci il tuo nome">
-                </div>
-                <div class="form-group">
-                    <label for="last-name">Cognome:</label>
-                    <input type="text" id="last-name" name="last-name" placeholder="Inserisci il tuo cognome">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" id="email" name="email" placeholder="Inserisci la tua email">
-                </div>
-                <div class="form-group">
-                    <button type="submit">Aggiorna Dettagli</button>
-                </div>
-            </form>
-        </section>
+        
 
         <!-- Informazioni di Spedizione -->
         <section id="shipping-info">
@@ -358,14 +341,10 @@ table a:hover {
                     <input type="text" id="zip" name="zip" placeholder="Inserisci il CAP">
                 </div>
                 <div class="form-group">
-                    <label for="country">Paese:</label>
-                    <select id="country" name="country">
-                        <option value="italy">Italia</option>
-                        <option value="usa">USA</option>
-                        <option value="uk">Regno Unito</option>
-                        <!-- Aggiungi altre opzioni di paese -->
-                    </select>
+                    <label for="zip">Nazione:</label>
+                    <input type="text" id="zip" name="zip" placeholder="Inserisci la nazione">
                 </div>
+
                 <div class="form-group">
                     <button type="submit">Aggiorna Indirizzo</button>
                 </div>

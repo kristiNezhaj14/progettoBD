@@ -18,20 +18,33 @@ def init_routes(app):
     def login():
         if current_user.is_authenticated:
             return redirect(url_for('home'))
+        
         form = LoginForm()
+        
         if form.validate_on_submit():
             username = form.username.data
             password = form.password.data
+            
+            # Prima controlla se l'utente è un 'User'
             user = User.query.filter_by(username=username).first()
             if user and user.check_password(password):
                 login_user(user, remember=form.remember_me.data)
                 flash('Login successful', 'success')
-                return redirect(url_for('home'))
-            else:
-                flash('Login failed. Check your username and/or password.', 'danger')
+                return redirect(url_for('home'))  # Reindirizza alla home per gli utenti normali
+            
+            # Se non è un 'User', controlla se è un 'Vendor'
+            vendor = Vendor.query.filter_by(username=username).first()
+            if vendor and vendor.check_password(password):
+                login_user(vendor, remember=form.remember_me.data)
+                flash('Login successful', 'success')
+                return redirect(url_for('vendorprofile'))  # Reindirizza alla pagina del venditore
+            
+            # Se non trova corrispondenza
+            flash('Login failed. Check your username and/or password.', 'danger')
+
         return render_template('login.html', form=form)
 
-    @app.route('/logout')
+    @app.route('/logout',methods=['GET', 'POST'])
     @login_required
     def logout():
         logout_user()
@@ -203,5 +216,14 @@ def init_routes(app):
     @app.route('/vendorprofile')
     def vendorprofile():
         return render_template('vendorprofile.html')
+
+    @app.route('/pagamento')
+    def pagamento():
+        return render_template('pagamento.html')
+
+
+    @app.route('/insert')
+    def insert():
+        return render_template('insert.html')
 
 

@@ -296,24 +296,15 @@ table a:hover {
 
 <!-- Header della pagina -->
 <header>
-    <a href="{{ url_for('home') }}">
+    <a href="{{ url_for('vendorprofile') }}">
         <img src="/static/tradetrove.jpg" alt="Logo">
     </a>
     <nav>
-        <a href="{{ url_for('categories') }}">Categorie</a>
-        <a href="{{ url_for('found') }}">Prodotti</a>
-        <a href="{{ url_for('cart') }}">Carrello</a>
         {% if current_user.is_authenticated %}
-        <a href="{{ url_for('profile') }}">{{ current_user.username }} Gestione Profilo</a>
     {% else %}
         <a href="{{ url_for('login') }}">Login</a>
     {% endif %}
     </nav>
-    <div class="search-bar">
-        <input type="text" placeholder="Cerca prodotti...">
-        <a href="{{ url_for('found') }}">
-            <button>Search</button>
-        </a>
     </div>
 </header>
 
@@ -323,8 +314,12 @@ table a:hover {
 
 <!-- Container principale -->
 <div class="container clearfix">
+
     <!-- Sidebar con menu di navigazione -->
     <div class="sidebar">
+        <form action="{{ url_for('logout') }}" method="POST" style="display:inline;">
+            <button type="submit" class="logout-btn">Logout</button>
+        </form>
         <ul>
             <li><a href="#account-details">Dettagli Account</a></li>
             <li><a href="#order-history">Cronologia Ordini</a></li>
@@ -365,7 +360,9 @@ table a:hover {
             <h2>Prodotti in vendita</h2>
             <section>
                 <div class="form-group" style="align-items: end;">
-                    <button type="submit">Aggiungi prodotto</button>
+                    <a href="{{ url_for('insert') }}">
+                        <button type="button">Aggiungi prodotto</button>
+                    </a>
                 </div>
             </section>
             <table>

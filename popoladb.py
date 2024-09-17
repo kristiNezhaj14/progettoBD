@@ -5,17 +5,28 @@ from datetime import datetime
 
 # Dati di esempio
 users = [
-    {'username': 'john_doe', 'email': 'john@example.com', 'password': 'password123'},
-    {'username': 'jane_smith', 'email': 'jane@example.com', 'password': 'securepass456'},
-    {'username': 'alice_jones', 'email': 'alice@example.com', 'password': 'passalice'},
-    {'username': 'bob_lee', 'email': 'bob@example.com', 'password': 'passbob'},
-    {'username': 'charlie_brown', 'email': 'charlie@example.com', 'password': 'passcharlie'},
-    {'username': 'diana_wong', 'email': 'diana@example.com', 'password': 'passdiana'},
-    {'username': 'eric_clark', 'email': 'eric@example.com', 'password': 'passeric'},
-    {'username': 'frank_woods', 'email': 'frank@example.com', 'password': 'passfrank'},
-    {'username': 'grace_yang', 'email': 'grace@example.com', 'password': 'passgrace'},
-    {'username': 'harry_potter', 'email': 'harry@example.com', 'password': 'passharry'}
+    {'username': 'john_doe', 'email': 'john@example.com', 'password': 'password123', 
+     'nazione': 'Italia', 'citta': 'Roma', 'indirizzo': 'Via Appia 1', 'cap': '00100'},
+    {'username': 'jane_smith', 'email': 'jane@example.com', 'password': 'securepass456', 
+     'nazione': 'Italia', 'citta': 'Milano', 'indirizzo': 'Corso Buenos Aires 5', 'cap': '20100'},
+    {'username': 'alice_jones', 'email': 'alice@example.com', 'password': 'passalice', 
+     'nazione': 'USA', 'citta': 'New York', 'indirizzo': '123 Broadway', 'cap': '10001'},
+    {'username': 'bob_lee', 'email': 'bob@example.com', 'password': 'passbob', 
+     'nazione': 'Italia', 'citta': 'Napoli', 'indirizzo': 'Piazza del Plebiscito 10', 'cap': '80100'},
+    {'username': 'charlie_brown', 'email': 'charlie@example.com', 'password': 'passcharlie', 
+     'nazione': 'Francia', 'citta': 'Parigi', 'indirizzo': 'Champs-Élysées 50', 'cap': '75000'},
+    {'username': 'diana_wong', 'email': 'diana@example.com', 'password': 'passdiana', 
+     'nazione': 'Regno Unito', 'citta': 'Londra', 'indirizzo': 'Oxford Street 77', 'cap': 'W1D 1BS'},
+    {'username': 'eric_clark', 'email': 'eric@example.com', 'password': 'passeric', 
+     'nazione': 'Italia', 'citta': 'Torino', 'indirizzo': 'Via Roma 12', 'cap': '10121'},
+    {'username': 'frank_woods', 'email': 'frank@example.com', 'password': 'passfrank', 
+     'nazione': 'Canada', 'citta': 'Toronto', 'indirizzo': 'Bay Street 300', 'cap': 'M5H 2S8'},
+    {'username': 'grace_yang', 'email': 'grace@example.com', 'password': 'passgrace', 
+     'nazione': 'Australia', 'citta': 'Sydney', 'indirizzo': 'George Street 42', 'cap': '2000'},
+    {'username': 'harry_potter', 'email': 'harry@example.com', 'password': 'passharry', 
+     'nazione': 'Italia', 'citta': 'Firenze', 'indirizzo': 'Piazza della Signoria 8', 'cap': '50122'}
 ]
+
 
 vendors = [
     {'username': 'vendor_one', 'email': 'vendor1@example.com', 'password': 'vendorpw789', 'piva': '12345678901', 'nome_azienda': 'Vendor One Inc.', 'indirizzo': '123 Vendor St.', 'città': 'Vendor City', 'nazione': 'Vendorland'},
@@ -162,7 +173,12 @@ def populate_db():
 
         # Aggiungi gli utenti
         for user_data in users:
-            user = User(username=user_data['username'], email=user_data['email'])
+            user = User(username=user_data['username'],
+            email=user_data['email'],
+            nazione=user_data['nazione'], 
+            città=user_data['citta'], 
+            cap=user_data['cap'], 
+            indirizzo=user_data['indirizzo'])
             user.set_password(user_data['password'])
             db.session.add(user)
         db.session.commit()

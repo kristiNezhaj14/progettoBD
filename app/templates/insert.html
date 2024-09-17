@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Registration - TradeTrove</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('cart-purple.png');
+            background-size: auto;
+            background-position: left;
+            background-repeat: repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: rgba(166,163,241, 0.75);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+        .container h1 {
+            color: rgb(61, 21, 170);
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+        .container p {
+            font-size: 20px;
+            color: white;
+            text-align: center;
+        }
+        .container input[type="text"],
+        .container input[type="email"],
+        .container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px -10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .container button {
+            background-color: rgba(166,163,241);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        .container button:hover {
+            background-color: rgba(107,103,246);
+        }
+        .container .form-group {
+            margin-bottom: 15px;
+        }
+        .container a {
+            color: purple;
+            font-style: bold;
+        }
+        .container a:hover {
+            color : pink;
+            text-decoration : none;
+        }
+        #upload-image {
+    margin-top: 20px;
+}
+
+#upload-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    padding: 5px;
+}
+    </style>
+    <!--
+    <script>
+        document.getElementById('login-button').addEventListener('click', () => {
+            const userName = document.getElementById('username').value;
+            if (userName) {
+                localStorage.setItem('username', userName);
+                window.location.href = 'home.html';
+            }
+        });
+    </script>  -->
+</head>
+<body>
+    <div class="container">
+        <h1><a href="{{ url_for('home') }}" style="color: rgba(107,103,246); text-decoration: none;">TradeTrove</a></h1>
+        <h2 style="color: rgba(107,103,246); text-decoration: none;">Registration</h2>
+        <form method="POST" action="{{ url_for('register') }}">
+            <section id="upload-image">
+                <form id="image-upload-form">
+                    <div class="form-group">
+                        <label for="profile-image">Seleziona un'immagine:</label>
+                        <input type="file" id="profile-image" name="profile-image" accept="image/*">
+                    </div>
+                    <div class="form-group">
+                        <img id="image-preview" src="#" alt="Anteprima Immagine" style="display: none; max-width: 200px; margin-top: 10px;">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit">Carica Immagine</button>
+                    </div>
+                </form>
+            </section>
+            <div class="form-group">
+                <label for="username" style="font-size: 20px; color: whitesmoke;">Nome prodotto</label>
+                <input type="text" id="email" name="email" placeholder="Scrivi il nome del prodotto..." required>
+            </div>
+            <div class="form-group">
+                <label for="username" style="font-size: 20px; color: whitesmoke;">Categoria</label>
+                <input type="text" id="password" name="password" placeholder="Scrivi la categoria del prodotto..." required>
+            </div>
+            <div class="form-group">
+                <label for="username" style="font-size: 20px; color: whitesmoke;">Prezzo</label>
+                <input type="text" id="password" name="password" placeholder="Scrivi il prezzo del prodotto..." required>
+            </div>
+            <div class="form-group">
+                <label for="username" style="font-size: 20px; color: whitesmoke;">Prezzo Offerta</label>
+                <input type="text" id="password" name="password" placeholder="Scrivi il prezzo del prodotto scontato..." required>
+            </div>
+            <div class="form-group">
+                <label for="username" style="font-size: 20px; color: whitesmoke;">Descrizione prodotto</label>
+                <input type="text" id="password2" name="password2" placeholder="Descrivi il tuo prodotto..." required>
+            </div>
+            <div class="form-container" style="display: flex; gap: 10px;">
+                <div class="form-group">
+                    <form action="/carica-prodotto" method="post">
+                        <button type="submit" class="btn">Carica Prodotto</button>
+                    </form>
+                </div>
+                <div class="form-group">
+                    <form action="/deleteprodotto" method="post">
+                        <button type="submit" class="btn" style="background-color:red; color:white;">Elimina Prodotto</button>
+                    </form>
+                </div>
+            </div>
+    </div>
+</body>
+</html>

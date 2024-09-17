@@ -199,7 +199,7 @@
         <a href="{{ url_for('found') }}">Prodotti</a>
         <a href="{{ url_for('cart') }}">Carrello</a>
         {% if current_user.is_authenticated %}
-        <a href="{{ url_for('profile') }}">{{ current_user.username }} Gestisci profilo</a>
+        <a href="{{ url_for('profile') }}"> Gestisci profilo</a>
     {% else %}
         <a href="{{ url_for('login') }}">Login</a>
     {% endif %}
