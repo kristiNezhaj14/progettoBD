@@ -35,9 +35,9 @@ vendors = [
 ]
 
 categories = [
-    {'name': 'Electronics', 'image_url': 'images/electronics.jpg'},
-    {'name': 'Books', 'image_url': 'images/books.jpg'},
-    {'name': 'Clothing', 'image_url': 'images/clothing.jpg'}
+    {'name': 'Electronics', 'image_url': 'phone.jpeg'},
+    {'name': 'Books', 'image_url': 'phone.jpeg'},
+    {'name': 'Clothing', 'image_url': 'phone.jpeg'}
 ]
 
 products = [

@@ -95,6 +95,15 @@
         }
 
     </style>
+    <script>
+        function handlePayment(event) {
+            event.preventDefault();  // Evita il comportamento predefinito del form
+            // Mostra la finestra di conferma
+            alert('Ordine andato a buon fine!');
+            // Esegui il submit del form per completare il pagamento
+            event.target.submit();
+        }
+    </script>
 </head>
 <body>
 
@@ -111,7 +120,7 @@
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/American_Express_logo_%282018%29.svg/1200px-American_Express_logo_%282018%29.svg.png" alt="American Express">
     </div>
 
-    <form>
+    <form onsubmit="handlePayment(event)" method="POST" action="{{ url_for('process_payment') }}">
         <div class="form-group">
             <label for="cardholder-name">Nome sulla carta</label>
             <input type="text" id="cardholder-name" name="cardholder-name" placeholder="Mario Rossi" required>

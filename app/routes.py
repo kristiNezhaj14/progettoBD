@@ -1,6 +1,8 @@
 from flask import render_template, redirect, url_for, request, flash
 from flask_login import login_user, logout_user, current_user, login_required
 from app import db, login_manager
+from datetime import datetime
+
 
 from app.models import User, Vendor,Product,CartItem, Cart, Category, Order, OrderItem
 from app.forms import RegistrationForm, LoginForm, VendorRegistrationForm
@@ -145,9 +147,10 @@ def init_routes(app):
             cart_items = []
         else:
             cart_items = CartItem.query.filter_by(cart_id=cart.id).all()
+            total_price = sum(item.product.price * item.quantity for item in cart_items)
 
         # Passa i dati del carrello al template
-        return render_template('cart.html', cart_items=cart_items)
+        return render_template('cart.html', cart_items=cart_items,total_price=total_price)
 
     @app.route('/product/<int:product_id>')
     def product_detail(product_id):
@@ -304,4 +307,49 @@ def init_routes(app):
 
         # Renderizza la pagina profilo con i prodotti
         return render_template('profile.html', products=products)
+
+
+    @app.route('/process_payment', methods=['POST'])
+    @login_required
+    def process_payment():
+        # Recupera il carrello dell'utente loggato
+        cart = Cart.query.filter_by(user_id=current_user.id).first()
+
+        # Verifica che ci siano prodotti nel carrello
+        if not cart or not cart.items:
+            flash('Il carrello è vuoto. Aggiungi dei prodotti prima di completare il pagamento.', 'danger')
+            return redirect(url_for('cart'))
+
+        # Calcola il prezzo totale
+        total_price = sum(item.product.price * item.quantity for item in cart.items)
+
+        # Crea un nuovo ordine con lo stato 'completed'
+        new_order = Order(
+            user_id=current_user.id,
+            status='completed',
+            total_price=total_price,
+            created_at=datetime.utcnow()
+        )
+        db.session.add(new_order)
+        db.session.commit()
+
+        # Aggiungi i prodotti del carrello all'ordine
+        for item in cart.items:
+            order_item = OrderItem(
+                order_id=new_order.id,
+                product_id=item.product_id,
+                quantity=item.quantity,
+                unit_price=item.product.price
+            )
+            db.session.add(order_item)
+
+        # Svuota il carrello eliminando gli articoli
+        for item in cart.items:
+            db.session.delete(item)
+
+        # Salva i cambiamenti nel database
+        db.session.commit()
+
+        flash('Pagamento completato con successo. Il tuo ordine è stato creato.', 'success')
+        return redirect(url_for('profile'))
 

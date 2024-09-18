@@ -103,6 +103,7 @@
 <br><br>
 
 <section>
+    {% if cart_items %}
     <div class="grid-container">
         {% for item in cart_items %}
         <div class="grid-item">
@@ -116,14 +117,21 @@
         </div>
         {% endfor %}
     </div>
+    <div style="text-align: center; font-size: larger; margin-top: 20px;">
+        <strong>Prezzo totale: €{{ total_price }}</strong>
+    </div>
+    <!-- Pulsante Vai al checkout -->
+    <div>
+        <a href="{{ url_for('pagamento') }}">
+            <button class="checkout-button">Vai al checkout</button>
+        </a>
+    </div>
+    {% else %}
+    <div style="text-align: center; font-size: larger; margin-top: 20px;">
+        <strong>Carrello vuoto</strong>
+    </div>
+    {% endif %}
 </section>
-
-<!-- Pulsante Vai al checkout -->
-<div>
-    <a href="{{ url_for('home') }}">
-        <button class="checkout-button">Vai al checkout</button> <!--creare page per check out-->
-    </a>
-</div>
 
 <footer>
     <p>&copy; 2024 TradeTrove. Tutti i diritti riservati.</p>
