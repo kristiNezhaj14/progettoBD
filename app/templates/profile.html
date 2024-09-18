@@ -319,7 +319,7 @@ table a:hover {
             <li><a href="#change-password">Cambia Password</a></li>
         </ul>
     </div>
-    <h1 style=" text-align: center;">Benvenuto {{ current_user.nazione }} !</h1>
+
     <!-- Contenuto principale -->
     <div class="main-content">
         
@@ -329,19 +329,19 @@ table a:hover {
             <h2>Informazioni di Spedizione</h2>
             <form>
                 <div class="form-group">
-                    <label for="address">Indirizzo:</label>
+                    <label for="address">Indirizzo: {{ current_user.indirizzo }}</label>
                     <input type="text" id="address" name="address" placeholder="Inserisci il tuo indirizzo">
                 </div>
                 <div class="form-group">
-                    <label for="city">Città:</label>
+                    <label for="city">Città: {{ current_user.città }}</label>
                     <input type="text" id="city" name="city" placeholder="Inserisci la tua città">
                 </div>
                 <div class="form-group">
-                    <label for="zip">CAP:</label>
+                    <label for="zip">CAP: {{ current_user.cap }}</label>
                     <input type="text" id="zip" name="zip" placeholder="Inserisci il CAP">
                 </div>
                 <div class="form-group">
-                    <label for="zip">Nazione:</label>
+                    <label for="zip">Nazione: {{ current_user.nazione }}</label>
                     <input type="text" id="zip" name="zip" placeholder="Inserisci la nazione">
                 </div>
 
