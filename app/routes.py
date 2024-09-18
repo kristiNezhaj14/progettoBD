@@ -250,3 +250,33 @@ def init_routes(app):
             flash('Errore durante l\'aggiornamento delle informazioni. Riprova.', 'danger')
 
         return redirect(url_for('profile'))
+
+
+
+    @app.route('/change_password', methods=['POST'])
+    @login_required
+    def change_password():
+        current_password = request.form.get('current_password')
+        new_password = request.form.get('new_password')
+        confirm_password = request.form.get('confirm_password')
+
+        # Controlla se la password attuale è corretta
+        if not current_user.check_password(current_password):
+            flash('La password attuale non è corretta.', 'danger')
+            return redirect(url_for('profile'))
+
+        # Controlla che la nuova password e la conferma coincidano
+        if new_password != confirm_password:
+            flash('Le nuove password non coincidono.', 'danger')
+            return redirect(url_for('profile'))
+
+        # Aggiorna la password nel database
+        current_user.set_password(new_password)
+        try:
+            db.session.commit()
+            flash('Password aggiornata con successo!', 'success')
+        except Exception as e:
+            db.session.rollback()
+            flash('Errore durante l\'aggiornamento della password. Riprova.', 'danger')
+
+        return redirect(url_for('profile'))

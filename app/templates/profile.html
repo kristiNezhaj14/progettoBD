@@ -397,24 +397,25 @@ table a:hover {
         <!-- Cambia Password -->
         <section id="change-password">
             <h2>Cambia Password</h2>
-            <form>
+            <form method="POST" action="{{ url_for('change_password') }}">
                 <div class="form-group">
                     <label for="current-password">Password Attuale:</label>
-                    <input type="password" id="current-password" name="current-password" placeholder="Inserisci la tua password attuale">
+                    <input type="password" id="current-password" name="current_password" placeholder="Inserisci la tua password attuale" required>
                 </div>
                 <div class="form-group">
                     <label for="new-password">Nuova Password:</label>
-                    <input type="password" id="new-password" name="new-password" placeholder="Inserisci la nuova password">
+                    <input type="password" id="new-password" name="new_password" placeholder="Inserisci la nuova password" required>
                 </div>
                 <div class="form-group">
                     <label for="confirm-password">Conferma Nuova Password:</label>
-                    <input type="password" id="confirm-password" name="confirm-password" placeholder="Conferma la nuova password">
+                    <input type="password" id="confirm-password" name="confirm_password" placeholder="Conferma la nuova password" required>
                 </div>
                 <div class="form-group">
                     <button type="submit">Aggiorna Password</button>
                 </div>
             </form>
         </section>
+        
     </div>
 </div>
 
