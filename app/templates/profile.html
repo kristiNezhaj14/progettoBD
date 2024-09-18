@@ -324,32 +324,33 @@ table a:hover {
     <div class="main-content">
         
 
-        <!-- Informazioni di Spedizione -->
-        <section id="shipping-info">
-            <h2>Informazioni di Spedizione</h2>
-            <form>
-                <div class="form-group">
-                    <label for="address">Indirizzo: {{ current_user.indirizzo }}</label>
-                    <input type="text" id="address" name="address" placeholder="Inserisci il tuo indirizzo">
-                </div>
-                <div class="form-group">
-                    <label for="city">Città: {{ current_user.città }}</label>
-                    <input type="text" id="city" name="city" placeholder="Inserisci la tua città">
-                </div>
-                <div class="form-group">
-                    <label for="zip">CAP: {{ current_user.cap }}</label>
-                    <input type="text" id="zip" name="zip" placeholder="Inserisci il CAP">
-                </div>
-                <div class="form-group">
-                    <label for="zip">Nazione: {{ current_user.nazione }}</label>
-                    <input type="text" id="zip" name="zip" placeholder="Inserisci la nazione">
-                </div>
+<!-- Informazioni di Spedizione -->
+<section id="shipping-info">
+    <h2>Informazioni di Spedizione</h2>
+    <form method="POST" action="{{ url_for('update_shipping') }}">
+        <div class="form-group">
+            <label for="address">Indirizzo: </label>
+            <input type="text" id="address" name="address" placeholder="Inserisci il tuo indirizzo" value="{{ current_user.indirizzo }}">
+        </div>
+        <div class="form-group">
+            <label for="city">Città: </label>
+            <input type="text" id="city" name="city" placeholder="Inserisci la tua città" value="{{ current_user.città }}">
+        </div>
+        <div class="form-group">
+            <label for="zip">CAP: </label>
+            <input type="text" id="zip" name="zip" placeholder="Inserisci il CAP" value="{{ current_user.cap }}">
+        </div>
+        <div class="form-group">
+            <label for="nation">Nazione: </label>
+            <input type="text" id="nation" name="nation" placeholder="Inserisci la nazione" value="{{ current_user.nazione }}">
+        </div>
 
-                <div class="form-group">
-                    <button type="submit">Aggiorna Indirizzo</button>
-                </div>
-            </form>
-        </section>
+        <div class="form-group">
+            <button type="submit">Aggiorna Indirizzo</button>
+        </div>
+    </form>
+</section>
+
 
         <!-- Cronologia Ordini -->
         <section id="order-history">

@@ -227,3 +227,26 @@ def init_routes(app):
         return render_template('insert.html')
 
 
+    @app.route('/update_shipping', methods=['POST'])
+    @login_required
+    def update_shipping():
+        address = request.form.get('address')
+        city = request.form.get('city')
+        zip_code = request.form.get('zip')
+        nation = request.form.get('nation')
+
+        # Aggiorna i campi dell'utente loggato
+        current_user.indirizzo = address
+        current_user.città = city
+        current_user.cap = zip_code
+        current_user.nazione = nation
+
+        # Salva le modifiche nel database
+        try:
+            db.session.commit()
+            flash('Informazioni di spedizione aggiornate con successo!', 'success')
+        except Exception as e:
+            db.session.rollback()
+            flash('Errore durante l\'aggiornamento delle informazioni. Riprova.', 'danger')
+
+        return redirect(url_for('profile'))
