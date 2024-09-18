@@ -352,48 +352,48 @@ table a:hover {
 </section>
 
 
-        <!-- Cronologia Ordini -->
-        <section id="order-history">
-            <!-- Cronologia Ordini -->
-<section id="order-history">
-    <h2>Cronologia Ordini</h2>
-    <table>
-        <thead>
+<h2>Cronologia Prodotti Ordinati</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Immagine</th>
+            <th>Nome Prodotto</th>
+            <th>Quantità</th>
+            <th>Prezzo Unitario</th>
+            <th>Data Ordine</th>
+            <th>Stato Ordine</th>
+            <th>Dettagli</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% if products %}
+            {% for item in products %}
             <tr>
-                <th>Numero Ordine</th>
-                <th>Prodotto</th>
-                <th>Data</th>
-                <th>Stato</th>
-                <th>Importo</th>
-                <th>Dettagli</th>
+                <td>
+                    <img src="{{ url_for('static', filename=item.product_image) }}" alt="{{ item.product.name }}" style="width:100px;height:auto;">
+                </td>
+                <td>{{ item.product.name }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>€{{ item.unit_price }}</td>
+                <td>{{ item.order_date.strftime('%d/%m/%Y') }}</td>
+                <td>{{ item.order_status }}</td>
+                <td>
+                    <a href="{{ url_for('product_detail', product_id=item.product.id) }}">Visualizza Prodotto</a>
+                </td>
             </tr>
-        </thead>
-        <tbody>
+            {% endfor %}
+        {% else %}
             <tr>
-                <td>#12345</td>
-                <td>'<a href="{{ url_for('product') }}"><img src="static/bike.jpeg" alt="Logo"></td>
-                <td>01/08/2024</td>
-                <td>Spedito</td>
-                <td>€50.00</td>
-                <td><a href="#">Visualizza</a></td>
+                <td colspan="7">Non ci sono prodotti ordinati.</td>
             </tr>
-            <tr>
-                <td>#67890</td>
-                <td>'<a href="{{ url_for('offers') }}"><img src="static/bike.jpeg" alt="Logo"></td>
-                <td>15/07/2024</td>
-                <td>In elaborazione</td>
-                <td>€120.00</td>
-                <td><a href="#">Visualizza</a></td>
-            </tr>
-            <!-- Aggiungi altre righe per gli ordini -->
-        </tbody>
-    </table>
-</section>
-<br>
-<br>
-<br>
-        </section>
+        {% endif %}
+    </tbody>
+</table>
 
+
+
+        
+        
         <!-- Cambia Password -->
         <section id="change-password">
             <h2>Cambia Password</h2>

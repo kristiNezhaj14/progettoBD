@@ -2,7 +2,7 @@ from flask import render_template, redirect, url_for, request, flash
 from flask_login import login_user, logout_user, current_user, login_required
 from app import db, login_manager
 
-from app.models import User, Vendor,Product,CartItem, Cart, Category
+from app.models import User, Vendor,Product,CartItem, Cart, Category, Order, OrderItem
 from app.forms import RegistrationForm, LoginForm, VendorRegistrationForm
 
 @login_manager.user_loader
@@ -205,9 +205,7 @@ def init_routes(app):
     def question():
         return render_template('question.html')
     
-    @app.route('/profile')
-    def profile():
-        return render_template('profile.html')
+
     
     @app.route('/productreg')
     def productreg():
@@ -280,3 +278,30 @@ def init_routes(app):
             flash('Errore durante l\'aggiornamento della password. Riprova.', 'danger')
 
         return redirect(url_for('profile'))
+
+
+
+
+    @app.route('/profile')
+    @login_required
+    def profile():
+        # Recupera tutti gli ordini effettuati dall'utente loggato
+        orders = Order.query.filter_by(user_id=current_user.id).all()
+        
+        # Recupera tutti i prodotti associati agli ordini dell'utente
+        products = []
+        for order in orders:
+            for item in order.items:
+                products.append({
+                    'product': item.product, 
+                    'quantity': item.quantity, 
+                    'unit_price': item.unit_price,
+                    'order_id': order.id,
+                    'order_status': order.status,  # Stato dell'ordine
+                    'order_date': order.created_at,  # Data dell'ordine
+                    'product_image': item.product.image_url  # Immagine del prodotto
+                })
+
+        # Renderizza la pagina profilo con i prodotti
+        return render_template('profile.html', products=products)
+
