@@ -207,6 +207,21 @@ def init_routes(app):
     @app.route('/question')
     def question():
         return render_template('question.html')
+
+    @app.route('/ordine/<int:order_id>', methods=['GET'])
+    @login_required
+    def ordine(order_id):
+        # Recupera l'ordine in base all'ID
+        order = Order.query.get_or_404(order_id)
+        
+        # Recupera gli articoli dell'ordine
+        order_items = OrderItem.query.filter_by(order_id=order_id).all()
+        
+        # Calcola il prezzo totale dell'ordine
+        total_price = sum(item.unit_price * item.quantity for item in order_items)
+        
+        return render_template('ordine.html', order_items=order_items, total_price=total_price)
+
     
 
     
@@ -219,9 +234,10 @@ def init_routes(app):
     def vendorprofile():
        
         products = Product.query.filter_by(seller_id=current_user.id).all()
-    
+        product_ids = [product.id for product in products]
+        orders = Order.query.join(OrderItem).filter(OrderItem.product_id.in_(product_ids)).all()
         
-        return render_template('vendorprofile.html', products=products)
+        return render_template('vendorprofile.html', products=products, orders=orders)
 
 
     @app.route('/pagamento')
@@ -393,6 +409,25 @@ def init_routes(app):
             flash(f'Errore durante l\'eliminazione del prodotto: {str(e)}', 'danger')
 
         return redirect(url_for('vendorprofile'))
+
+
+
+    @app.route('/mark_as_shipped/<int:order_id>', methods=['POST'])
+    @login_required
+    def mark_as_shipped(order_id):
+        # Recupera l'ordine in base all'ID
+        order = Order.query.get_or_404(order_id)
+        
+        # Verifica se lo stato dell'ordine è "in elaborazione"
+        if order.status == 'pending':
+            order.status = 'completed'  # Aggiorna lo stato dell'ordine a "spedito"
+            db.session.commit()
+            flash(f'L\'ordine #{order.id} è stato segnato come spedito.', 'success')
+        else:
+            flash(f'L\'ordine #{order.id} non può essere aggiornato perché non è in elaborazione.', 'danger')
+        
+        return redirect(url_for('vendorprofile'))
+
 
 
 

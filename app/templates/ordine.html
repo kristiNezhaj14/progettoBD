@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordine - TradeTrove</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: rgba(107, 103, 246);
+            color: white;
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        header img {
+            height: 80px;
+            width: auto;
+        }
+
+        nav a {
+            color: white;
+            margin: 15px 15px;
+            text-decoration: none;
+            align-items: center;
+            margin: 35px 35px;
+            width: 1200px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            padding: 10px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .grid-item {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .grid-item img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+
+        footer {
+            background-color: rgba(107, 103, 246);
+            color: white;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="/static/tradetrove.jpg" alt="Logo">
+</header>
+
+<br><br>
+
+<section>
+    {% if order_items %}
+    <div class="grid-container">
+        {% for item in order_items %}
+        <div class="grid-item">
+            <a href="{{ url_for('product_detail', product_id=item.product.id) }}">
+                <img src="{{ url_for('static', filename=item.product.image_url) }}" alt="{{ item.product.name }}">
+            </a>
+            <div class="info">
+                <span style="font-size:larger;color:rgba(107, 103, 246)">€{{ item.unit_price }}</span>
+                <h3>Quantità: {{ item.quantity }}</h3>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div style="text-align: center; font-size: larger; margin-top: 20px;">
+        <strong>Prezzo totale: €{{ total_price }}</strong>
+    </div>
+    {% else %}
+    <p>Nessun prodotto trovato per questo ordine.</p>
+    {% endif %}
+</section>
+
+<footer>
+    <p>&copy; 2024 TradeTrove. Tutti i diritti riservati.</p>
+</footer>
+
+</body>
+</html>

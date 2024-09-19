@@ -407,45 +407,39 @@ table a:hover {
 
         <!-- Cronologia Ordini -->
         <section id="order-history">
-            <!-- Cronologia Ordini -->
-<section id="order-history">
-    <h2>Cronologia Ordini</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Numero Ordine</th>
-                <th>Prodotto</th>
-                <th>Data</th>
-                <th>Stato</th>
-                <th>Importo</th>
-                <th>Dettagli</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>#12345</td>
-                <td>'<a href="{{ url_for('product') }}"><img src="bike.jpeg" alt="Logo"></td>
-                <td>01/08/2024</td>
-                <td>Spedito</td>
-                <td>€50.00</td>
-                <td><a href="{{ url_for('register') }}">Visualizza</a></td>
-            </tr>
-            <tr>
-                <td>#67890</td>
-                <td>'<a href="{{ url_for('register') }}"><img src="bike.jpeg" alt="Logo"></td>
-                <td>15/07/2024</td>
-                <td>In elaborazione</td>
-                <td>€120.00</td>
-                <td><a href="{{ url_for('register') }}">Visualizza</a></td>
-            </tr>
-            <!-- Aggiungi altre righe per gli ordini -->
-        </tbody>
-    </table>
-</section>
-<br>
-<br>
-<br>
+            <h2>Cronologia Ordini</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Numero Ordine</th>
+                        <th>Data</th>
+                        <th>Stato</th>
+                        <th>Importo</th>
+                        <th>Dettagli</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td>#{{ order.id }}</td>
+                        <td>{{ order.created_at.strftime('%d/%m/%Y') }}</td>
+                        <td>{{ order.status }}</td>
+                        <td>€{{ order.total_price }}</td>
+                        <td><a href="{{ url_for('ordine', order_id=order.id) }}">Visualizza</a></td>
+                        <td>
+                            {% if order.status == 'pending' %}
+                            <form action="{{ url_for('mark_as_shipped', order_id=order.id) }}" method="POST">
+                                <button type="submit">Segna come spedito</button>
+                            </form>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </section>
+        <br><br><br>
+        
 
         <!-- Cambia Password -->
         <section id="change-password">
