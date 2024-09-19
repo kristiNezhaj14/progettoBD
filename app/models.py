@@ -58,6 +58,7 @@ class Product(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     image_url = db.Column(db.String(256), nullable=True)
+    cart_items = db.relationship('CartItem', backref='product_ref', cascade="all, delete-orphan")
 
 class Cart(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -71,7 +72,7 @@ class CartItem(db.Model):
     cart_id = db.Column(db.Integer, db.ForeignKey('cart.id'), nullable=False)
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
-    product = db.relationship('Product')
+    product = db.relationship('Product', backref='cart_product_items')
 
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -85,10 +86,12 @@ class Order(db.Model):
 class OrderItem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     order_id = db.Column(db.Integer, db.ForeignKey('order.id'), nullable=False)
-    product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id', ondelete="CASCADE"), nullable=False)
     quantity = db.Column(db.Integer, nullable=False)
     unit_price = db.Column(db.Float, nullable=False)
-    product = db.relationship('Product')
+    product = db.relationship('Product', backref='order_items')
+
+
 
 
 

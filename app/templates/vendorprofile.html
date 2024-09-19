@@ -390,7 +390,7 @@ table a:hover {
                         <td>€{{ product.price }}</td>
                         <td><a href="{{ url_for('product', product_id=product.id) }}">Visualizza</a></td>
                         <td>
-                            <form action="{{ url_for('vendorprofile', product_id=product.id) }}" method="POST" style="display:inline;">
+                            <form action="{{ url_for('delete_product', product_id=product.id) }}" method="POST" style="display:inline;">
                                 <button type="submit">Elimina</button>
                             </form>
                         </td>

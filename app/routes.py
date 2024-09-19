@@ -4,7 +4,7 @@ from app import db, login_manager
 from datetime import datetime
 
 
-from app.models import User, Vendor,Product,CartItem, Cart, Category, Order, OrderItem
+from app.models import User, Vendor,Product,CartItem, Cart, Category, Order, OrderItem,Review
 from app.forms import RegistrationForm, LoginForm, VendorRegistrationForm
 
 @login_manager.user_loader
@@ -358,4 +358,42 @@ def init_routes(app):
 
         flash('Pagamento completato con successo. Il tuo ordine è stato creato.', 'success')
         return redirect(url_for('profile'))
+
+
+
+
+
+    @app.route('/delete_product/<int:product_id>', methods=['POST'])
+    def delete_product(product_id):
+        product = Product.query.get_or_404(product_id)
+        
+        # Elimina manualmente gli articoli di carrello associati al prodotto
+        cart_items = CartItem.query.filter_by(product_id=product_id).all()
+        for item in cart_items:
+            db.session.delete(item)
+        
+        # Elimina manualmente gli articoli di ordine associati al prodotto
+        order_items = OrderItem.query.filter_by(product_id=product_id).all()
+        for item in order_items:
+            db.session.delete(item)
+            
+
+        reviews = Review.query.filter_by(product_id=product_id).all()
+        for review in reviews:
+            db.session.delete(review)
+        
+        # Elimina il prodotto
+        db.session.delete(product)
+        
+        try:
+            db.session.commit()
+            flash('Prodotto e articoli associati eliminati con successo.', 'success')
+        except Exception as e:
+            db.session.rollback()
+            flash(f'Errore durante l\'eliminazione del prodotto: {str(e)}', 'danger')
+
+        return redirect(url_for('vendorprofile'))
+
+
+
 
