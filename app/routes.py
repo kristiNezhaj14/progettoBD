@@ -215,8 +215,14 @@ def init_routes(app):
         return render_template('productreg.html')
     
     @app.route('/vendorprofile')
+    @login_required
     def vendorprofile():
-        return render_template('vendorprofile.html')
+       
+        products = Product.query.filter_by(seller_id=current_user.id).all()
+    
+        
+        return render_template('vendorprofile.html', products=products)
+
 
     @app.route('/pagamento')
     def pagamento():
@@ -225,7 +231,7 @@ def init_routes(app):
 
     @app.route('/insert')
     def insert():
-        return render_template('insert.html')
+        return render_template('insertProduct.html')
 
 
     @app.route('/update_shipping', methods=['POST'])

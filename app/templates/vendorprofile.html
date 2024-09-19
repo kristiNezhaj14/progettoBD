@@ -356,7 +356,6 @@ table a:hover {
         </section>
 
         <section id="vending">
-            
             <h2>Prodotti in vendita</h2>
             <section>
                 <div class="form-group" style="align-items: end;">
@@ -365,38 +364,45 @@ table a:hover {
                     </a>
                 </div>
             </section>
+        
+            {% if products %}
             <table>
                 <thead>
                     <tr>
                         <th>Prodotto</th>
                         <th>Nome</th>
                         <th>Quantità</th>
-                        <th>Importo</th>
+                        <th>Prezzo</th>
                         <th>Dettagli</th>
                         <th>Elimina</th>
                     </tr>
                 </thead>
                 <tbody>
+                    {% for product in products %}
                     <tr>
-                        <td>'<a href="{{ url_for('product') }}"><img src="static/bike.jpeg" alt="Logo"></td>
-                        <td>Bicicletta</td>
-                        <td>24</td>
-                        <td>€50.00</td>
-                        <td><a href="{{ url_for('product') }}">Visualizza</a></td>
-                        <td> <img src="static/trash.jpeg" alt="Logo" style="height:100px"></td>
+                        <td>
+                            <a href="{{ url_for('vendorprofile', product_id=product.id) }}">
+                                <img src="{{ url_for('static', filename=product.image_url) }}" alt="{{ product.name }}" style="width:100px;">
+                            </a>
+                        </td>
+                        <td>{{ product.name }}</td>
+                        <td>{{ product.quantity }}</td>
+                        <td>€{{ product.price }}</td>
+                        <td><a href="{{ url_for('product', product_id=product.id) }}">Visualizza</a></td>
+                        <td>
+                            <form action="{{ url_for('vendorprofile', product_id=product.id) }}" method="POST" style="display:inline;">
+                                <button type="submit">Elimina</button>
+                            </form>
+                        </td>
                     </tr>
-                    <tr>
-                        <td>'<a href="{{ url_for('product') }}"><img src="static/bike.jpeg" alt="Logo"></td>
-                        <td>Bicicletta</td>
-                        <td>24</td>
-                        <td>€50.00</td>
-                        <td><a href="{{ url_for('product') }}">Visualizza</a></td>
-                        <td> <img src="static/trash.jpeg" alt="Logo" style="height:100px"></td>
-                    </tr>
-                    <!-- Aggiungi altre righe per gli ordini -->
+                    {% endfor %}
                 </tbody>
             </table>
+            {% else %}
+                <p>Non ci sono prodotti in vendita.</p>
+            {% endif %}
         </section>
+        
         <br><br><br>
 
         <!-- Cronologia Ordini -->
