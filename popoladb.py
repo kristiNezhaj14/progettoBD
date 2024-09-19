@@ -176,7 +176,7 @@ def populate_db():
             user = User(username=user_data['username'],
             email=user_data['email'],
             nazione=user_data['nazione'], 
-            citt=user_data['citta'], 
+            città=user_data['citta'], 
             cap=user_data['cap'], 
             indirizzo=user_data['indirizzo'])
             user.set_password(user_data['password'])
