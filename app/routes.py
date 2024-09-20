@@ -14,7 +14,9 @@ from app.forms import RegistrationForm, LoginForm, VendorRegistrationForm
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
 
 def allowed_file(filename):
+    ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -474,6 +476,43 @@ def init_routes(app):
         else:
             flash('Errore durante il caricamento dell\'immagine', 'danger')
             return redirect(url_for('vendorprofile'))
+
+
+    @app.route('/add_to_cart/<int:product_id>', methods=['POST'])
+    @login_required
+    def add_to_cart(product_id):
+        # Trova il prodotto selezionato
+        product = Product.query.get_or_404(product_id)
+
+        # Recupera il carrello dell'utente loggato
+        cart = Cart.query.filter_by(user_id=current_user.id).first()
+
+        # Se l'utente non ha un carrello, creane uno nuovo
+        if not cart:
+            cart = Cart(user_id=current_user.id)
+            db.session.add(cart)
+            db.session.commit()
+
+        # Controlla se il prodotto è già presente nel carrello
+        cart_item = CartItem.query.filter_by(cart_id=cart.id, product_id=product.id).first()
+
+        if cart_item:
+            # Se il prodotto è già presente, aggiorna la quantità
+            cart_item.quantity += 1
+        else:
+            # Altrimenti, aggiungi un nuovo prodotto al carrello
+            cart_item = CartItem(cart_id=cart.id, product_id=product.id, quantity=1)
+            db.session.add(cart_item)
+
+        try:
+            db.session.commit()
+            flash('Prodotto aggiunto al carrello con successo!', 'success')
+        except Exception as e:
+            db.session.rollback()
+            flash('Errore durante l\'aggiunta del prodotto al carrello.', 'danger')
+
+        return redirect(url_for('cart'))
+
     
 
 
