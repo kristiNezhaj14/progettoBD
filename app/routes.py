@@ -166,7 +166,8 @@ def init_routes(app):
     @app.route('/product/<int:product_id>')
     def product_detail(product_id):
         product = Product.query.get_or_404(product_id)
-        return render_template('product.html', product=product)
+        average_rating = product.average_rating  #
+        return render_template('product.html', product=product,average_rating=average_rating)
     
     @app.route('/contacts')
     def contacts():
@@ -207,9 +208,6 @@ def init_routes(app):
     def offers():
         return render_template('offers.html')
     
-    @app.route('/product')
-    def product():
-        return render_template('product.html')
     
     @app.route('/terms')
     def terms():

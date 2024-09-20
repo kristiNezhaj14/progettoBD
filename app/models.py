@@ -59,6 +59,15 @@ class Product(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     image_url = db.Column(db.String(256), nullable=True)
     cart_items = db.relationship('CartItem', backref='product_ref', cascade="all, delete-orphan")
+    reviews = db.relationship('Review', backref='product', lazy=True)
+
+    @property
+    def average_rating(self):
+        if self.reviews and len(self.reviews) > 0:
+            total_rating = sum(review.rating for review in self.reviews)
+            return round(total_rating / len(self.reviews), 1)  # Media arrotondata a una cifra decimale
+        return 0 
+
 
 class Cart(db.Model):
     id = db.Column(db.Integer, primary_key=True)
