@@ -5,17 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ product.name }} - TradeTrove</title>
     <style>
-        /* CSS di base per layout */
+        /* Layout base e stili */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
+            background-color: #f4f4f9;
         }
 
         header {
             background-color: rgba(107, 103, 246);
             color: white;
-            padding: 10px 0;
+            padding: 15px 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -23,37 +24,36 @@
         }
 
         header img {
-            height: 80px;
+            height: 60px;
             width: auto;
-            background-color: white;
         }
 
         nav a {
             color: white;
-            margin: 15px 15px;
+            margin: 0 15px;
             text-decoration: none;
+            font-size: 1.1em;
         }
 
         .product {
             display: flex;
             flex-direction: row;
-            border: 1px solid #ddd;
+            background-color: white;
             padding: 20px;
-            margin: 20px;
+            margin: 40px auto;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-height: 1000px;
-            overflow-y: auto;
-            justify-content: center;
+            width: 80%;
+            max-width: 1000px;
         }
 
         .product img {
-            width: 50%;
+            width: 40%;
             height: auto;
             margin-right: 20px;
             border-radius: 10px;
             object-fit: cover;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
         .product .product-details {
@@ -66,11 +66,18 @@
         .product h2 {
             font-size: 2em;
             margin-bottom: 10px;
+            color: #333;
         }
 
         .product p {
             margin-bottom: 10px;
-            font-size: 1em;
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        .product h3 {
+            font-size: 1.5em;
+            color: #333;
         }
 
         .product button {
@@ -82,6 +89,7 @@
             cursor: pointer;
             font-size: 1em;
             margin-top: 20px;
+            transition: background-color 0.3s ease;
         }
 
         .product button:hover {
@@ -91,12 +99,66 @@
         .stars {
             display: inline-flex;
             color: #FFD700;
+            font-size: 1.5em;
+            margin: 10px 0;
+        }
+
+        .rating-section {
+            margin-top: 30px;
+        }
+
+        .rating-section label {
+            font-size: 1.2em;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .rating-section input[type="radio"] {
+            display: none;
+        }
+
+        .rating-section label:before {
+            content: '★';
+            font-size: 2em;
+            padding: 0 5px;
+            color: #ddd;
+            cursor: pointer;
+        }
+
+        .rating-section input[type="radio"]:checked ~ label:before,
+        .rating-section label:hover,
+        .rating-section label:hover ~ label {
+            color: #FFD700;
+        }
+
+        .rating-section textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-top: 10px;
+        }
+
+        .rating-section button {
+            margin-top: 10px;
         }
 
         footer {
             background-color: rgba(107, 103, 246);
             color: white;
             padding: 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -142,6 +204,26 @@
         <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="POST">
             <button type="submit">Aggiungi al Carrello</button>
         </form>
+
+        <!-- Sezione di valutazione prodotto -->
+        <div class="rating-section">
+            {% if user_review %}
+                <p>Hai già valutato questo prodotto: <strong>{{ user_review.rating }} su 5</strong></p>
+                <p>Il tuo commento: {{ user_review.comment }}</p>
+            {% else %}
+                <form action="{{ url_for('product_detail', product_id=product.id) }}" method="POST">
+                    <label>Valuta il prodotto:</label>
+                    <div class="stars">
+                        {% for i in range(1, 6) %}
+                            <input type="radio" id="star{{ i }}" name="rating" value="{{ i }}">
+                            <label for="star{{ i }}">&#9733;</label>
+                        {% endfor %}
+                    </div>
+                    <textarea name="comment" rows="3" placeholder="Scrivi il tuo commento"></textarea>
+                    <button type="submit">Valuta</button>
+                </form>
+            {% endif %}
+        </div>
     </div>
 </section>
 

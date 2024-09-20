@@ -163,11 +163,42 @@ def init_routes(app):
         # Passa i dati del carrello al template
         return render_template('cart.html', cart_items=cart_items,total_price=total_price)
 
-    @app.route('/product/<int:product_id>')
+    @app.route('/product/<int:product_id>', methods=['GET', 'POST'])
+    @login_required
     def product_detail(product_id):
         product = Product.query.get_or_404(product_id)
-        average_rating = product.average_rating  #
-        return render_template('product.html', product=product,average_rating=average_rating)
+        reviews = Review.query.filter_by(product_id=product.id).all()
+        
+        # Calcolo della media delle valutazioni
+        average_rating = 0
+        if reviews:
+            average_rating = sum([r.rating for r in reviews]) / len(reviews)
+        
+        # Controlla se l'utente ha già lasciato una recensione
+        user_review = Review.query.filter_by(product_id=product_id, user_id=current_user.id).first()
+        
+        if request.method == 'POST':
+            if not user_review:  # Se non ha ancora valutato
+                rating = int(request.form.get('rating'))
+                comment = request.form.get('comment')
+                new_review = Review(
+                    user_id=current_user.id,
+                    product_id=product_id,
+                    rating=rating,
+                    comment=comment
+                )
+                db.session.add(new_review)
+                db.session.commit()
+                flash('Hai valutato il prodotto con successo!', 'success')
+                return redirect(url_for('product_detail', product_id=product_id))
+            else:
+                flash('Hai già valutato questo prodotto.', 'danger')
+
+        return render_template('product.html', product=product, average_rating=average_rating, user_review=user_review)
+
+
+        
+
     
     @app.route('/contacts')
     def contacts():
@@ -208,6 +239,9 @@ def init_routes(app):
     def offers():
         return render_template('offers.html')
     
+    @app.route('/product')
+    def product():
+        return render_template('product.html')
     
     @app.route('/terms')
     def terms():
