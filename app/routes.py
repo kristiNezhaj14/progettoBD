@@ -2,10 +2,19 @@ from flask import render_template, redirect, url_for, request, flash
 from flask_login import login_user, logout_user, current_user, login_required
 from app import db, login_manager
 from datetime import datetime
+import os
 
+
+from werkzeug.utils import secure_filename
 
 from app.models import User, Vendor,Product,CartItem, Cart, Category, Order, OrderItem,Review
 from app.forms import RegistrationForm, LoginForm, VendorRegistrationForm
+
+# Estensioni permesse per le immagini
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -247,7 +256,8 @@ def init_routes(app):
 
     @app.route('/insert')
     def insert():
-        return render_template('insertProduct.html')
+        categorie = Category.query.all()
+        return render_template('insertProduct.html', categorie=categorie)
 
 
     @app.route('/update_shipping', methods=['POST'])
@@ -427,6 +437,44 @@ def init_routes(app):
             flash(f'L\'ordine #{order.id} non può essere aggiornato perché non è in elaborazione.', 'danger')
         
         return redirect(url_for('vendorprofile'))
+
+
+
+    @app.route('/carica_prodotto', methods=['POST'])
+    @login_required
+    def carica_prodotto():
+        nome = request.form['nome']
+        categoria_id = request.form['categoria']  # Prendi l'ID della categoria dal form
+        prezzo = request.form['prezzo']
+        quantity = request.form['quantity']
+        description = request.form['description']
+        immagine_file = request.files['immagine']
+        
+        if immagine_file and allowed_file(immagine_file.filename):
+            image_filename = secure_filename(immagine_file.filename)
+            image_path = os.path.join(app.config['UPLOAD_FOLDER'], image_filename)
+            immagine_file.save(image_path)
+            
+            # Inserisci il nuovo prodotto nel database
+            nuovo_prodotto = Product(
+                name=nome, 
+                description=description,  
+                category_id=int(categoria_id),  # Assicurati che sia un intero
+                price=float(prezzo), 
+                quantity=int(quantity),
+                seller_id=current_user.id,
+                image_url=image_filename
+            )
+            
+            db.session.add(nuovo_prodotto)
+            db.session.commit()
+
+            flash('Prodotto caricato con successo!', 'success')
+            return redirect(url_for('vendorprofile'))
+        else:
+            flash('Errore durante il caricamento dell\'immagine', 'danger')
+            return redirect(url_for('vendorprofile'))
+    
 
 
 

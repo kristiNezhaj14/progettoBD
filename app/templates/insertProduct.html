@@ -36,11 +36,11 @@
             text-align: center;
         }
         .container input[type="text"],
-        .container input[type="email"],
-        .container input[type="password"] {
+        .container input[type="number"],
+        .container input[type="file"] {
             width: 100%;
             padding: 10px;
-            margin: 10px -10px;
+            margin: 10px 0;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
@@ -61,86 +61,63 @@
         }
         .container a {
             color: purple;
-            font-style: bold;
+            font-weight: bold;
         }
         .container a:hover {
             color : pink;
             text-decoration : none;
         }
         #upload-image {
-    margin-top: 20px;
-}
+            margin-top: 20px;
+        }
 
-#upload-image img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-    padding: 5px;
-}
+        #upload-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            padding: 5px;
+        }
     </style>
-    <!--
-    <script>
-        document.getElementById('login-button').addEventListener('click', () => {
-            const userName = document.getElementById('username').value;
-            if (userName) {
-                localStorage.setItem('username', userName);
-                window.location.href = 'home.html';
-            }
-        });
-    </script>  -->
 </head>
 <body>
     <div class="container">
         <h1><a href="{{ url_for('home') }}" style="color: rgba(107,103,246); text-decoration: none;">TradeTrove</a></h1>
-        <h2 style="color: rgba(107,103,246); text-decoration: none;">Registration</h2>
-        <form method="POST" action="{{ url_for('register') }}">
-            <section id="upload-image">
-                <form id="image-upload-form">
-                    <div class="form-group">
-                        <label for="profile-image">Seleziona un'immagine:</label>
-                        <input type="file" id="profile-image" name="profile-image" accept="image/*">
-                    </div>
-                    <div class="form-group">
-                        <img id="image-preview" src="#" alt="Anteprima Immagine" style="display: none; max-width: 200px; margin-top: 10px;">
-                    </div>
-                    <div class="form-group">
-                        <button type="submit">Carica Immagine</button>
-                    </div>
-                </form>
-            </section>
+        <h2 style="color: rgba(107,103,246); text-decoration: none;">Product Registration</h2>
+        <form method="POST" action="{{ url_for('carica_prodotto') }}" enctype="multipart/form-data">
             <div class="form-group">
-                <label for="username" style="font-size: 20px; color: whitesmoke;">Nome prodotto</label>
-                <input type="text" id="email" name="email" placeholder="Scrivi il nome del prodotto..." required>
+                <label for="nome">Nome prodotto:</label>
+                <input type="text" id="nome" name="nome" required>
             </div>
             <div class="form-group">
-                <label for="username" style="font-size: 20px; color: whitesmoke;">Categoria</label>
-                <input type="text" id="password" name="password" placeholder="Scrivi la categoria del prodotto..." required>
+                <label for="categoria">Categoria:</label>
+                <select id="categoria" name="categoria" required>
+                    <option value="" disabled selected>Seleziona una categoria</option>
+                    {% for categoria in categorie %}
+                        <option value="{{ categoria.id }}">{{ categoria.name }}</option>
+                    {% endfor %}
+                </select>
             </div>
             <div class="form-group">
-                <label for="username" style="font-size: 20px; color: whitesmoke;">Prezzo</label>
-                <input type="text" id="password" name="password" placeholder="Scrivi il prezzo del prodotto..." required>
+                <label for="prezzo">Prezzo:</label>
+                <input type="number" id="prezzo" name="prezzo" step="0.01" required>
             </div>
             <div class="form-group">
-                <label for="username" style="font-size: 20px; color: whitesmoke;">Prezzo Offerta</label>
-                <input type="text" id="password" name="password" placeholder="Scrivi il prezzo del prodotto scontato..." required>
+                <label for="quantity">Quantità:</label>
+                <input type="number" id="quantity" name="quantity" required>
             </div>
             <div class="form-group">
-                <label for="username" style="font-size: 20px; color: whitesmoke;">Descrizione prodotto</label>
-                <input type="text" id="password2" name="password2" placeholder="Descrivi il tuo prodotto..." required>
+                <label for="description" style="font-size: 20px; color: whitesmoke;">Descrizione prodotto</label>
+                <input type="text" id="description" name="description" placeholder="Descrivi il tuo prodotto..." required>
             </div>
-            <div class="form-container" style="display: flex; gap: 10px;">
-                <div class="form-group">
-                    <form action="/carica-prodotto" method="post">
-                        <button type="submit" class="btn">Carica Prodotto</button>
-                    </form>
-                </div>
-                <div class="form-group">
-                    <form action="/deleteprodotto" method="post">
-                        <button type="submit" class="btn" style="background-color:red; color:white;">Elimina Prodotto</button>
-                    </form>
-                </div>
+            <div class="form-group">
+                <label for="immagine">Immagine prodotto:</label>
+                <input type="file" id="immagine" name="immagine" accept="image/*" required>
             </div>
+            <button type="submit">Carica Prodotto</button>
+        </form>
+        
+        
     </div>
 </body>
 </html>
