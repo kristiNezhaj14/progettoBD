@@ -78,7 +78,14 @@
         {% else %}
         <a href="{{ url_for('login') }}">Login</a>
         {% endif %}
+
     </nav>
+    <div class="search-bar">
+        <form action="{{ url_for('search_products') }}" method="GET">
+            <input type="text" name="keyword" placeholder="Cerca prodotti...">
+            <button type="submit">Cerca</button>
+        </form>
+    </div>
 </header>
 <br><br>
 

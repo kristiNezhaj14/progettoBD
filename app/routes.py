@@ -545,6 +545,19 @@ def init_routes(app):
 
         return redirect(url_for('cart'))
 
+
+    @app.route('/search', methods=['GET'])
+    def search_products():
+        keyword = request.args.get('keyword', '')
+
+        # Cerca nei prodotti per nome, descrizione e nome della categoria
+        results = Product.query.join(Category).filter(
+            (Product.name.ilike(f'%{keyword}%')) |
+            (Product.description.ilike(f'%{keyword}%')) |
+            (Category.name.ilike(f'%{keyword}%'))
+        ).all()
+
+        return render_template('found.html', products=results, keyword=keyword)
     
 
 

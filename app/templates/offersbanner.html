@@ -105,10 +105,10 @@
     {% endif %}
     </nav>
     <div class="search-bar">
-        <input type="text" placeholder="Cerca prodotti...">
-        <a href="{{ url_for('found') }}">
-            <button>Cerca</button>
-        </a>
+        <form action="{{ url_for('search_products') }}" method="GET">
+            <input type="text" name="keyword" placeholder="Cerca prodotti...">
+            <button type="submit">Cerca</button>
+        </form>
     </div>
 </header>
 

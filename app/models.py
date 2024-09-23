@@ -46,6 +46,7 @@ class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), unique=True, nullable=False)
     image_url = db.Column(db.String(256), nullable=True)
+    
 
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -60,6 +61,7 @@ class Product(db.Model):
     image_url = db.Column(db.String(256), nullable=True)
     cart_items = db.relationship('CartItem', backref='product_ref', cascade="all, delete-orphan")
     reviews = db.relationship('Review', backref='product', lazy=True)
+    category = db.relationship('Category', backref='products')
 
     @property
     def average_rating(self):
