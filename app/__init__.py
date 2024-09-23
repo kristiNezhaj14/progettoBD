@@ -16,7 +16,7 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://myuser:kristi@localhost/ecommerce_db'
     app.config['SECRET_KEY'] = 'your_secret_key'
     app.config['LOGIN_VIEW'] = 'login'  # Route da cui reindirizzare gli utenti non autenticati
-    app.config['UPLOAD_FOLDER'] = 'static'
+    app.config['UPLOAD_FOLDER'] = 'app/static'
     db.init_app(app)
     migrate.init_app(app, db)
     login_manager.init_app(app)
