@@ -6,67 +6,104 @@
     <title>Product Registration - TradeTrove</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
             background-image: url('cart-purple.png');
-            background-size: auto;
-            background-position: left;
-            background-repeat: repeat;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
-        }
-        .container {
-            background-color: rgba(166,163,241, 0.75);
             padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
-            text-align: center;
         }
+
+        .container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .container:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
         .container h1 {
             color: rgb(61, 21, 170);
-            font-size: 30px;
+            font-size: 36px;
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        .container h2 {
+            color: rgba(107, 103, 246);
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+
+        .container p {
+            font-size: 16px;
+            color: #333;
             margin-bottom: 20px;
         }
-        .container p {
-            font-size: 20px;
-            color: white;
-            text-align: center;
-        }
+
         .container input[type="text"],
         .container input[type="number"],
-        .container input[type="file"] {
+        .container input[type="file"],
+        .container select {
             width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+            padding: 12px;
+            margin: 15px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: #f9f9f9;
+            transition: border 0.3s ease-in-out;
         }
+
+        .container input:focus,
+        .container select:focus {
+            border-color: rgba(107, 103, 246);
+            outline: none;
+        }
+
         .container button {
-            background-color: rgba(166,163,241);
+            background-color: rgba(107, 103, 246);
             color: white;
-            padding: 10px 20px;
+            padding: 12px 30px;
             border: none;
-            border-radius: 4px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 20px;
+            font-size: 18px;
+            margin-top: 20px;
+            transition: background-color 0.3s ease-in-out;
         }
+
         .container button:hover {
-            background-color: rgba(107,103,246);
+            background-color: rgba(87, 83, 246);
         }
-        .container .form-group {
-            margin-bottom: 15px;
-        }
+
         .container a {
-            color: purple;
+            color: rgba(107, 103, 246);
             font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
         }
+
         .container a:hover {
-            color : pink;
-            text-decoration : none;
+            color: #333;
+            text-decoration: underline;
         }
+
         #upload-image {
             margin-top: 20px;
         }
@@ -74,16 +111,25 @@
         #upload-image img {
             max-width: 100%;
             height: auto;
-            border-radius: 4px;
+            border-radius: 8px;
             border: 1px solid #ddd;
             padding: 5px;
+        }
+
+        label {
+            color: #555;
+            font-size: 14px;
+            font-weight: bold;
+            text-align: left;
+            display: block;
+            margin-bottom: 5px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1><a href="{{ url_for('home') }}" style="color: rgba(107,103,246); text-decoration: none;">TradeTrove</a></h1>
-        <h2 style="color: rgba(107,103,246); text-decoration: none;">Product Registration</h2>
+        <h1><a href="{{ url_for('home') }}" style="color: rgba(107, 103, 246); text-decoration: none;">TradeTrove</a></h1>
+        <h2>Product Registration</h2>
         <form method="POST" action="{{ url_for('carica_prodotto') }}" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="nome">Nome prodotto:</label>
@@ -107,7 +153,7 @@
                 <input type="number" id="quantity" name="quantity" required>
             </div>
             <div class="form-group">
-                <label for="description" style="font-size: 20px; color: whitesmoke;">Descrizione prodotto</label>
+                <label for="description">Descrizione prodotto:</label>
                 <input type="text" id="description" name="description" placeholder="Descrivi il tuo prodotto..." required>
             </div>
             <div class="form-group">
@@ -116,8 +162,6 @@
             </div>
             <button type="submit">Carica Prodotto</button>
         </form>
-        
-        
     </div>
 </body>
 </html>

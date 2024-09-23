@@ -261,11 +261,24 @@
                         <td>{{ product.name }}</td>
                         <td>{{ product.quantity }}</td>
                         <td>€{{ product.price }}</td>
-                        <td><a href="{{ url_for('product', product_id=product.id) }}">Visualizza</a></td>
+                        <td><a href="javascript:void(0);" onclick="showProductDetails({{ product.id }})">Visualizza</a></td>
                         <td>
                             <form action="{{ url_for('delete_product', product_id=product.id) }}" method="POST">
                                 <button type="submit">Elimina</button>
                             </form>
+                        </td>
+                    </tr>
+
+                    <!-- Div nascosto che si apre con i dettagli del prodotto -->
+                    <tr id="product-details-{{ product.id }}" style="display: none;">
+                        <td colspan="6">
+                            <div class="product-details-container" style="padding: 20px; border: 1px solid #ddd; border-radius: 5px; background-color: #f9f9f9;">
+                                <img src="{{ url_for('static', filename=product.image_url) }}" alt="{{ product.name }}" style="width: 150px;">
+                                <p><strong>Nome:</strong> {{ product.name }}</p>
+                                <p><strong>Descrizione:</strong> {{ product.description }}</p>
+                                <p><strong>Prezzo:</strong> €{{ product.price }}</p>
+                                <button onclick="hideProductDetails({{ product.id }})">Chiudi</button>
+                            </div>
                         </td>
                     </tr>
                     {% endfor %}
@@ -345,6 +358,18 @@
         <img src="/static/github.png" alt="GitHub Logo">
     </a>
 </footer>
+
+<script>
+    function showProductDetails(productId) {
+        var detailsDiv = document.getElementById('product-details-' + productId);
+        detailsDiv.style.display = 'table-row';
+    }
+
+    function hideProductDetails(productId) {
+        var detailsDiv = document.getElementById('product-details-' + productId);
+        detailsDiv.style.display = 'none';
+    }
+</script>
 
 </body>
 </html>
