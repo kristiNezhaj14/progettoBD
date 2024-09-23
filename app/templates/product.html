@@ -109,26 +109,34 @@
 
         .rating-section label {
             font-size: 1.2em;
-            display: block;
-            margin-bottom: 10px;
+            cursor: pointer;
+            color: #ddd;
         }
 
         .rating-section input[type="radio"] {
             display: none;
         }
 
-        .rating-section label:before {
-            content: '★';
+        .rating-section label {
+            color: #ddd;
             font-size: 2em;
             padding: 0 5px;
-            color: #ddd;
             cursor: pointer;
         }
 
-        .rating-section input[type="radio"]:checked ~ label:before,
         .rating-section label:hover,
         .rating-section label:hover ~ label {
-            color: #FFD700;
+            color: #FFD700; /* Illuminazione al passaggio del mouse */
+        }
+
+        .rating-section input[type="radio"]:checked ~ label,
+        .rating-section input[type="radio"]:checked ~ label ~ label {
+            color: #ddd;
+        }
+
+        .rating-section input[type="radio"]:checked + label,
+        .rating-section input[type="radio"]:checked + label ~ label {
+            color: #FFD700; /* Illuminazione quando selezionato */
         }
 
         .rating-section textarea {
@@ -213,10 +221,10 @@
             {% else %}
                 <form action="{{ url_for('product_detail', product_id=product.id) }}" method="POST">
                     <label>Valuta il prodotto:</label>
-                    <div class="stars">
+                    <div class="stars" id="rating-stars">
                         {% for i in range(1, 6) %}
                             <input type="radio" id="star{{ i }}" name="rating" value="{{ i }}">
-                            <label for="star{{ i }}">&#9733;</label>
+                            <label for="star{{ i }}" data-value="{{ i }}">&#9733;</label>
                         {% endfor %}
                     </div>
                     <textarea name="comment" rows="3" placeholder="Scrivi il tuo commento"></textarea>
@@ -232,6 +240,39 @@
     <p>&copy; 2024 TradeTrove. Tutti i diritti riservati.</p>
     <p><a href="{{ url_for('terms') }}">Termini e Condizioni</a> | <a href="{{ url_for('faq') }}">FAQ</a> | <a href="{{ url_for('contacts') }}">Contatti</a></p>
 </footer>
+
+<script>
+    // Illumina le stelle da sinistra a destra
+    const stars = document.querySelectorAll('#rating-stars label');
+    stars.forEach(star => {
+        star.addEventListener('mouseover', function() {
+            const ratingValue = this.getAttribute('data-value');
+            stars.forEach(s => {
+                s.style.color = s.getAttribute('data-value') <= ratingValue ? '#FFD700' : '#ddd';
+            });
+        });
+
+        star.addEventListener('click', function() {
+            const ratingValue = this.getAttribute('data-value');
+            document.querySelector(`#star${ratingValue}`).checked = true;
+        });
+
+        // Rimuovi l'effetto al passaggio del mouse e ripristina lo stato precedente
+        star.addEventListener('mouseout', function() {
+            const checkedStar = document.querySelector('#rating-stars input:checked');
+            if (checkedStar) {
+                const checkedValue = checkedStar.value;
+                stars.forEach(s => {
+                    s.style.color = s.getAttribute('data-value') <= checkedValue ? '#FFD700' : '#ddd';
+                });
+            } else {
+                stars.forEach(s => {
+                    s.style.color = '#ddd';
+                });
+            }
+        });
+    });
+</script>
 
 </body>
 </html>
