@@ -6,65 +6,107 @@
     <title>Categories - TradeTrove</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
+            background-color: #f4f4f9;
         }
 
         header {
-            background-color: rgba(107, 103, 246);
+            background-color: #6b67f6;
             color: white;
-            padding: 10px 0;
+            padding: 15px 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 20px;
+            padding: 0 40px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         header img {
-            height: 80px;
+            height: 60px;
             width: auto;
-            background-color: white;
         }
 
         nav a {
             color: white;
-            margin: 15px 15px;
+            margin: 0 20px;
             text-decoration: none;
-            align-items: center;
+            font-weight: bold;
+            font-size: 1.1em;
         }
 
+        .search-bar input {
+            padding: 10px;
+            width: 300px;
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-bar button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            background-color: #4b48df;
+            color: white;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        /* Grid container per le categorie */
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(4, 1fr); 
-            gap: 10px;
-            padding: 10px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 40px auto;
         }
 
         .grid-item {
             background-color: #fff;
-            border: 1px solid #ccc;
-            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .grid-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
 
         .grid-item img {
             max-width: 100%;
             height: auto;
-            display: block;
-            margin: 0 auto;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .grid-item .info {
+            font-size: 1.2em;
+            color: #333;
+            font-weight: bold;
         }
 
         footer {
-            background-color: rgba(107, 103, 246);
+            background-color: #6b67f6;
             color: white;
+            text-align: center;
             padding: 20px;
+            margin-top: 40px;
+        }
+
+        footer p {
+            margin: 0;
         }
     </style>
 </head>
 <body>
+
+<!-- Header della pagina -->
 <header>
     <a href="{{ url_for('home') }}">
         <img src="/static/tradetrove.jpg" alt="Logo">
@@ -78,7 +120,6 @@
         {% else %}
         <a href="{{ url_for('login') }}">Login</a>
         {% endif %}
-
     </nav>
     <div class="search-bar">
         <form action="{{ url_for('search_products') }}" method="GET">
@@ -87,20 +128,21 @@
         </form>
     </div>
 </header>
-<br><br>
 
+<!-- Messaggio di benvenuto -->
 <section>
     <div id="welcome-message" class="welcome-message">
-        <h1 style="text-align: center;">Scegli tra le seguenti categorie</h1>
+        <h1 style="text-align: center; color: #333; margin: 40px 0;">Scegli tra le seguenti categorie</h1>
     </div>    
 </section>
+
+<!-- Sezione delle categorie -->
 <section>
     <div class="grid-container">
         <!-- Ciclo per mostrare le categorie dinamicamente -->
         {% for category in categories %}
         <div class="grid-item">
             <a href="{{ url_for('found', category_id=category.id) }}">
-                <!-- Usa l'immagine dal campo image_url, se non disponibile usa una immagine di default -->
                 <img src="{{ url_for('static', filename=category.image_url) if category.image_url else '/static/category_default.jpg' }}" alt="{{ category.name }}">
                 <div class="info">
                     <span>{{ category.name }}</span>
@@ -111,6 +153,7 @@
     </div>
 </section>
 
+<!-- Footer della pagina -->
 <footer>
     <p>&copy; 2024 TradeTrove. Tutti i diritti riservati.</p>
 </footer>

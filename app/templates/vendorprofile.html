@@ -5,169 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestione Profilo - TradeTrove</title>
     <style>
-        /* Stili di base */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
+            background-color: #f4f4f9;
         }
 
-        /* Stili dell'header */
         header {
-            background-color: rgba(107, 103, 246);
+            background-color: #6b67f6;
             color: white;
-            padding: 10px 0;
+            padding: 15px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         header img {
-            height: 80px;
+            height: 60px;
             width: auto;
-            background-color: white;
         }
 
         nav a {
             color: white;
-            margin: 15px 15px;
+            margin: 0 20px;
             text-decoration: none;
-            align-items: center;
-            margin: 35px 35px;
-            width: 1200px;
+            font-weight: bold;
+            font-size: 1.1em;
         }
 
-        .search-bar input {
-            padding: 5px;
-            width: 300px;
-        }
-
-        /* Stili della banner */
-        .banner {
-            background-image: url('/static/cart-purple.png');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            text-align: center;
-            padding: 100px 20px;
-        }
-
-        .banner h1 {
-            font-size: 3em;
-        }
-
-        /* Stili delle sezioni */
-        .categories, .featured-products, .promotions, .testimonials, .newsletter, footer {
-            padding: 20px;
-            text-align: center;
-        }
-
-        .categories img, .featured-products img {
-            width: 50%; /* Dimezza la larghezza delle immagini */
-            height: auto;
-        }
-
-        .cta {
-            background-color: rgba(166, 163, 241, 0.75);
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 10px;
-        }
-
-        /* Stili del footer */
-        footer {
-            background-color: rgba(107, 103, 246);
-            color: white;
-            padding: 20px;
-        }
-
-        /* Stili dei pulsanti */
-        .container button {
-            background-color: rgba(166, 163, 241);
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .container button:hover {
-            background-color: rgba(107, 103, 246);
-        }
-
-        .container .form-group {
-            margin-bottom: 15px;
-        }
-
-        .container a {
-            color: purple;
-            font-style: bold;
-        }
-
-        .container a:hover {
-            color: pink;
-            text-decoration: underline;
-        }
-
-        /* Stili del carosello */
-        .carousel {
-            position: relative;
-            width: 80%;
+        .container {
+            display: flex;
             max-width: 1200px;
-            overflow: hidden;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            align-items: center;
-            margin: 0 auto;
-            margin-bottom: 20px;
         }
 
-        .carousel-inner {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-
-        .carousel-item {
-            min-width: 100%;
-        }
-
-        .carousel-item img {
-            width: 50%; /* Dimezza la larghezza delle immagini */
-            display: block;
-            margin: 0 auto; /* Centra le immagini */
-        }
-
-        .prev, .next {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            z-index: 1;
-        }
-
-        .prev {
-            left: 10px;
-        }
-
-        .next {
-            right: 10px;
-        }
-
-        /* Stili della sidebar */
         .sidebar {
-            float: left;
             width: 25%;
-            padding: 20px;
             border-right: 1px solid #ddd;
+            padding-right: 20px;
         }
 
         .sidebar ul {
@@ -176,7 +57,7 @@
         }
 
         .sidebar ul li {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
         .sidebar ul li a {
@@ -186,156 +67,150 @@
         }
 
         .sidebar ul li a:hover {
-            text-decoration: underline;
+            color: #6b67f6;
         }
 
-        /* Stili del contenuto principale */
+        .sidebar form button {
+            width: 100%;
+            padding: 10px;
+            background-color: #6b67f6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
         .main-content {
-            float: left;
-            width: 70%;
-            padding: 20px;
+            width: 75%;
+            padding-left: 20px;
         }
 
         .main-content h2 {
             margin-top: 0;
+            color: #333;
+            border-bottom: 2px solid #6b67f6;
+            padding-bottom: 10px;
         }
 
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .form-group label {
             display: block;
             font-weight: bold;
             margin-bottom: 5px;
+            color: #333;
         }
 
-        .form-group input, .form-group select {
+        .form-group input {
             width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-            border-radius: 4px;
+            padding: 10px;
+            border-radius: 5px;
             border: 1px solid #ddd;
+            font-size: 1em;
         }
 
         .form-group button {
-            background-color: rgba(107, 103, 246);
+            background-color: #6b67f6;
             color: white;
             padding: 10px 20px;
             border: none;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
-            font-size: 16px;
         }
 
         .form-group button:hover {
-            background-color: rgba(166, 163, 241);
+            background-color: #4b48df;
         }
 
-        /* Pulizia del float */
-        .clearfix::after {
-            content: "";
-            display: table;
-            clear: both;
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
         }
-        /* Stili della tabella degli ordini */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-}
 
-table thead {
-    background-color: rgba(107, 103, 246);
-    color: white;
-}
+        table thead {
+            background-color: #6b67f6;
+            color: white;
+        }
 
-table th, table td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
+        table th, table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
 
-table th {
-    font-weight: bold;
-}
+        table th {
+            font-weight: bold;
+        }
 
-table tr:hover {
-    background-color: #f1f1f1;
-}
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
 
-table a {
-    color: rgba(107, 103, 246);
-    text-decoration: none;
-}
+        footer {
+            background-color: #6b67f6;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
 
-table a:hover {
-    text-decoration: underline;
-}
+        footer a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+        }
 
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        footer img {
+            width: 35px;
+            height: 35px;
+            margin-top: 10px;
+        }
     </style>
- <script>
-    function isAuthenticated() {
-        // Logica di controllo autenticazione
-        return true; // Simulazione utente autenticato
-    }
-    
-    window.onload = function() {
-        var accountLink = document.getElementById("account-link");
-    
-        if (isAuthenticated()) {
-            accountLink.href = "/profile";
-            accountLink.textContent = "Gestisci Profilo";
-        }
-        else {
-            accountLink.href = "/login";
-            accountLink.textContent = "Accedi";
-        }
-    };
-    </script>
+</head>
+<body>
 
-<!-- Header della pagina -->
 <header>
     <a href="{{ url_for('vendorprofile') }}">
         <img src="/static/tradetrove.jpg" alt="Logo">
     </a>
     <nav>
         {% if current_user.is_authenticated %}
-    {% else %}
-        <a href="{{ url_for('login') }}">Login</a>
-    {% endif %}
+            <a href="{{ url_for('profile') }}">Gestisci Profilo</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">Login</a>
+        {% endif %}
     </nav>
-    </div>
 </header>
 
-<!-- Header della pagina -->
-    <h1 style=" text-align: center;">Gestione Profilo</h1>
+<h1 style="text-align: center; margin-top: 20px;">Gestione Profilo</h1>
 
-
-<!-- Container principale -->
-<div class="container clearfix">
-
+<div class="container">
     <!-- Sidebar con menu di navigazione -->
     <div class="sidebar">
-        <form action="{{ url_for('logout') }}" method="POST" style="display:inline;">
-            <button type="submit" class="logout-btn">Logout</button>
+        <form action="{{ url_for('logout') }}" method="POST">
+            <button type="submit">Logout</button>
         </form>
         <ul>
             <li><a href="#account-details">Dettagli Account</a></li>
             <li><a href="#order-history">Cronologia Ordini</a></li>
             <li><a href="#change-password">Cambia Password</a></li>
-            <li><a href="#vending">Prodotti in vendita</a></li>
+            <li><a href="#vending">Prodotti in Vendita</a></li>
         </ul>
     </div>
 
-
     <!-- Contenuto principale -->
     <div class="main-content">
-        
 
         <!-- Dettagli Account -->
         <section id="account-details">
-            <h2>Modifica info</h2>
+            <h2>Modifica Info</h2>
             <form>
                 <div class="form-group">
                     <label for="first-name">Nome</label>
@@ -355,16 +230,14 @@ table a:hover {
             </form>
         </section>
 
+        <!-- Prodotti in Vendita -->
         <section id="vending">
-            <h2>Prodotti in vendita</h2>
-            <section>
-                <div class="form-group" style="align-items: end;">
-                    <a href="{{ url_for('insert') }}">
-                        <button type="button">Aggiungi prodotto</button>
-                    </a>
-                </div>
-            </section>
-        
+            <h2>Prodotti in Vendita</h2>
+            <div class="form-group">
+                <a href="{{ url_for('insert') }}">
+                    <button type="button">Aggiungi Prodotto</button>
+                </a>
+            </div>
             {% if products %}
             <table>
                 <thead>
@@ -390,7 +263,7 @@ table a:hover {
                         <td>€{{ product.price }}</td>
                         <td><a href="{{ url_for('product', product_id=product.id) }}">Visualizza</a></td>
                         <td>
-                            <form action="{{ url_for('delete_product', product_id=product.id) }}" method="POST" style="display:inline;">
+                            <form action="{{ url_for('delete_product', product_id=product.id) }}" method="POST">
                                 <button type="submit">Elimina</button>
                             </form>
                         </td>
@@ -402,8 +275,6 @@ table a:hover {
                 <p>Non ci sono prodotti in vendita.</p>
             {% endif %}
         </section>
-        
-        <br><br><br>
 
         <!-- Cronologia Ordini -->
         <section id="order-history">
@@ -438,8 +309,6 @@ table a:hover {
                 </tbody>
             </table>
         </section>
-        <br><br><br>
-        
 
         <!-- Cambia Password -->
         <section id="change-password">
@@ -465,13 +334,17 @@ table a:hover {
     </div>
 </div>
 
-<!-- Footer della pagina -->
 <footer>
     <p>&copy; 2024 TradeTrove. Tutti i diritti riservati.</p>
-    <p><a href="{{ url_for('terms') }}">Termini e Condizioni</a>  | <a href="{{ url_for('faq') }}">FAQ</a> | <a href="{{ url_for('contacts') }}">Contatti</a></p>
+    <p>
+        <a href="{{ url_for('terms') }}">Termini e Condizioni</a> |
+        <a href="{{ url_for('faq') }}">FAQ</a> |
+        <a href="{{ url_for('contacts') }}">Contatti</a>
+    </p>
     <a href="https://github.com/kristiNezhaj14/progettoBD">
-        <img style="width:35px; height:35px" src="/static/github.png" alt="Logo">
+        <img src="/static/github.png" alt="GitHub Logo">
     </a>
 </footer>
+
 </body>
 </html>

@@ -7,167 +7,71 @@
     <style>
         /* Stili di base */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f9f9f9;
             margin: 0;
             padding: 0;
         }
 
         /* Stili dell'header */
         header {
-            background-color: rgba(107, 103, 246);
+            background-color: #6b67f6;
             color: white;
-            padding: 10px 0;
+            padding: 15px 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 20px;
+            padding: 0 40px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         header img {
-            height: 80px;
+            height: 60px;
             width: auto;
-            background-color: white;
         }
 
         nav a {
             color: white;
-            margin: 15px 15px;
+            margin: 0 20px;
             text-decoration: none;
-            align-items: center;
-            margin: 35px 35px;
-            width: 1200px;
+            font-weight: bold;
+            font-size: 1.1em;
         }
 
         .search-bar input {
-            padding: 5px;
+            padding: 10px;
             width: 300px;
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        /* Stili della banner */
-        .banner {
-            background-image: url('/static/cart-purple.png');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            text-align: center;
-            padding: 100px 20px;
-        }
-
-        .banner h1 {
-            font-size: 3em;
-        }
-
-        /* Stili delle sezioni */
-        .categories, .featured-products, .promotions, .testimonials, .newsletter, footer {
-            padding: 20px;
-            text-align: center;
-        }
-
-        .categories img, .featured-products img {
-            width: 50%; /* Dimezza la larghezza delle immagini */
-            height: auto;
-        }
-
-        .cta {
-            background-color: rgba(166, 163, 241, 0.75);
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            display: inline-block;
-            margin-top: 10px;
-        }
-
-        /* Stili del footer */
-        footer {
-            background-color: rgba(107, 103, 246);
-            color: white;
-            padding: 20px;
-        }
-
-        /* Stili dei pulsanti */
-        .container button {
-            background-color: rgba(166, 163, 241);
-            color: white;
+        .search-bar button {
             padding: 10px 20px;
             border: none;
-            border-radius: 4px;
+            border-radius: 20px;
+            background-color: #4b48df;
+            color: white;
             cursor: pointer;
-            font-size: 16px;
+            margin-left: 10px;
         }
 
-        .container button:hover {
-            background-color: rgba(107, 103, 246);
-        }
-
-        .container .form-group {
-            margin-bottom: 15px;
-        }
-
-        .container a {
-            color: purple;
-            font-style: bold;
-        }
-
-        .container a:hover {
-            color: pink;
-            text-decoration: underline;
-        }
-
-        /* Stili del carosello */
-        .carousel {
-            position: relative;
-            width: 80%;
+        /* Container generale */
+        .container {
             max-width: 1200px;
-            overflow: hidden;
+            margin: 40px auto;
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background-color: #fff;
+            padding: 20px;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            align-items: center;
-            margin: 0 auto;
-            margin-bottom: 20px;
-        }
-
-        .carousel-inner {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-
-        .carousel-item {
-            min-width: 100%;
-        }
-
-        .carousel-item img {
-            width: 50%; /* Dimezza la larghezza delle immagini */
-            display: block;
-            margin: 0 auto; /* Centra le immagini */
-        }
-
-        .prev, .next {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            z-index: 1;
-        }
-
-        .prev {
-            left: 10px;
-        }
-
-        .next {
-            right: 10px;
-        }
-
-        /* Stili della sidebar */
-        .sidebar {
-            float: left;
             width: 25%;
-            padding: 20px;
-            border-right: 1px solid #ddd;
         }
 
         .sidebar ul {
@@ -176,102 +80,116 @@
         }
 
         .sidebar ul li {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
 
         .sidebar ul li a {
-            color: #333;
             text-decoration: none;
             font-weight: bold;
+            color: #6b67f6;
         }
 
         .sidebar ul li a:hover {
             text-decoration: underline;
         }
 
-        /* Stili del contenuto principale */
+        .logout-btn {
+            background-color: #ff4d4d;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        /* Contenuto principale */
         .main-content {
-            float: left;
             width: 70%;
+            background-color: white;
             padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .main-content h2 {
-            margin-top: 0;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
+            color: #333;
+            margin-bottom: 20px;
         }
 
         .form-group label {
             display: block;
-            font-weight: bold;
             margin-bottom: 5px;
+            font-weight: bold;
         }
 
         .form-group input, .form-group select {
             width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
             border: 1px solid #ddd;
         }
 
         .form-group button {
-            background-color: rgba(107, 103, 246);
+            background-color: #6b67f6;
             color: white;
-            padding: 10px 20px;
+            padding: 10px;
             border: none;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
-            font-size: 16px;
+            transition: background-color 0.3s ease;
         }
 
         .form-group button:hover {
-            background-color: rgba(166, 163, 241);
+            background-color: #4b48df;
         }
 
-        /* Pulizia del float */
-        .clearfix::after {
-            content: "";
-            display: table;
-            clear: both;
+        /* Stili della tabella */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
         }
-        /* Stili della tabella degli ordini */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 15px;
-}
 
-table thead {
-    background-color: rgba(107, 103, 246);
-    color: white;
-}
+        table thead {
+            background-color: #6b67f6;
+            color: white;
+        }
 
-table th, table td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
+        table th, table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
 
-table th {
-    font-weight: bold;
-}
+        table tr:hover {
+            background-color: #f1f1f1;
+        }
 
-table tr:hover {
-    background-color: #f1f1f1;
-}
+        table img {
+            border-radius: 5px;
+        }
 
-table a {
-    color: rgba(107, 103, 246);
-    text-decoration: none;
-}
+        /* Footer */
+        footer {
+            background-color: #6b67f6;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
 
-table a:hover {
-    text-decoration: underline;
-}
+        footer a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
 
     </style>
 </head>
@@ -288,9 +206,9 @@ table a:hover {
         <a href="{{ url_for('cart') }}">Carrello</a>
         {% if current_user.is_authenticated %}
         <a href="{{ url_for('profile') }}">Gestisci Profilo</a>
-    {% else %}
+        {% else %}
         <a href="{{ url_for('login') }}">Login</a>
-    {% endif %}
+        {% endif %}
     </nav>
     <div class="search-bar">
         <form action="{{ url_for('search_products') }}" method="GET">
@@ -299,17 +217,15 @@ table a:hover {
         </form>
     </div>
 </header>
-</header>
 
-<!-- Header della pagina -->
-    <h1 style=" text-align: center;">Benvenuto {{ current_user.username }} !</h1>
-
+<!-- Benvenuto -->
+<h1 style="text-align: center; margin: 20px 0;">Benvenuto {{ current_user.username }}!</h1>
 
 <!-- Container principale -->
-<div class="container clearfix">
+<div class="container">
     <!-- Sidebar con menu di navigazione -->
     <div class="sidebar">
-        <form action="{{ url_for('logout') }}" method="POST" style="display:inline;">
+        <form action="{{ url_for('logout') }}" method="POST">
             <button type="submit" class="logout-btn">Logout</button>
         </form>
         <ul>
@@ -322,80 +238,71 @@ table a:hover {
 
     <!-- Contenuto principale -->
     <div class="main-content">
-        
+        <section id="shipping-info">
+            <h2>Informazioni di Spedizione</h2>
+            <form method="POST" action="{{ url_for('update_shipping') }}">
+                <div class="form-group">
+                    <label for="address">Indirizzo:</label>
+                    <input type="text" id="address" name="address" placeholder="Inserisci il tuo indirizzo" value="{{ current_user.indirizzo }}">
+                </div>
+                <div class="form-group">
+                    <label for="city">Città:</label>
+                    <input type="text" id="city" name="city" placeholder="Inserisci la tua città" value="{{ current_user.città }}">
+                </div>
+                <div class="form-group">
+                    <label for="zip">CAP:</label>
+                    <input type="text" id="zip" name="zip" placeholder="Inserisci il CAP" value="{{ current_user.cap }}">
+                </div>
+                <div class="form-group">
+                    <label for="nation">Nazione:</label>
+                    <input type="text" id="nation" name="nation" placeholder="Inserisci la nazione" value="{{ current_user.nazione }}">
+                </div>
+                <div class="form-group">
+                    <button type="submit">Aggiorna Indirizzo</button>
+                </div>
+            </form>
+        </section>
 
-<!-- Informazioni di Spedizione -->
-<section id="shipping-info">
-    <h2>Informazioni di Spedizione</h2>
-    <form method="POST" action="{{ url_for('update_shipping') }}">
-        <div class="form-group">
-            <label for="address">Indirizzo: </label>
-            <input type="text" id="address" name="address" placeholder="Inserisci il tuo indirizzo" value="{{ current_user.indirizzo }}">
-        </div>
-        <div class="form-group">
-            <label for="city">Città: </label>
-            <input type="text" id="city" name="city" placeholder="Inserisci la tua città" value="{{ current_user.città }}">
-        </div>
-        <div class="form-group">
-            <label for="zip">CAP: </label>
-            <input type="text" id="zip" name="zip" placeholder="Inserisci il CAP" value="{{ current_user.cap }}">
-        </div>
-        <div class="form-group">
-            <label for="nation">Nazione: </label>
-            <input type="text" id="nation" name="nation" placeholder="Inserisci la nazione" value="{{ current_user.nazione }}">
-        </div>
+        <h2>Cronologia Prodotti Ordinati</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Immagine</th>
+                    <th>Nome Prodotto</th>
+                    <th>Quantità</th>
+                    <th>Prezzo Unitario</th>
+                    <th>Data Ordine</th>
+                    <th>Stato Ordine</th>
+                    <th>Dettagli</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if products %}
+                    {% for item in products %}
+                    <tr>
+                        <td>
+                            <img src="{{ url_for('static', filename=item.product_image) }}" alt="{{ item.product.name }}" style="width:100px;">
+                        </td>
+                        <td>{{ item.product.name }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>€{{ item.unit_price }}</td>
+                        <td>{{ item.order_date.strftime('%d/%m/%Y') }}</td>
+                        <td>{{ item.order_status }}</td>
+                        <td>
+                            <a href="{{ url_for('product_detail', product_id=item.product.id) }}">Visualizza Prodotto</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="7">Non ci sono prodotti ordinati.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
 
-        <div class="form-group">
-            <button type="submit">Aggiorna Indirizzo</button>
-        </div>
-    </form>
-</section>
-
-
-<h2>Cronologia Prodotti Ordinati</h2>
-<table>
-    <thead>
-        <tr>
-            <th>Immagine</th>
-            <th>Nome Prodotto</th>
-            <th>Quantità</th>
-            <th>Prezzo Unitario</th>
-            <th>Data Ordine</th>
-            <th>Stato Ordine</th>
-            <th>Dettagli</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% if products %}
-            {% for item in products %}
-            <tr>
-                <td>
-                    <img src="{{ url_for('static', filename=item.product_image) }}" alt="{{ item.product.name }}" style="width:100px;height:auto;">
-                </td>
-                <td>{{ item.product.name }}</td>
-                <td>{{ item.quantity }}</td>
-                <td>€{{ item.unit_price }}</td>
-                <td>{{ item.order_date.strftime('%d/%m/%Y') }}</td>
-                <td>{{ item.order_status }}</td>
-                <td>
-                    <a href="{{ url_for('product_detail', product_id=item.product.id) }}">Visualizza Prodotto</a>
-                </td>
-            </tr>
-            {% endfor %}
-        {% else %}
-            <tr>
-                <td colspan="7">Non ci sono prodotti ordinati.</td>
-            </tr>
-        {% endif %}
-    </tbody>
-</table>
-
-
-
-        
-        
         <!-- Cambia Password -->
-        <section id="change-password">
+        <section id="change-password" style="margin-top: 30px;">
             <h2>Cambia Password</h2>
             <form method="POST" action="{{ url_for('change_password') }}">
                 <div class="form-group">
@@ -415,17 +322,17 @@ table a:hover {
                 </div>
             </form>
         </section>
-        
     </div>
 </div>
 
 <!-- Footer della pagina -->
 <footer>
     <p>&copy; 2024 TradeTrove. Tutti i diritti riservati.</p>
-    <p><a href="{{ url_for('terms') }}">Termini e Condizioni</a>  | <a href="{{ url_for('faq') }}">FAQ</a> | <a href="{{ url_for('contacts') }}">Contatti</a></p>
+    <p><a href="{{ url_for('terms') }}">Termini e Condizioni</a> | <a href="{{ url_for('faq') }}">FAQ</a> | <a href="{{ url_for('contacts') }}">Contatti</a></p>
     <a href="https://github.com/kristiNezhaj14/progettoBD">
-        <img style="width:35px; height:35px" src="/static/github.png" alt="Logo">
+        <img style="width:35px; height:35px" src="/static/github.png" alt="Logo GitHub">
     </a>
 </footer>
+
 </body>
 </html>

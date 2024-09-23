@@ -6,85 +6,139 @@
     <title>Your Cart - TradeTrove</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
+            background-color: #f4f4f9;
         }
 
         header {
-            background-color: rgba(107, 103, 246);
+            background-color: #6b67f6;
             color: white;
-            padding: 10px 0;
+            padding: 15px 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 20px;
+            padding: 0 40px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         header img {
-            height: 80px;
+            height: 60px;
             width: auto;
         }
 
         nav a {
             color: white;
-            margin: 15px 15px;
+            margin: 0 20px;
             text-decoration: none;
-            align-items: center;
-            margin: 35px 35px;
-            width: 1200px;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .search-bar input {
+            padding: 10px;
+            width: 300px;
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-bar button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            background-color: #4b48df;
+            color: white;
+            cursor: pointer;
+            margin-left: 10px;
         }
 
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            padding: 10px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
             max-width: 1200px;
-            margin: 0 auto;
+            margin: 40px auto;
         }
 
         .grid-item {
             background-color: #fff;
-            border: 1px solid #ccc;
-            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .grid-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
 
         .grid-item img {
             max-width: 100%;
             height: auto;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .info {
+            font-size: 1.2em;
+            color: #333;
+        }
+
+        .info span {
             display: block;
-            margin: 0 auto;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #6b67f6;
         }
 
         footer {
-            background-color: rgba(107, 103, 246);
+            background-color: #6b67f6;
             color: white;
+            text-align: center;
             padding: 20px;
+            margin-top: 40px;
+        }
+
+        footer p {
+            margin: 0;
         }
 
         /* Stile del pulsante 'Vai al checkout' */
         .checkout-button {
-            background-color: rgba(107, 103, 246);
+            background-color: #6b67f6;
             color: white;
-            padding: 10px 20px;
+            padding: 15px 30px;
             border: none;
-            border-radius: 5px;
+            border-radius: 30px;
             cursor: pointer;
             font-size: 18px;
             text-align: center;
             display: block;
-            width: 200px;
-            margin: 30px auto;
+            width: 250px;
+            margin: 40px auto;
+            transition: background-color 0.3s ease;
         }
 
         .checkout-button:hover {
-            background-color: rgba(166, 163, 241);
+            background-color: #4b48df;
+        }
+
+        .total-price {
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+            margin: 30px 0;
         }
     </style>
 </head>
 <body>
+
 <header>
     <a href="{{ url_for('home') }}">
         <img src="/static/tradetrove.jpg" alt="Logo">
@@ -98,7 +152,6 @@
         {% else %}
         <a href="{{ url_for('login') }}">Login</a>
         {% endif %}
-        
     </nav>
     <div class="search-bar">
         <form action="{{ url_for('search_products') }}" method="GET">
@@ -107,8 +160,8 @@
         </form>
     </div>
 </header>
-<br><br>
 
+<!-- Sezione carrello -->
 <section>
     {% if cart_items %}
     <div class="grid-container">
@@ -118,30 +171,36 @@
                 <img src="{{ url_for('static', filename=item.product.image_url) }}" alt="{{ item.product.name }}">
             </a>
             <div class="info">
-                <span style="font-size:larger;color:rgba(107, 103, 246)">€{{ item.product.price }}</span>
+                <span>€{{ item.product.price }}</span>
                 <h3>Quantità: {{ item.quantity }}</h3>
             </div>
         </div>
         {% endfor %}
     </div>
-    <div style="text-align: center; font-size: larger; margin-top: 20px;">
-        <strong>Prezzo totale: €{{ total_price }}</strong>
+
+    <!-- Prezzo totale -->
+    <div class="total-price">
+        Prezzo totale: €{{ total_price }}
     </div>
+
     <!-- Pulsante Vai al checkout -->
     <div>
         <a href="{{ url_for('pagamento') }}">
             <button class="checkout-button">Vai al checkout</button>
         </a>
     </div>
+
     {% else %}
-    <div style="text-align: center; font-size: larger; margin-top: 20px;">
-        <strong>Carrello vuoto</strong>
+    <div style="text-align: center; font-size: larger; margin-top: 50px;">
+        <strong>Il tuo carrello è vuoto</strong>
     </div>
     {% endif %}
 </section>
 
+<!-- Footer -->
 <footer>
     <p>&copy; 2024 TradeTrove. Tutti i diritti riservati.</p>
 </footer>
+
 </body>
 </html>
