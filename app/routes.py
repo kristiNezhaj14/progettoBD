@@ -204,7 +204,7 @@ def init_routes(app):
             else:
                 flash('Hai già valutato questo prodotto.', 'danger')
 
-        return render_template('product.html', product=product, average_rating=average_rating, user_review=user_review)
+        return render_template('product.html', product=product,reviews=reviews, average_rating=average_rating, user_review=user_review)
 
 
         

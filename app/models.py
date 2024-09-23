@@ -60,7 +60,7 @@ class Product(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     image_url = db.Column(db.String(256), nullable=True)
     cart_items = db.relationship('CartItem', backref='product_ref', cascade="all, delete-orphan")
-    reviews = db.relationship('Review', backref='product', lazy=True)
+    reviews = db.relationship('Review', backref='product_ref')
     category = db.relationship('Category', backref='products')
 
     @property
@@ -114,3 +114,6 @@ class Review(db.Model):
     comment = db.Column(db.Text)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    user = db.relationship('User', backref='reviews')
+    # Relazione con Product, usando un nome di backref diverso
+    product = db.relationship('Product', backref='review_list')
