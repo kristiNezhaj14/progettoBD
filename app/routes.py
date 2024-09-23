@@ -20,7 +20,15 @@ def allowed_file(filename):
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))
+    # Cerca prima tra gli utenti normali (User)
+    user = User.query.get(int(user_id))
+    if user:
+        return user
+    
+    # Se non è un utente, cerca tra i venditori (Vendor)
+    vendor = Vendor.query.get(int(user_id))
+    return vendor
+
 
 def init_routes(app):
     @app.route('/')
