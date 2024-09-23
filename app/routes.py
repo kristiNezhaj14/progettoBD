@@ -25,7 +25,9 @@ def load_user(user_id):
 def init_routes(app):
     @app.route('/')
     def home():
-        return render_template('home.html')
+        categories = Category.query.all()
+        products = Product.query.limit(6).all()  # Mostra un massimo di 6 prodotti in evidenza
+        return render_template('home.html', categories=categories, products=products)
 
     @app.route('/login', methods=['GET', 'POST'])
     def login():
