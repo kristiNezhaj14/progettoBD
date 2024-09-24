@@ -220,7 +220,6 @@ def init_routes(app):
     
     @app.route('/found')
     def found():
-        
         category_filter = request.args.get('filter1')
         price_filter = request.args.get('filter2')
         rating_filter = request.args.get('filter3')
@@ -231,19 +230,36 @@ def init_routes(app):
         if category_filter and category_filter != 'tutti':
             query = query.filter(Product.category_id == category_filter)
 
-        # Ordina per prezzo
+        # Ordina per prezzo nel database
         if price_filter == 'Crescente':
             query = query.order_by(Product.price.asc())
         elif price_filter == 'Decrescente':
             query = query.order_by(Product.price.desc())
 
-        # Ordina per valutazione (questo esempio non ha un campo di valutazione reale)
-        # Se avessi un campo rating, aggiungi la logica qui
-
+        # Recupera i prodotti dal database
         products = query.all()
+
+        # Funzione per calcolare la media delle recensioni per ciascun prodotto
+        def get_average_rating(product):
+            if product.reviews and len(product.reviews) > 0:
+                total_rating = sum([review.rating for review in product.reviews])
+                return round(total_rating / len(product.reviews), 1)
+            return 0
+
+        # Ordina i prodotti per la media delle recensioni senza assegnare direttamente a product.average_rating
+        if rating_filter == 'migliore':
+            products = sorted(products, key=lambda product: get_average_rating(product), reverse=True)
+        elif rating_filter == 'peggiore':
+            products = sorted(products, key=lambda product: get_average_rating(product))
+
         categories = Category.query.all()
 
         return render_template('found.html', products=products, categories=categories)
+
+
+
+
+
 
     
     @app.route('/offers')
