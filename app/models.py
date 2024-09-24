@@ -115,5 +115,4 @@ class Review(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     user = db.relationship('User', backref='reviews')
-    # Relazione con Product, usando un nome di backref diverso
     product = db.relationship('Product', backref='review_list')

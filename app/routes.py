@@ -3,10 +3,7 @@ from flask_login import login_user, logout_user, current_user, login_required
 from app import db, login_manager
 from datetime import datetime
 import os
-
-
 from werkzeug.utils import secure_filename
-
 from app.models import User, Vendor,Product,CartItem, Cart, Category, Order, OrderItem,Review
 from app.forms import RegistrationForm, LoginForm, VendorRegistrationForm
 
@@ -37,6 +34,8 @@ def init_routes(app):
         products = Product.query.limit(6).all()  # Mostra un massimo di 6 prodotti in evidenza
         return render_template('home.html', categories=categories, products=products)
 
+
+
     @app.route('/login', methods=['GET', 'POST'])
     def login():
         if current_user.is_authenticated:
@@ -66,6 +65,9 @@ def init_routes(app):
             flash('Login failed. Check your username and/or password.', 'danger')
 
         return render_template('login.html', form=form)
+
+
+        
 
     @app.route('/logout',methods=['GET', 'POST'])
     @login_required
@@ -262,9 +264,6 @@ def init_routes(app):
 
 
     
-    @app.route('/offers')
-    def offers():
-        return render_template('offers.html')
     
     @app.route('/product')
     def product():
