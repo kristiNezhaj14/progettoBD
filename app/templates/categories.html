@@ -142,7 +142,7 @@
         <!-- Ciclo per mostrare le categorie dinamicamente -->
         {% for category in categories %}
         <div class="grid-item">
-            <a href="{{ url_for('found', category_id=category.id) }}">
+            <a href="{{ url_for('found', filter1=category.id) }}">
                 <img src="{{ url_for('static', filename=category.image_url) if category.image_url else '/static/category_default.jpg' }}" alt="{{ category.name }}">
                 <div class="info">
                     <span>{{ category.name }}</span>

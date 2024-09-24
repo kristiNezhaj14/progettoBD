@@ -220,6 +220,7 @@ def init_routes(app):
     
     @app.route('/found')
     def found():
+        
         category_filter = request.args.get('filter1')
         price_filter = request.args.get('filter2')
         rating_filter = request.args.get('filter3')
