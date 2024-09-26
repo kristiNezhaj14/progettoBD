@@ -173,6 +173,9 @@
             <div class="info">
                 <span>€{{ item.product.price }}</span>
                 <h3>Quantità: {{ item.quantity }}</h3>
+                <form action="{{ url_for('remove_from_cart', cart_item_id=item.id) }}" method="POST">
+                    <button type="submit" class="checkout-button">Rimuovi</button>
+                </form>
             </div>
         </div>
         {% endfor %}

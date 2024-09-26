@@ -168,6 +168,7 @@ def init_routes(app):
         # Se l'utente non ha un carrello, creane uno vuoto
         if not cart:
             cart_items = []
+            total_price = 0
         else:
             cart_items = CartItem.query.filter_by(cart_id=cart.id).all()
             total_price = sum(item.product.price * item.quantity for item in cart_items)
@@ -585,7 +586,28 @@ def init_routes(app):
 
         return render_template('found.html', products=results, keyword=keyword)
     
+    @app.route('/remove_from_cart/<int:cart_item_id>', methods=['POST'])
+    @login_required
+    def remove_from_cart(cart_item_id):
+        # Trova l'elemento del carrello che deve essere rimosso
+        cart_item = CartItem.query.get_or_404(cart_item_id)
 
+        # Verifica che l'elemento appartenga al carrello dell'utente loggato
+        cart = Cart.query.filter_by(user_id=current_user.id).first()
+        if cart_item.cart_id != cart.id:
+            flash('Non puoi rimuovere questo elemento.', 'danger')
+            return redirect(url_for('cart'))
+
+        try:
+            # Rimuovi l'elemento dal database
+            db.session.delete(cart_item)
+            db.session.commit()
+            flash('Prodotto rimosso dal carrello con successo!', 'success')
+        except Exception as e:
+            db.session.rollback()
+            flash('Errore durante la rimozione del prodotto dal carrello.', 'danger')
+
+        return redirect(url_for('cart'))
 
 
 
