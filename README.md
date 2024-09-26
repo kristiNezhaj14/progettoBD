@@ -1,72 +1,239 @@
-# progettoBD
-test
-Basi di Dati Mod. 2 - Progetto A.A. 2023/2024
-
-Luca Cosmo April 3, 2024
-
-1 Introduzione
-
-L’obiettivo del progetto è lo sviluppo di una web application che si interfaccia con un database relazionale. Il progetto deve essere sviluppato in Python, utilizzando le librerie Flask e SQLAlchemy. La scelta del DBMS da utilizzare è invece libera e lasciata ai singoli gruppi (di due o tre persone), anche se è consigliato l’utilizzo di Postgres. Siete invitati a leggere interamente questo documento con attenzione ed a chiarire col docente eventuali punti oscuri prima dello sviluppo del progetto.
 
 
-Piattaforma di E-commerce (tema scelto per il progetto TradeTrove)
-
-Si richiede di curare il design e l’implementazione di un portale di e-commerce, dove gli utenti possono comprare e vendere i prodotti online. Il sistema include le seguenti funzionalità:
-
-• Gestione degli utenti: Implementare funzionalità di autenticazione e autorizzazione degli utenti. Gli utenti dovrebbero poter registrarsi, accedere e gestire i propri profili. Inoltre, dovrebbero esserci ruoli utente differenti come acquirenti e venditori, ognuno con il proprio insieme di permessi.
-• Gestione dei prodotti: Creare un database per memorizzare informazioni sui prodotti, inclusi nome, descrizione, categoria, prezzo, disponibilità, ecc. I venditori dovrebbero poter aggiungere, modificare ed eliminare i propri prodotti.
-
-• Ricerca e Filtri: Implementare una funzionalità di ricerca che permetta agli utenti di cercare prodotti basati su parole chiave, categorie o altri attributi. Inoltre, fornire opzioni di filtro per affinare i risultati della ricerca basati su intervallo di prezzo, marca, ecc.
-
-• Carrello della spesa: Implementare una funzionalità di carrello della spesa che permetta agli utenti di aggiungere prodotti al proprio carrello, aggiornare le quantità e procedere al pagamento. Il sistema dovrebbe gestire i livelli di inventario e aggiornare la disponibilità dei prodotti di conseguenza.
-
-• Gestione degli ordini: Sviluppare un sistema per gestire gli ordini effettuati dagli utenti. Gli utenti dovrebbero poter visualizzare la loro cronologia degli ordini, monitorare lo stato dei propri ordini e ricevere notifiche sugli aggiornamenti degli ordini. I venditori dovrebbero anche avere accesso ai dettagli degli ordini per i prodotti che hanno venduto e poterne aggiornare lo stato.
-
-• Recensioni e Valutazioni (Opzionale se meno di tre persone): Consentire agli utenti di lasciare recensioni e valutazioni per i prodotti che hanno acquistato. Visualizzare le valutazioni medie e fornire opzioni di ordinamento basate sulle valutazioni per aiutare gli utenti a prendere decisioni informate.
 
 
-Requisiti del Progetto
-Il progetto richiede come minimo lo svolgimento dei seguenti punti:
+Progetto di Basi di Dati anno 2023/2024
 
-1. Progettazione concettuale e logica dello schema della base di dati su cui si appogger`a all’applicazione, opportunamente commentata e documentata secondo la notazione introdotta nel Modulo 1 del corso.
-2. Creazione di un database, anche artificiale, tramite l’utilizzo di uno specifico DBMS. La creazione delle tabelle e l’inserimento dei dati pu`o essere effettuato anche con uno script esterno al progetto.
-3. Implementazione di un front-end minimale basato su HTML e CSS. E’ possibile utilizzare framework CSS esistenti come W3.CSS, Bootstrap o altri. E’ inoltre possibile fare uso di JavaScript per migliorare l’esperienza utente, ma non è richiesto e non influirà sulla valutazione finale.
-4.Implementazione di un back-end basato su Flask e SQLAlchemy (o Flask-SQLAlchemy).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Membri del gruppo:
+ KRISTI NEZHAJ 887560
+FEDERICO GAUDENZI 894069
+AVORNIC CRISTINA-ECATERINA 883711
+
+
+Nome dell’applicazione: TradeTrove
+
+
+
+
+Indice 
+Introduzione 
+Funzionalità principali 
+Progettazione concettuale e logica della base di dati 
+3.1 Modelli e Relazioni 
+		3.2 Schema della Base di Dati 
+		3.3 Motivazioni progettuali
+Query principali 
+Principali scelte progettuali 
+ Ulteriori informazioni 
+Contributo al progetto
+
+
+
+
+
+
+
  
-Per migliorare il progetto e la relativa valutazione `e raccomandato gestire anche i seguenti aspetti:
-1. Integrità dei dati: definizione di vincoli, trigger, transazioni per garantire l’integrità dei dati gestiti dall’applicazione.
-2. Sicurezza: definizione di opportuni ruoli e politiche di autorizzazione, oltre che di ulteriori meccanismi atti a migliorare il livello di sicurezza dell’applicazione (es. difese contro XSS e SQL injection).
-3. Performance: definizione di indici o viste materializzate sulla base delle query piu` frequenti previste.
-4. Astrazione dal DBMS sottostante: uso di Expression Language o ORM per astrarre dal dialetto SQL.
+
+1. Introduzione
+
+Obiettivo del progetto: TradeTrove è una piattaforma di e-commerce progettata per l'acquisto e la vendita di prodotti online. L'obiettivo principale è fornire un'interfaccia user-friendly che permetta agli utenti di navigare, cercare e gestire i loro acquisti in modo semplice e intuitivo. Inoltre, offre ai venditori gli strumenti necessari per gestire il proprio inventario e interagire con i clienti.
+2. Funzionalità principali
+
+Gestione degli utenti: TradeTrove offre un sistema di registrazione e gestione dei profili progettato per garantire un'esperienza utente semplice e sicura. Durante il processo di registrazione, agli utenti viene richiesto di fornire informazioni fondamentali, come nome e cognome. Successivamente, nella sezione del profilo, è necessario inserire l'indirizzo completo per permettere la corretta spedizione dei prodotti acquistati. I venditori, oltre a questi dati, devono fornire il nome dell'azienda e la partita IVA, essenziali per la gestione dei guadagni e delle transazioni aziendali. Per garantire l'unicità degli utenti e prevenire conflitti, è obbligatorio fornire un indirizzo email valido.
+Una volta registrati, gli acquirenti possono facilmente visualizzare e gestire i prodotti nel proprio carrello, procedere al pagamento e monitorare lo stato dei propri ordini. Hanno anche l'opportunità di lasciare recensioni sui prodotti acquistati. D'altra parte, i venditori gestiscono i propri prodotti e le ordinazioni direttamente dal loro profilo utente, mantenendo separati i dati di vendita da quelli degli acquirenti. 
+Entrambi i ruoli, sia l'acquirente che il venditore, hanno la possibilità di cambiare la propria password direttamente dal profilo, garantendo così un ulteriore livello di sicurezza.
+
+Gestione dei prodotti: I venditori possono aggiungere, eliminare e aggiornare i propri prodotti attraverso un form accessibile dalle impostazioni del profilo venditore, per eliminare il prodotto sarà necessario reinserire i dati del prodotto per eliminarlo dalla vendita.
+Il prodotto verrà ritirato nel caso la sua quantità scenda a 0.
+Il cliente può aggiungere il proprio prodotto al carrello, recensire il prodotto selezionando le stelle che vuole assegnare e cliccare il pulsante, e può visualizzare le informazioni utili del prodotto, cioè nome, descrizione e prezzo.
+
+Ricerca e filtri: La ricerca dei prodotti è presente nel sito attraverso una search-bar disponibile nell’header del sito.
+I filtri vengono successivamente mostrati alla ricerca e comprendono categoria prezzo e valutazioni in ordine crescente oppure decrescente.
+
+Carrello della spesa: Il carrello è facilmente accessibile all'utente tramite un'apposita sezione nell'header del sito, rendendolo disponibile in ogni momento durante la navigazione. All'interno del carrello, l'utente ha la possibilità di gestire i prodotti selezionati, potendo aggiungere nuovi articoli, rimuovere quelli non desiderati e modificare la quantità di ciascun prodotto.
+
+Gestione degli ordini: Gli acquirenti possono visualizzare i loro ordini attraverso il loro profilo personale, con informazioni utili sulla spedizione dei prodotti e con tutte le informazioni fondamentali riguardo i diversi prodotti inclusi nell’ordine effettuato.
+I venditori attraverso il loro profilo possono visualizzare gli ordini riguardanti esclusivamente i prodotti da loro venduti a differenti utenti finali.
+3. Progettazione concettuale e logica della base di dati
+La progettazione del database per l'applicazione TradeTrove è stata realizzata utilizzando il framework SQLAlchemy per Flask. Il modello prevede le seguenti entità principali:
+3.1. Modelli e Relazioni
+User
+Descrizione: Rappresenta gli utenti che possono registrarsi, accedere e gestire i propri profili.
+Attributi:
+id: Identificatore univoco dell'utente.
+username: Nome utente unico.
+email: Indirizzo email unico.
+indirizzo, città, nazione, cap: Informazioni di contatto.
+password_hash: Hash della password per la sicurezza.
+Metodi:
+set_password(password): Imposta la password dell'utente in forma hashata.
+check_password(password): Verifica la password fornita con l'hash salvato.
+Vendor
+Descrizione: Rappresenta i venditori registrati sulla piattaforma.
+Attributi: Simili a quelli di User, ma include anche piva e nome_azienda per identificare l'attività commerciale.
+Metodi: Stessi metodi di User per la gestione della password.
+Category
+Descrizione: Rappresenta le categorie di prodotto.
+Attributi:
+id: Identificatore univoco della categoria.
+name: Nome della categoria.
+image_url: URL di un'immagine rappresentativa della categoria.
+Product
+Descrizione: Rappresenta i prodotti in vendita.
+Attributi:
+id: Identificatore univoco del prodotto.
+name, description, price, quantity: Informazioni dettagliate sul prodotto.
+seller_id: Riferimento al venditore del prodotto.
+category_id: Riferimento alla categoria del prodotto.
+created_at, updated_at: Timestamp di creazione e aggiornamento.
+Relazioni: Può avere recensioni (Review),  può essere collegato a più carrelli (CartItem), appartiene ad una categoria (Category) ed è venduto da un venditore (Vendor).
+Cart
+Descrizione: Rappresenta il carrello della spesa di un utente.
+Attributi: Include l'ID dell'utente e i timestamp di creazione e aggiornamento.
+Relazioni: Può contenere più CartItem, appartiene ad un utente (User).
+CartItem
+Descrizione: Rappresenta gli articoli presenti nel carrello.
+Attributi: Include riferimenti a cart_id e product_id con la quantità del prodotto.
+Relazioni: Collega i prodotti (Product) al carrello (Cart) .
+Order
+Descrizione: Rappresenta un ordine effettuato da un utente.
+Attributi: Include l'ID dell'utente, lo stato dell'ordine, il prezzo totale e timestamp.
+Relazioni: Contiene più OrderItem e viene effettuato da un acquirente (User). 
+OrderItem
+Descrizione: Rappresenta gli articoli all'interno di un ordine.
+Attributi: Include riferimenti a order_id e product_id, insieme alla quantità e al prezzo unitario.
+Relazioni: collega i prodotti (Product) che fanno parte dello stesso ordine (Order).
+Review
+Descrizione: Permette agli utenti di lasciare recensioni sui prodotti acquistati.
+Attributi: Include valutazione, commento e timestamp.
+Relazioni: permette ad un utente (User) di recensire un prodotto (Product).
 
 
-E’ possibile focalizzarsi solo su un sottoinsieme di questi aspetti, ma i progetti eccellenti cercheranno di coprirli tutti ad un qualche livello di dettaglio. E’ meglio approfondire adeguatamente solo alcuni di questi aspetti piuttosto che coprirli tutti in modo insoddisfacente.
 
-4 Documentazione
 
-Il progetto deve essere corredato da una relazione in formato PDF opportunamente strutturata, che discuta nel dettaglio le principali scelte progettuali ed implementative. La documentazione deve anche chiarire (in appendice) il contributo al progetto di ciascun componente del gruppo. Viene raccomandata la seguente struttura per la relazione:
-1. Introduzione: descrizione ad alto livello dell’applicazione e struttura del documento.
-2. Funzionalità principali: una descrizione delle principali funzionalità fornite dall’applicazione, che aiuti a comprendere come avete declinato lo spunto di partenza relativo al tema scelto per il progetto.
-3. Progettazione concettuale e logica della basi di dati, opportunamente spiegate e motivate. La presen- tazione deve seguire la notazione grafica introdotta nel Modulo 1 del corso.
-4. Query principali: una descrizione di una selezione delle query piu` interessanti che sono state implementate all’interno dell’applicazione, utilizzando una sintassi SQL opportuna.
-5. Principali scelte progettuali: politiche di integrit`a e come sono state garantite in pratica (es. trigger), definizione di ruoli e politiche di autorizzazione, uso di indici, ecc. Tutte le principali scelte progettuali devono essere opportunamente commentate e motivate.
-6. Ulteriori informazioni: scelte tecnologiche specifiche (es. librerie usate) e qualsiasi altra informazione sia necessaria per apprezzare il progetto.
-7. Contributo al progetto (appendice): una spiegazione di come i diversi membri del gruppo hanno contribuito al design ed allo sviluppo.
-Il codice del progetto deve essere inoltre opportunamente strutturato e commentato per favorirne la manuten- zione e la leggibilità.
 
-5 Consegna e Valutazione
 
-Ciascun gruppo deve consegnare il progetto all’interno di un unico file ZIP caricato tramite Moodle nelle finestre dedicate, tipicamente in prossimità delle sessioni di esame. Il file ZIP deve contenere:
+3.2. Schema della Base di Dati
+Diagramma ad Oggetti
 
-• Il codice sorgente del progetto e le relative risorse (immagini, fogli di stile...). Non è richiesto un dump del database usato in fase di sviluppo e testing.
-• La documentazione, in un unico file in formato PDF. Assicuratevi che la documentazione rispetti le indicazioni della sezione precedente.
-• Un video della durata indicativa di 10 minuti in cui viene fatta una demo dell’applicazione. Il video deve mostrare uno screen capture che faccia vedere l’applicazione funzionante, fornendo una panoramica delle principali funzionalità implementate. Il video deve essere opportunatamente commentato tramite una voce fuori campo.
 
-Il progetto verrà valutato rispetto ai seguenti quattro parametri:
 
-1. Documentazione: qualità, correttezza e completezza della documentazione allegata.
-2. Database: qualità della progettazione ed uso appropriato degli strumenti presentati nel corso.
-3. Funzionalità: quantità e qualità delle funzionalità implementate dall’applicazione.
-4. Codice: qualità complessiva del codice prodotto (robustezza, leggibilità, generalità, riuso...).
 
-Si noti che eventuali progetti artificiosamente complicati potrebbero essere penalizzati: implementare fun- zionalità complesse, ma non appropriatamente pensate o motivate, non è una buona strategia per migliorare la valutazione del proprio progetto.
+
+Diagramma Entità Relazione
+
+
+
+
+3.3. Motivazioni progettuali
+La progettazione del database è stata realizzata per garantire l'integrità e la coerenza dei dati, utilizzando vincoli di unicità per gli attributi chiave e relazioni ben definite tra le entità. È stata posta particolare attenzione alla sicurezza, con l'hashing delle password e l'uso di Foreign Key per mantenere l'integrità referenziale.
+
+4. Query principali
+Login: Verifica delle credenziali e distinzione tra utente normale e venditore.
+
+
+Ricerca prodotti per categorie e filtri: Ricerca avanzata di prodotti filtrata per categoria, prezzo. 
+
+
+Visualizzazione ordini: Recupera gli ordini e articoli associati di un utente o venditore.
+
+
+Elimina prodotto: Rimozione di un prodotto, articoli associati nel carrello e ordini.
+
+
+Visualizzazione ordini: Recupera gli ordini e articoli associati di un utente o venditore.
+ 
+
+
+
+
+
+
+
+
+
+
+
+Trigger per Cambio Password dell'Utente: controlla e cambia la vecchia password con una nuova. 
+
+
+Trigger per Prezzo Totale dell'Ordine: aggiorna il nuovo totale dell’ordine. 
+
+
+Trigger e Funzione per Controllo Quantità Disponibile negli Ordini: controlla la disponibilità di un prodotto. 
+
+
+Trigger per Cancellazione dell'Ordine: cancella un ordine effettuato dal cliente. 
+
+5. Principali scelte progettuali
+Nell’ambito del progetto descritto, sono state effettuate determinate scelte progettuali per garantire il corretto funzionamento dell’applicazione. Le principali scelte riguardano le politiche di integrità, la gestione dei ruoli e delle autorizzazioni, l’uso di indici e altre decisioni di design rilevanti. Queste scelte progettuali mirano a garantire un'applicazione web sicura, scalabile e facile da mantenere.
+
+Politiche di integrità
+Le politiche di integrità sono state garantite attraverso l’uso di relazioni forti tra le entità e l’integrità referenziale. 
+Relazioni tra modelli: Il codice utilizza relazioni di tipo foreign key tra i modelli, come User, Vendor, Product, Order, e CartItem.  Queste relazioni assicurano che ogni entità abbia una relazione coerente con le altre entità, come ad esempio Order che appartiene a un User e include OrderItem che fa riferimento a Product. In questo modo, si evitano stati incoerenti come ordini senza utenti o prodotti. 
+Controllo delle dipendenze tra le tabelle: Quando si elimina un prodotto, il sistema elimina manualmente le dipendenze per evitare violazioni di integrità. Queste dipendenze vengono gestite in cascata utilizzando logiche customizzate per mantenere la coerenza.
+Gestione delle transizioni: Durante le operazioni critiche, come la registrazione di un nuovo utente o la creazione di un ordine, il database viene coinvolto in una transazione. Se un errore si verifica durante la commit, viene eseguito un rollback per mantenere il sistema in uno stato consistente, come mostrato nei vari blocchi try/except. 
+
+Definizione di ruoli e politiche di autorizzazione 
+L’applicazione gestisce due ruoli principali: User e Vendor. Questi ruoli determinano l’accesso a risorse e funzionalità specifiche: 
+Gestione tramite Flask-login: Il framework Flask-login viene utilizzato per la gestione dell'autenticazione e della sessione tra utenti. Funzioni come login_user(), logout_user() e login_required garantiscono che solo gli utenti autenticati possano accedere a determinate pagine e risorse. 
+Login differenziato per User e Vendor: Il sistema verifica se un account appartiene a un normale utente (User) o a un venditore (Vendor), e reindirizza gli utenti autenticati alle pagine appropriate. Questo garantisce che le funzionalità siano adeguatamente separate tra i diversi ruoli. I venditori hanno un extranet a loro dedicato.
+Controlli specifici nei moduli: Vengono eseguiti controlli per impedire la registrazione di duplicati (es. username o email già registrato). Questo evita conflitti di identità e garantisce che ogni utente o venditore sia unico nel sistema. 
+
+Gestione dei permessi e validazione 
+Le politiche di autorizzazione e validazione sono fondamentali per mantenere il sistema sicuro e affidabile. 
+Autorizzazione per funzioni sensibili: Funzioni come le gestione del carrello, la modifica del profilo e l’accesso ai dettagli degli ordini sono protette dal decoratore @login_required, che garantisce che solo gli utenti autenticati possano accedere a questa funzionalità.
+Validazione del modulo: Le operazioni di login e registrazione fanno uso di moduli come LoginForm, RegistrationForm, VendorForm, che  includono valutazioni preliminari per evitare errori (es. campi obbligatori mancanti o errati). Questo riduce il rischio di immissione di dati non validi. 
+
+Uso di indici 
+Gli indici svolgono un ruolo importante per ottimizzare le operazioni di lettura sul database, specialmente nelle query frequenti e nei filtri: 
+Indici per username e email: Campi come username e email degli utenti (User, Vendor) sono comunemente utilizzati per le ricerche durante il login e la registrazione. Includere indici su questi campi consente al database di eseguire queste query in modo efficiente, migliorando le prestazioni. 
+Indici per le relazioni chiave esterna: Anche i campi che rappresentano relazioni, come user_id in Cart o product_id in OrderItem, beneficiano di indici che accelerano le ricerche di prodotti o ordini associati a un utente. 
+
+Trigger e gestione delle transazioni 
+I trigger e le transazioni sono utilizzati per mantenere l’integrità delle informazioni. 
+Esempio di trigger applicativo: Quando un utente completa il pagamento, il sistema crea automaticamente un nuovo ordine, trasferisce gli articoli dal carrello all’ordine e svuota il carrello. Questa operazione avviene in una singola transazione, il che significa che se un errore si verifica in uno di questi passaggi, l’intera operazione viene annullata. 
+Gestione delle eliminazioni: In caso di eliminazione di un prodotto, vengono attivati dei "trigger" applicativi per eliminare anche le recensioni e i riferimenti al prodotto nelle tabelle CartItem e OrderItem. Questo garantisce che non rimangano riferimenti orfani nel database, preservando l'integrità referenziale.
+
+Gestione dei file 
+Per il caricamento di immagini di prodotti, viene implementata una gestione dei file sicura.
+Sicurezza nei nomi dei file: L'uso della funzione secure_filename() di Werkzeug garantisce che i nomi dei file caricati non contengano caratteri non sicuri, proteggendo il sistema da possibili attacchi tramite path traversal.
+Verifica del formato del file: Viene implementata una funzione per controllare che i file caricati siano di un tipo permesso (png, jpg, jpeg, gif), garantendo così che solo file immagine appropriati vengano accettati.
+
+6. Ulteriori informazioni
+Per sviluppare l’applicazione sono state utilizzate le seguenti tecnologie:
+Python v3: Linguaggio utilizzato per creare il server, che funge da interfaccia tra il sito web e il database, gestendo la logica dell’applicazione.
+Postgresql: Sistema di gestione di database relazionale (DBMS) utilizzato per memorizzare i dati. 
+SQLalchemy: API che facilita l'associazione di classi Python definite dall’utente con il database. Consente di mantenere sincronizzate le modifiche tra gli oggetti Python e le righe nelle tabelle del database ed esprimere query del database utilizzando le classi e le relazioni definite in Python.
+Flask: Framework web scritto in Python che consente una facile interazione tra server e sito web ed altri moduli correlati a Flask.
+
+Le pagine web dell’applicazione sono state create utilizzando il linguaggio di marcatura HTML. Tutte le viste del sito, come la homepage, la pagina di login, la registrazione dei prodotti e altre sezioni, sono contenute nella directory app\templates. 
+7. Contributo al progetto (appendice)
+Tutti i membri del gruppo hanno contribuito in modo equilibrato alla realizzazione dell’applicazione, collaborando in maniera reciproca. Ciascun componente ha completato prevalentemente, ma non esclusivamente, ciascuna parte assegnata. 
+In particolare, KRISTI NEZHAJ si è occupato maggiormente della realizzazione dell’applicazione Python, FEDERICO GAUDENZI ha curato principalmente lo sviluppo del sito web. La creazione dei diagrammi della base di dati, la documentazione e la produzione del video sono state realizzate da CRISTINA AVORNIC. 
